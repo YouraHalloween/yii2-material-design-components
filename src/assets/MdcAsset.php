@@ -11,9 +11,9 @@ class MdcAsset extends AssetBundle
 {
     public $sourcePath = '@yh/mdc/assets';
     public $css = [
-        'css/material-components-web.css'
+        'material-components-web.min.css'
     ];
     public $js = [
-        'js/material-components-web.js'
+        'material-components-web.min.js'
     ];
 }
