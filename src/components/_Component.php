@@ -18,7 +18,7 @@ class _Component
     /**
      * @var string $pathView - папка для View
      */
-    private string $pathView = '@vendor/yh/mdc/views/';
+    private string $pathView = '@yh/mdc/views/';
     /**
      * @var string $id - id компонента
      */
