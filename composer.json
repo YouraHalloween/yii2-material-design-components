@@ -1,0 +1,27 @@
+{
+    "name": "youra-halloween/yii2-material-design-components",
+    "description": "The components are developed by Google. Transferred them to php. It is possible to use the ActiveField and ActiveForm components in the yii2 framework",
+    "type": "yii2-extension",
+    "keywords": [
+        "yii2",
+        "extension",
+        "components",
+        "material-design",
+        "google-components"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Youra",
+            "email": "bestletter@inbox.ru",
+            "homepage": "https://github.com/youra-halloween/yii2-material-design-components",
+            "role": "Developer"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "yh\\mdc\\": "src"
+        }
+    }
+}
