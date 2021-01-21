@@ -3,12 +3,13 @@
 namespace yh\mdc\components;
 
 use yii\helpers\Html;
-use yh\mdc\components\_Component;
+use yh\mdc\components\base\Control;
+use yh\mdc\components\base\ComponentRegister;
 use yh\mdc\components\Spinner;
 
-class ButtonBase extends _Component
+class ButtonBase extends Control
 {       
-    protected string $type = ComponentRegister::TYPE_BUTTON;
+    protected string $cmpType = ComponentRegister::TYPE_BUTTON;
 
     /**
      * @var string $viewType - Вид кнопки base, submit, raised
@@ -50,9 +51,10 @@ class ButtonBase extends _Component
      *  - trailing - иконка справа     
      */
 
-    public function initClassWrap(): void
+    public function initOptions(): void
     {        
-        parent::initClassWrap();
+        parent::initOptions();
+
         $this->options['class'][] = static::$clsBlock['base']; 
         if ($this->viewType == 'gray') {
             $this->options['class'][] = static::$clsBlock['raised'];
@@ -92,7 +94,7 @@ class ButtonBase extends _Component
             return '';
         }
 
-        $spinner = Spinner::oneAlt('medium', ['aria-visible' => $this->spinner]);
+        $spinner = Spinner::one(['size' => Spinner::MEDIUM], ['aria-visible' => $this->spinner]);
         $spinner->registerComponent = false;
 
         return $spinner->render();
@@ -103,12 +105,9 @@ class ButtonBase extends _Component
         return '';
     }
     
-    public function render(): string
+    public function renderComponent(): string
     {   
-        //Регистрация компонента            
-        parent::render(); 
-
         $content = $this->getContent();        
-        return Html::button($content, $this->options);
+        return Html::button($content, $this->getOptions());
     }
 }

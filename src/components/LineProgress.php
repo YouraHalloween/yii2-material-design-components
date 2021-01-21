@@ -2,13 +2,13 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\ComponentRegister;
-use yh\mdc\components\_Component;
+use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\_Component;
 use yii\helpers\Html;
 
 class LineProgress extends _Component
 {
-    protected string $type = ComponentRegister::TYPE_LINEPROGRESS;
+    protected string $cmpType = ComponentRegister::TYPE_LINEPROGRESS;
 
     private static array $clsBlock = [
         'base' => 'mdc-linear-progress',
@@ -45,9 +45,9 @@ class LineProgress extends _Component
     /**
      * Css классы для контейнера
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
         $this->options['class'][] = self::$clsBlock['base'];
         $this->addClsBlock('indeterminate');
         $this->addClsBlock('reversed');

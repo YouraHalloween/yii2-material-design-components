@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components;
+namespace yh\mdc\components\base;
 
 use yii\web\View;
 use yii\helpers\Json;

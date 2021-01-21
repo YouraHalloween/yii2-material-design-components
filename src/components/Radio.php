@@ -3,14 +3,14 @@
 namespace yh\mdc\components;
 
 use yii\helpers\Html;
-use yh\mdc\components\_ComponentInput;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\ControlInput;
+use yh\mdc\components\base\ComponentRegister;
 
-class Radio extends _ComponentInput {
+class Radio extends ControlInput {
 
-    protected string $type = ComponentRegister::TYPE_RADIO;
+    protected string $cmpType = ComponentRegister::TYPE_RADIO;
 
-    public string $inputType = 'radio';
+    public string $type = 'radio';
     public bool $checked = false;
 
     private static string $clsBlock = 'mdc-form-field';  
@@ -28,18 +28,27 @@ class Radio extends _ComponentInput {
     ];
 
     private static string $clsRipple = 'mdc-radio__ripple';
-    
-    /* Вернуть список классов для блока */
-    private function getClsRadio(): array
+
+    protected function initInputOptions(): void
     {
-        $cls = [
-            self::$clsBlockInput['base'],
-        ];
+        parent::initInputOptions();
 
-        if (!$this->enabled)
-            $cls[] = self::$clsBlockInput['disabled'];
+        $this->inputOptions['class'][] = self::$clsInput;
 
-        return $cls;
+        if ($this->checked) {
+            $this->inputOptions['checked'] = 'true';
+        }
+    }
+
+    protected function initOptions(): void
+    {
+        parent::initOptions();
+
+        $this->options['class'][] = self::$clsBlockInput['base'];
+
+        if (!$this->enabled) {
+            $this->options['class'][] = self::$clsBlockInput['disabled'];
+        }
     }
 
     private function getTagBackgorund(): string
@@ -53,20 +62,13 @@ class Radio extends _ComponentInput {
     }
 
     private function getTagRipple(): string
-    {
-        return $this->ripple ? Html::tag('div', '', ['class' => $this->clsRipple]) : '';
+    {        
+        return $this->ripple ? Html::tag('div', '', ['class' => self::$clsRipple]) : '';
     }
 
-    /**
-     * Class _ComponentInput
-     */
-    public function render(): string
-    {
-        parent::render();
-
-        $options = ['class' => $this->getClsRadio()];
-
-        $content = Html::beginTag('div', $options);
+    public function renderComponent(): string
+    {        
+        $content = Html::beginTag('div', $this->getOptions());
         $content .= $this->getTagInput();
         $content .= $this->getTagBackgorund();
         $content .= $this->getTagRipple();
@@ -76,19 +78,4 @@ class Radio extends _ComponentInput {
 
         return Html::tag('div', $content, ['class' => self::$clsBlock]);
     }    
-    /**
-     * Class _ComponentInput
-     */
-    public function setInputOptions(array $options): Radio
-    {
-        parent::setInputOptions($options);
-        
-        $this->inputOptions['class'][] = self::$clsInput;
-
-        if ($this->checked) {
-            $this->inputOptions['checked'] = 'true';
-        }
-        
-        return $this;
-    }
 }

@@ -3,14 +3,14 @@
 namespace yh\mdc\components;
 
 use yii\helpers\Html;
-use yh\mdc\components\_ComponentInput;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\ControlInput;
+use yh\mdc\components\base\ComponentRegister;
 
-class CheckBox extends _ComponentInput {
+class CheckBox extends ControlInput {
 
-    protected string $type = ComponentRegister::TYPE_CHECKBOX;
+    protected string $cmpType = ComponentRegister::TYPE_CHECKBOX;
 
-    public string $inputType = 'checkbox';
+    public string $type = 'checkbox';
 
     //Третье состояние чекбокса
     public bool $indeterminate = false; 
@@ -33,17 +33,29 @@ class CheckBox extends _ComponentInput {
 
     private static string $clsRipple = 'mdc-checkbox__ripple';
     
-    /* Вернуть список классов для блока */
-    private function getClsCheckbox(): array
+    protected function initInputOptions(): void
     {
-        $cls = [
-            self::$clsBlockInput['base'],
-        ];
+        parent::initInputOptions();
 
-        if (!$this->enabled)
-            $cls[] = self::$clsBlockInput['disabled'];
+        $this->inputOptions['class'][] = self::$clsInput;        
 
-        return $cls;
+        if ($this->indeterminate) {
+            $this->inputOptions['data-indeterminate'] = 'true';
+        }
+        if ($this->value) {
+            $this->inputOptions['checked'] = 'true';
+        }
+    }
+
+    protected function initOptions(): void
+    {
+        parent::initOptions();
+
+        $this->options['class'][] = self::$clsBlockInput['base'];
+
+        if (!$this->enabled) {
+            $this->options['class'][] = self::$clsBlockInput['disabled'];
+        }
     }
 
     private function getTagBackgorund(): string
@@ -73,16 +85,9 @@ class CheckBox extends _ComponentInput {
         return $this->ripple ? Html::tag('div', '', ['class' => self::$clsRipple]) : '';
     }
     
-    /**
-     * Class _ComponentInput
-     */
-    public function render(): string
+    public function renderComponent(): string
     {
-        parent::render();
-
-        $options = ['class' => $this->getClsCheckbox()];
-
-        $content = Html::beginTag('div', $options);
+        $content = Html::beginTag('div', $this->getOptions());
         $content .= $this->getTagInput();
         $content .= $this->getTagBackgorund();
         $content .= $this->getTagRipple();
@@ -91,23 +96,5 @@ class CheckBox extends _ComponentInput {
         $content .= $this->getTagLabel();
 
         return Html::tag('div', $content, ['class' => self::$clsBlock]);
-    }    
-    /**
-     * Class _ComponentInput
-     */
-    public function setInputOptions(array $options): CheckBox
-    {
-        parent::setInputOptions($options);
-
-        $this->inputOptions['class'][] = self::$clsInput;        
-
-        if ($this->indeterminate) {
-            $this->inputOptions['data-indeterminate'] = 'true';
-        }
-        if ($this->value) {
-            $this->inputOptions['checked'] = 'true';
-        }
-        
-        return $this;
-    }
+    }        
 }

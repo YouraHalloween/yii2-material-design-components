@@ -2,15 +2,15 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\ComponentRegister;
-use yh\mdc\components\_Component;
+use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\ControlList;
 use yh\mdc\components\ListItem;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Drawer extends _Component
+class Drawer extends ControlList
 {
-    protected string $type = ComponentRegister::TYPE_DRAWER;
+    protected string $cmpType = ComponentRegister::TYPE_DRAWER;
     
     private static array $clsBlock = [
         'base' => 'mdc-drawer',
@@ -36,23 +36,19 @@ class Drawer extends _Component
     public string $header = '';
     public string $headerIcon = '';
     public string $subTitle = '';
-    public array $items;
-    
 
     public function __construct(array $property = [], array $options = [])
     {
-        parent::__construct('', $options, $property);
-        $this->listItem = new ListItem();
-        $this->listItem->initClassWrap();        
-        $this->listItem->jsProperty['wrapFocus'] = true;        
+        parent::__construct($property, $options);
+        $this->listItem = new ListItem();      
     }
 
     /**
      * Css классы для контейнера
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
         $this->options['class'][] = self::$clsBlock['base'];
         if ($this->dismissible) {
             $this->options['class'][] = self::$clsBlock['dismissible'];
@@ -87,26 +83,22 @@ class Drawer extends _Component
     /**
      * Нарисовать Snackbar
      */
-    public function render(): string
+    public function renderComponent(): string
     {
-        //Регистрация компонента
-        parent::render();
-
-        $content = Html::beginTag('aside', $this->options);
+        $content = Html::beginTag('aside', $this->getOptions());
         $content .= $this->getTagHeader();
         $content .= Html::beginTag('div', ['class' => self::$clsContent]);
         
         $list = '';
         foreach ($this->items as $listProperty) {
-            $listOptions = ArrayHelper::remove($listProperty, 'options', []);
+            $listOptions = ArrayHelper::remove($listProperty, 'options', []);            
             $item = $this
                         ->listItem
                         ->setProperty($listProperty)                        
                         ->renderList(false);            
             $list .= Html::tag('div', $item, $listOptions);
         }
-
-        $this->listItem->forcedRegisterComponent();
+        
         $content .= $this->listItem->renderFrame($list);
 
         $content .= Html::endTag('div');

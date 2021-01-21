@@ -3,7 +3,7 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\ButtonBase;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\ComponentRegister;
 
 class Button extends ButtonBase
 {
@@ -47,7 +47,7 @@ class Button extends ButtonBase
     public function submit(string $viewType = 'gray'): string
     {        
         $this->options['type'] = 'submit';
-        $this->type = ComponentRegister::TYPE_SUBMIT;
+        $this->cmpType = ComponentRegister::TYPE_SUBMIT;
         $this->viewType = $viewType;        
 
         return $this->render();

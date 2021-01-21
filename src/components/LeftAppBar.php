@@ -2,14 +2,14 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\ComponentRegister;
-use yh\mdc\components\_Component;
+use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\ControlList;
 use yh\mdc\components\Drawer;
 use yii\helpers\Html;
 
-class LeftAppBar extends _Component
+class LeftAppBar extends ControlList
 {
-    protected string $type = ComponentRegister::TYPE_LEFTAPPBAR;
+    protected string $cmpType = ComponentRegister::TYPE_LEFTAPPBAR;
     
     private static string $clsBlock = 'mdc-left-app-bar';
     private static string $clsContent = 'mdc-left-app-bar-content';
@@ -22,20 +22,13 @@ class LeftAppBar extends _Component
         'custom' => 'mdc-left-app-bar-item__custom',
         'selected' => 'active'
     ];
-
-    public array $items = [];
-
-    public function __construct(array $property = [], array $options = [])
-    {
-        parent::__construct('', $options, $property);
-    }
     
     /**
      * Css классы для контейнера
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
         $this->options['class'][] = self::$clsBlock;
     }
 
@@ -94,12 +87,9 @@ class LeftAppBar extends _Component
     /**
      * Нарисовать Snackbar
      */
-    public function render(): string
+    public function renderComponent(): string
     {
-        //Регистрация компонента
-        parent::render();
-
-        $content = Html::beginTag('div', $this->options);
+        $content = Html::beginTag('div', $this->getOptions());
         
         $items = $this->renderItems();
         $content .= Html::tag('div', $items, ['class' => self::$clsContent]);

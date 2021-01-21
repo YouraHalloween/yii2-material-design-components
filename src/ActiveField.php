@@ -20,8 +20,8 @@ class ActiveField extends \yii\widgets\ActiveField
     private function getProperty(array &$options) 
     {
         $property = ArrayHelper::remove($options, 'property', []);
-        $property['inputId'] = $this->getInputId();
-        $property['inputName'] = $this->attribute;
+        $property['id'] = $this->getInputId();
+        $property['name'] = $this->attribute;
         $property['value'] = $this->model[$this->attribute];        
         return $property;
     }
@@ -31,7 +31,8 @@ class ActiveField extends \yii\widgets\ActiveField
         //В options записаны property
         $property = $this->getProperty($options);
         $class = self::$pathComponent.$class;
-        $textField = new $class('', $options, $property);   
+        $textField = new $class('', $property); 
+        $textField->setInputOptions($options);  
         $textField->setParent($this->form); 
         // template для textField
         $this->template = $textField->template();

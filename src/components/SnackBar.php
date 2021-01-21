@@ -2,13 +2,13 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\_Component;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\Control;
+use yh\mdc\components\base\ComponentRegister;
 use yii\helpers\Html;
 
-class SnackBar extends _Component
+class SnackBar extends Control
 {
-    protected string $type = ComponentRegister::TYPE_SNACKBAR;
+    protected string $cmpType = ComponentRegister::TYPE_SNACKBAR;
 
     private static array $clsBlock = [
         'base' => 'mdc-snackbar',
@@ -30,17 +30,18 @@ class SnackBar extends _Component
 
     public bool $leading = false;
     public bool $trailing = false;
-    public bool $stacked = false;  
-    public bool $actionBaseline = true;  
+    public bool $stacked = false;
+    public bool $actionBaseline = true;
     public string $captionButton = '';
     public string $closeButton = 'Close';
 
     /**
      * Css классы для контейнера
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
+
         $this->options['class'][] = self::$clsBlock['base'];
         if ($this->leading) {
             $this->options['class'][] = self::$clsBlock['leading'];
@@ -51,7 +52,7 @@ class SnackBar extends _Component
             $this->options['class'][] = self::$clsBlock['stacked'];
         } elseif ($this->actionBaseline) {
             $this->options['class'][] = self::$clsBlock['action-baseline'];
-        }        
+        }
     }
 
     /**
@@ -68,19 +69,20 @@ class SnackBar extends _Component
     private function getTagActionButton(): string
     {
         $content = Html::tag('div', '', ['class' => self::$clsActionButton['ripple']]);
-        $content = Html::tag('span', $this->captionButton, ['class' => self::$clsActionButton['label']]);
+        $content .= Html::tag('span', $this->captionButton, ['class' => self::$clsActionButton['label']]);
 
         $options = ['class' => self::$clsActionButton['base'], 'type' => 'button'];
-        if (empty($this->captionButton));
+        if (empty($this->captionButton)) {
             $options['style'] = 'display: none';
+        }
 
-        return Html::button($conten, $options);
+        return Html::button($content, $options);
     }
 
     /**
      * Контейнер. Выводит две кнопки Action and Close
      */
-    private function getTagButtons():string 
+    private function getTagButtons():string
     {
         $content = Html::beginTag('div', ['class' => self::$clsBlockButtons, 'aria-atomic' => 'true']);
         $content .= $this->getTagActionButton();
@@ -94,13 +96,10 @@ class SnackBar extends _Component
     /**
      * Нарисовать Snackbar
      */
-    public function render(): string
+    public function renderComponent(): string
     {
-        //Регистрация компонента
-        parent::render();
-
         //Snackbar begin
-        $content = Html::beginTag('div', $this->options);        
+        $content = Html::beginTag('div', $this->getOptions());
         //Surface begin
         $content .= Html::beginTag('div', ['class' => self::$clsSurface, 'role' => 'status', 'aria-relevant' => 'additions']);
 

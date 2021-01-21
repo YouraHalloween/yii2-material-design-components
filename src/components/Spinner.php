@@ -2,13 +2,18 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\_Component;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\Component;
+use yh\mdc\components\base\ComponentRegister;
 use yii\helpers\Html;
 
-class Spinner extends _Component
+class Spinner extends Component
 {
-    protected string $type = ComponentRegister::TYPE_SPINNER;    
+    const EXSMALL = 'extra-small';
+    const SMALL = 'small';
+    const MEDIUM = 'medium';
+    const LARGE = 'large';
+
+    protected string $cmpType = ComponentRegister::TYPE_SPINNER;    
 
     private static array $clsBlock = [
         'base' => 'mdc-spinner',
@@ -23,14 +28,15 @@ class Spinner extends _Component
     /**
      * Размер spinner: extra-small, small, medium, large
      */
-    public string $size = 'medium';
+    public string $size = self::MEDIUM;
 
     /**
      * Css классы для контейнера
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
+
         $this->options['class'][] = self::$clsBlock['base'];
         $this->options['class'][] = self::$clsBlock[$this->size];
         if ($this->enabled) {
@@ -41,17 +47,8 @@ class Spinner extends _Component
     /**
      * Нарисовать Snackbar
      */
-    public function render(): string
+    public function renderComponent(): string
     {
-        //Регистрация компонента
-        parent::render();
-        
-        return Html::tag('span', '', $this->options);
-    }
-
-    public static function oneAlt($size = 'medium', array $options = [], array $property = []): Spinner
-    {        
-        $property['size'] = $size;
-        return static::one('', $options, $property);
+        return Html::tag('span', '', $this->getOptions());
     }
 }

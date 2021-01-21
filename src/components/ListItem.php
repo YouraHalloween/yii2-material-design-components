@@ -2,18 +2,18 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\ComponentRegister;
-use yh\mdc\components\_Component;
+use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\ControlList;
 use yh\mdc\components\Radio;
 use yh\mdc\components\Checkbox;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
-class ListItem extends _Component
+class ListItem extends ControlList
 {
 
-    protected string $type = ComponentRegister::TYPE_LIST;
+    protected string $cmpType = ComponentRegister::TYPE_LIST;
 
     private static array $clsBlock = [
         'base' => 'mdc-list',
@@ -65,10 +65,7 @@ class ListItem extends _Component
         ],
     ];
     */
-    /**
-     * @var array $items - список item
-     */
-    public array $items = [];
+    
     
     /**
      * @var bool $single - Возможность фокусировать на Item
@@ -114,13 +111,8 @@ class ListItem extends _Component
     //В переменной содержится аватарка из View _avatar.php
     private string $_avatarBuf = '';
 
-    public function __construct(array $property = [], array $options = [])
-    {
-        parent::__construct('', $options, $property);
-    }
-
     /**
-     * @see yh\mdc\components\_Component
+     * @see yh\mdc\components\base\_Component
      */
     public function setProperty(array $property): ListItem
     {
@@ -146,11 +138,12 @@ class ListItem extends _Component
 
     /**
      * Css классы для контейнера
-     * @see yh\mdc\components\_Component
+     * @see yh\mdc\components\base\_Component
      */
-    public function initClassWrap(): void
+    public function initOptions(): void
     {
-        parent::initClassWrap();
+        parent::initOptions();
+
         $this->options['class'][] = self::$clsBlock['base'];
         if ($this->isHelper()) {
             $this->options['class'][] = self::$clsBlock['helper'];
@@ -191,9 +184,9 @@ class ListItem extends _Component
         $name = $this->getId().'-radio';
         $id = $this->getId().'-radio-'.$item['index'];        
         return Radio::one('',[],['checked' => $checked, 'value' => $item['index']])
-            ->setInputId($id)
-            ->setInputName($name)
-            ->render();
+            ->setId($id)
+            ->setName($name)
+            ->renderComponent();
     }
 
     /**
@@ -206,9 +199,9 @@ class ListItem extends _Component
         $name = $this->getId().'-radio';
         $id = $this->getId().'-radio-'.$item['index'];        
         return Checkbox::one('',[],['checked' => $checked, 'value' => $item['index']])
-            ->setInputId($id)
-            ->setInputName($name)
-            ->render();
+            ->setId($id)
+            ->setName($name)
+            ->renderComponent();
     }
     
     /**
@@ -362,32 +355,29 @@ class ListItem extends _Component
      */
     public function renderFrame(string $content): string
     {
-        return Html::tag($this->tagList, $content, $this->options);
+        return Html::tag($this->tagList, $content, $this->getOptions());
     }
 
     /**
      * Нарисовать List
      */
-    public function render(): string
-    {
-        //Регистрация компонента
-        parent::render();
-        
+    public function renderComponent(): string
+    {        
         return $this->renderList();        
     }
 
     /**
      * Вывести группы со списком item
      */
-    public static function group(array $property, array $options = [])
+    public static function list(array $property, array $options = [])
     {
         $itemsContent = [];
-        $groups = ArrayHelper::remove($property, 'groups', []);        
+        $groups = ArrayHelper::remove($property, 'items', []);        
         foreach ($groups as $key => $group) 
         {
             $localProperty = ArrayHelper::merge($property, $group);            
             $localProperty['groupIndex'] = $key;            
-            $list = self::list($localProperty, ['group-index' => $key])->render();   
+            $list = self::one($localProperty, ['group-index' => $key])->render();   
             $itemsContent[] = $list;
         }
 
@@ -397,7 +387,7 @@ class ListItem extends _Component
         $content .= Html::endTag('div');
         return $content;
     }
-    // 'groups' => [
+    // 'items' => [
     //                 [                        
     //                     'header' => 'List 1',  
     //                     'checkbox'=> true,                      
@@ -429,4 +419,5 @@ class ListItem extends _Component
     //                         ]
     //                     ]
     //                 ]
+                    // ]
 }

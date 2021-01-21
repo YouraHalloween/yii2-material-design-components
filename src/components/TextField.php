@@ -4,13 +4,13 @@ namespace yh\mdc\components;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yh\mdc\components\_ComponentInput;
+use yh\mdc\components\base\ControlInput;
 use yh\mdc\components\Typography;
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\ComponentRegister;
 
-class TextField extends _ComponentInput
+class TextField extends ControlInput
 {
-    protected string $type = ComponentRegister::TYPE_TEXTFIELD;
+    protected string $cmpType = ComponentRegister::TYPE_TEXTFIELD;
     /*
     * PROPERTY
      */
@@ -51,10 +51,6 @@ class TextField extends _ComponentInput
      */
     public string $labelSize = 'large';
     /**
-     * @var array $jsProperty - Параметры будут переданы в компонент в JavaScript
-     */
-    public array $jsProperty = [];
-    /**
      * @var array $leading
      * ICONS or BUTTONS
      *    trailing, leading => [
@@ -92,8 +88,8 @@ class TextField extends _ComponentInput
     ];
     private static array $clsLabel = [
         'inner' => 'mdc-floating-label',
-        'outer-base' => 'mdc-outer-label'        
-    ];    
+        'outer-base' => 'mdc-outer-label'
+    ];
 
     /* Классы для лейбла
     block - класс для блока, если в inpute есть значение во время инициализации
@@ -142,8 +138,59 @@ class TextField extends _ComponentInput
         'group' => 'mdc-text-field__group-icon'
     ];
 
+    protected function initInputOptions(): void
+    {
+        parent::initInputOptions();
+
+        $this->inputOptions['class'][] = 'mdc-text-field__input';
+        $this->inputOptions['aria-labelledby'] = $this->getLabelId();
+
+        if (!empty($this->placeHolder)) {
+            $this->inputOptions['placeholder'] = $this->placeHolder;
+        }
+
+        if ($this->hasHelper()) {
+            $this->inputOptions['aria-controls'] = $this->getHelperId();
+            $this->inputOptions['aria-describedby'] = $this->getHelperId();
+        }        
+    }
+
+    protected function initOptions(): void
+    {
+        parent::initOptions();
+
+        $this->options['class'][] = self::$clsBlock['base'];
+        $this->options['class'][] = self::$clsBlock[$this->template];
+        $this->options['class'][] = $this->getClsLabelFloating('block');
+
+        if (!$this->enabled) {
+            $this->options['class'][] = self::$clsBlock['disabled'];
+        }
+
+        foreach (['leading', 'trailing'] as $key=>$icon) {
+            if ($this->hasIcon($icon)) {
+                $this->options['class'][] = self::$clsBlock['icon-'.$icon];
+            }
+        }
+        // if (!$this->ripple)
+        //     $cls[] = self::$clsBlock['unfilled'];
+    }
+
     /**
-     * Tag span ripple 
+     * Class ControlInput
+     * Добавить кнопку Clear
+     */
+    public function setProperty(array $property): TextField
+    {
+        parent::setProperty($property);
+        if ($this->buttonClear) {
+            $this->trailing['clear'] = ['button', 'aria-clear' => 'true'];
+        }
+        return $this;
+    }
+
+    /**
+     * Tag span ripple
      */
     private function getTagRipple(string $mode): string
     {
@@ -153,11 +200,11 @@ class TextField extends _ComponentInput
         return Html::tag('span', '', ['class' => self::$clsRipple[$mode]]);
     }
 
-    /** 
-     * Tag span label 
+    /**
+     * Tag span label
      */
     private function getTagInnerLabel(): string
-    {
+    {        
         if (!empty($this->label)) {
             $options = [
                 'class' => [self::$clsLabel['inner'], $this->getClsLabelFloating('label')],
@@ -177,7 +224,7 @@ class TextField extends _ComponentInput
         $clsSize = Typography::getLabelSize($this->labelSize);
         $options = [
                 'class' => [self::$clsLabel['outer-base'], $clsSize],
-                'for' => $this->getInputId(),
+                'for' => $this->getId(),
             ];
         return Html::tag('label', $this->label, $options);
     }
@@ -188,8 +235,8 @@ class TextField extends _ComponentInput
     * @param $mode = label - Возвращается класс для PlaceHolder
     */
     private function getClsLabelFloating(string $mode): string
-    {
-        if (!empty($this->label)) {
+    {    
+        if (empty($this->label) || $this->labelTemplate !== 'inner') {
             return self::$clsLabelFloating['no-label'];
         }
 
@@ -200,26 +247,26 @@ class TextField extends _ComponentInput
         return self::$clsLabelFloating[$mode];
     }
 
-    /** 
-     * Ids для лейбла и хелпера 
+    /**
+     * Ids для лейбла и хелпера
      */
-    private function getId(string $name): string
+    private function getIdByName(string $name): string
     {
-        return 'id-'.$name.'-'.$this->getInputName();
+        return 'id-'.$name.'-'.$this->getName();
     }
 
     private function getLabelId(): string
     {
-        return $this->getId('label');
+        return $this->getIdByName('label');
     }
 
     private function getHelperId(): string
     {
-        return $this->getId('hint');
+        return $this->getIdByName('hint');
     }
 
-    /** 
-     * Хелпер установлен в настройках form->field 
+    /**
+     * Хелпер установлен в настройках form->field
      */
     private function hasHelper(): bool
     {
@@ -266,33 +313,9 @@ class TextField extends _ComponentInput
             ]);
         }
         return '';
-    }
+    }    
 
     /**
-     *  Вернуть список классов для блока TextField 
-     */ 
-    private function getClsBlock(): array
-    {
-        $cls = [
-            self::$clsBlock['base'],
-            self::$clsBlock[$this->template],
-            $this->getClsLabelFloating('block'),
-        ];
-        if (!$this->enabled) {
-            $cls[] = self::$clsBlock['disabled'];
-        }
-
-        foreach (['leading', 'trailing'] as $key=>$icon) {
-            if ($this->hasIcon($icon)) {
-                $cls[] = self::$clsBlock['icon-'.$icon];
-            }
-        }
-        // if (!$this->ripple)
-        //     $cls[] = self::$clsBlock['unfilled'];
-        return $cls;
-    }
-
-    /** 
      * Есть иконка?
      * @param string $mode - 'leading', 'trailing'
      */
@@ -319,7 +342,7 @@ class TextField extends _ComponentInput
         return Html::tag('i', $iconName, $options);
     }
 
-    /**  
+    /**
      * Вернет иконку или кнопку с иконкой
      * @param string $mode - 'leading', 'trailing'
      */
@@ -329,7 +352,7 @@ class TextField extends _ComponentInput
             $icons = $this->$mode;
             if (\is_array($icons)) {
                 $countIcon = 0;
-                $content = '';                
+                $content = '';
                 foreach ($icons as $key => $value) {
                     /**
                      *  Если строка массива состоит из leading => [
@@ -342,7 +365,7 @@ class TextField extends _ComponentInput
                      */
                     $options = [];
                     if (\is_array($value)) {
-                        $typeIcon = ArrayHelper::getValue($value, 'role', 'icon');                        
+                        $typeIcon = ArrayHelper::getValue($value, 'role', 'icon');
                         $options = $value;
                         $icon = $key;
                     } else {
@@ -373,11 +396,9 @@ class TextField extends _ComponentInput
      * Class _ComponentInput
      * Вывод темплайта
      */
-    public function render(): string
-    {
-        parent::render();
-        
-        $content = Html::beginTag('label', ['class' => $this->getClsBlock()]);
+    public function renderComponent(): string
+    {        
+        $content = Html::beginTag('label', $this->getOptions());
 
         $content .= $this->getTagRipple('field');
         $content .= $this->getTagIcons('leading');
@@ -402,39 +423,5 @@ class TextField extends _ComponentInput
         }
 
         return $content;
-    }
-    /**
-     * Class _ComponentInput
-     * Добавить кнопку Clear
-     */
-    public function setProperty(array $property): TextField
-    {
-        parent::setProperty($property);
-        if ($this->buttonClear) {
-            $this->trailing['clear'] = ['button', 'aria-clear' => 'true'];
-        }
-        return $this;
-    }
-
-    /**
-     * Class _ComponentInput
-     */
-    public function setInputOptions(array $options): TextField
-    {
-        parent::setInputOptions($options);
-
-        $this->inputOptions['class'][] = 'mdc-text-field__input';
-        $this->inputOptions['aria-labelledby'] = $this->getLabelId();
-
-        if (!empty($this->placeHolder)) {
-            $this->inputOptions['placeholder'] = $this->placeHolder;
-        }
-
-        if ($this->hasHelper()) {
-            $this->inputOptions['aria-controls'] = $this->getHelperId();
-            $this->inputOptions['aria-describedby'] = $this->getHelperId();
-        }
-        
-        return $this;
-    }
+    }    
 }

@@ -2,7 +2,7 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\ComponentRegister;
+use yh\mdc\components\base\ComponentRegister;
 use yh\mdc\ActiveForm;
 
 class Typography
