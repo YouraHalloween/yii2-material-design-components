@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist youra-halloween/yii2-material-design-components "^0.0.2"
+php composer.phar require --prefer-dist youra-halloween/yii2-material-design-components "^0.1.0"
 ```
 
 or add
 
 ```
-"youra-halloween/yii2-material-design-components": "^0.0.2"
+"youra-halloween/yii2-material-design-components": "^0.1.0"
 ```
 
 to the require section of your `composer.json` file.
