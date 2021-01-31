@@ -285,7 +285,7 @@ class ListItem extends ControlList
             $item['options']['aria-selected'] = 'true';
         }
         if (isset($item['value'])) {            
-            $this->jsProperty['keys'][] = $item['value'];            
+            $this->jsProperty['values'][] = $item['value'];            
         }
         if (isset($item['href'])) {
             $item['options']['href'] = Url::to([$item['href']]);
