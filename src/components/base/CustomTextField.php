@@ -12,6 +12,7 @@ class CustomTextField extends ControlInput
 {
     const FILLED = 'filled';
     const OUTLINED = 'outlined';
+
     /*
     * PROPERTY
      */
@@ -69,51 +70,79 @@ class CustomTextField extends ControlInput
      */
     public string $template = self::FILLED;
 
+    protected static $classPrefix = '';
+
     /* Класс для блока textfield */
-    protected static array $clsBlock = [];
-    protected static array $clsLabel = [];
+    protected static array $clsBlock = [
+        'base' => 'mdc-text-field',
+        self::FILLED => 'mdc-text-field--filled',
+        self::OUTLINED => 'mdc-text-field--outlined',
+        'disabled' => 'mdc-text-field--disabled',
+        'icon-leading' => 'mdc-text-field--with-leading-icon',
+        'icon-trailing' => 'mdc-text-field--with-trailing-icon'
+    ];
+    protected static array $clsLabel = [
+        'inner' => 'mdc-floating-label',
+        'outer-base' => 'mdc-outer-label',
+        'outline-notched' => 'mdc-notched-outline',
+        'outline-leading' => 'mdc-notched-outline__leading',
+        'outline-notch' => 'mdc-notched-outline__notch',
+        'outline-trailing' => 'mdc-notched-outline__trailing',
+    ];
 
     /* Классы для лейбла
     block - класс для блока, если в inpute есть значение во время инициализации
     label - класс для лейбла, если в inpute есть значение во время инициализации
     no-label - лейбл отсуствует
     */
-    protected static array $clsLabelFloating = [];
+    protected static array $clsLabelFloating = [
+        'block' => 'mdc-text-field--label-floating',
+        'label' => 'mdc-floating-label--float-above',
+        'no-label' => 'mdc-text-field--no-label',
+    ];
+
     /* Классы для анимации линий */
-    protected static array $clsRipple = [];
+    protected static array $clsRipple = [
+        'filled' => 'mdc-text-field__ripple',
+        'line' => 'mdc-line-ripple',
+    ];
+
     /*Классы для преикса и суфикса */
-    protected static array $clsPrSuRender = [];    
+    protected static array $clsAffix = [
+        'base' => 'mdc-text-field__affix',
+        'prefix' => 'mdc-text-field__affix--prefix',
+        'suffix' => 'mdc-text-field__affix--suffix',
+    ];
+    
     /* Хелпер может быть в 3 состояниях
     class = "" - хелпер появляется, когда input в фокусе и исчезает, когда input теряет фокусе
     class = "mdc-text-field-helper-text--persistent" - хелпер отображается все время
     class = "mdc-text-field-helper-text--validation-msg" может выводить ошибку
     */
-    protected static array $clsHelper = [];
+    protected static array $clsHelper = [
+        'base' => 'mdc-text-field-helper-line',
+        'required' => 'mdc-text-field-helper-text',
+        'persistent' => 'mdc-text-field-helper-text--persistent',
+        'validation' => 'mdc-text-field-helper-text--validation-msg'
+    ];
+
     /**
-     *Классы для иконок или кнопок с иконками. А так же группой иконок
+     * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
-    protected static array $clsIcons = [];
+    protected static array $clsIcons = [
+        'base' => 'material-icons mdc-text-field__icon',
+        'button' => 'mdc-icon-button',
+        'leading' => 'mdc-text-field__icon--leading',
+        'trailing' => 'mdc-text-field__icon--trailing',
+        'group' => 'mdc-text-field__group-icon'
+    ];
+
     /**
      * Классы для input
      */
-    protected static array $clsInput = [];
-
-    protected function initInputOptions(): void
-    {
-        parent::initInputOptions();
-
-        $this->inputOptions['class'][] = static::$clsInput['base'];
-        $this->inputOptions['aria-labelledby'] = $this->getLabelId();
-
-        if (!empty($this->placeHolder)) {
-            $this->inputOptions['placeholder'] = $this->placeHolder;
-        }
-
-        if ($this->hasHelper()) {
-            $this->inputOptions['aria-controls'] = $this->getHelperId();
-            $this->inputOptions['aria-describedby'] = $this->getHelperId();
-        }
-    }
+    protected static array $clsInput = [
+        'base' => 'mdc-text-field__input',        
+    ];
 
     protected function initOptions(): void
     {
@@ -152,7 +181,7 @@ class CustomTextField extends ControlInput
      */
     protected function getTagRipple(string $mode): string
     {
-        if ($mode == 'field' && !$this->ripple) {
+        if ($mode == 'filled' && !$this->ripple) {
             return '';
         }
         return Html::tag('span', '', ['class' => static::$clsRipple[$mode]]);
@@ -369,7 +398,7 @@ class CustomTextField extends ControlInput
     {
         $content = Html::beginTag('label', $this->getOptions());
     
-        $content .= $this->getTagRipple('field');
+        $content .= $this->getTagRipple('filled');
         $content .= $this->getTagIcons('leading');
 
         if ($this->labelTemplate == 'inner') {

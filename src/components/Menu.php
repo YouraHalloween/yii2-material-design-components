@@ -20,6 +20,7 @@ class Menu extends ControlList
      * родительского div
      */
     public bool $anchor = true;
+    public string $roleMenu = 'menu';
     /**
      * @var array $listProperty - Настройки для ListItem
      */
@@ -47,7 +48,7 @@ class Menu extends ControlList
             $this->listProperty['items'] = $this->items;
         }
         $list = ListItem::one($this->listProperty, [
-            'role' => 'menu',
+            'role' => $this->roleMenu,
             'aria-hidden' => 'true',
             'aria-orientation' => 'vertical'
         ]);        

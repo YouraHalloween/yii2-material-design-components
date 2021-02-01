@@ -1,10 +1,8 @@
 <?php
 
-namespace yh\mdc\components\base;
+namespace yh\mdc\components\base\extensions;
 
-use yh\mdc\components\base\_Persistent;
-
-trait _TrComponent
+trait TrComponent
 {
     protected function initOptions(): void
     {

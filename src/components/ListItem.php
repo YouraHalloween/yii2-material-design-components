@@ -105,6 +105,10 @@ class ListItem extends ControlList
      */
     public bool $action = true;
     /**
+     * @var string $roleItem - хуй его знает зачем это
+     */
+    public string $roleItem = '';
+    /**
      * Используется для вывода сгруппированных списков
      */
      protected int $groupIndex = -1;
@@ -280,15 +284,19 @@ class ListItem extends ControlList
         if (!ArrayHelper::getValue($item, 'enabled', true)) {
             $item['options']['class'][] = self::$clsItem['disabled'];
         }
-        if (isset($item['selected'])) {
+        if (isset($item['selected'])) {            
             $item['options']['class'][] = self::$clsItem['selected'];
             $item['options']['aria-selected'] = 'true';
         }
         if (isset($item['value'])) {            
-            $this->jsProperty['values'][] = $item['value'];            
+            $this->jsProperty['values'][] = $item['value'];
+            $item['options']['data-value'] = $item['value'];
         }
         if (isset($item['href'])) {
             $item['options']['href'] = Url::to([$item['href']]);
+        }
+        if (!empty($this->roleItem)) {
+            $item['options']['role'] = $this->roleItem;
         }
         $content = Html::beginTag($this->tagListItem, $item['options']);
         //Ripple

@@ -52,7 +52,7 @@ class TextField extends CustomTextField
 
     /* Классы для анимации линий */
     protected static array $clsRipple = [
-        'field' => 'mdc-text-field__ripple',
+        'filled' => 'mdc-text-field__ripple',
         'line' => 'mdc-line-ripple',
     ];
 
@@ -97,17 +97,17 @@ class TextField extends CustomTextField
     {
         parent::initInputOptions();
 
-        // $this->inputOptions['class'][] = 'mdc-text-field__input';
-        // $this->inputOptions['aria-labelledby'] = $this->getLabelId();
+        $this->inputOptions['class'][] = 'mdc-text-field__input';
+        $this->inputOptions['aria-labelledby'] = $this->getLabelId();
 
-        // if (!empty($this->placeHolder)) {
-        //     $this->inputOptions['placeholder'] = $this->placeHolder;
-        // }
+        if (!empty($this->placeHolder)) {
+            $this->inputOptions['placeholder'] = $this->placeHolder;
+        }
 
-        // if ($this->hasHelper()) {
-        //     $this->inputOptions['aria-controls'] = $this->getHelperId();
-        //     $this->inputOptions['aria-describedby'] = $this->getHelperId();
-        // }
+        if ($this->hasHelper()) {
+            $this->inputOptions['aria-controls'] = $this->getHelperId();
+            $this->inputOptions['aria-describedby'] = $this->getHelperId();
+        }
     }
 
     /**
@@ -131,7 +131,7 @@ class TextField extends CustomTextField
     {
         $content = Html::beginTag('label', $this->getOptions());
     
-        $content .= $this->getTagRipple('field');
+        $content .= $this->getTagRipple('filled');
         $content .= $this->getTagIcons('leading');
 
         if ($this->labelTemplate == 'inner') {

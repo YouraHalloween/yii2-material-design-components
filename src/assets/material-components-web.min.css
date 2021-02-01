@@ -11521,6 +11521,9 @@ a.mdc-evolution-list-item {
   cursor: pointer;
 }
 
+.mdc-select:not(.mdc-select--disabled) .mdc-select__anchor {
+  background-color: #fff;
+}
 .mdc-snackbar {
   position: absolute;
 }
