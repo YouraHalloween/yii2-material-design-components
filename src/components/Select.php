@@ -234,4 +234,39 @@ class Select extends CustomTextField
 
         return $content;
     }
+
+    protected function getComponentOutlined(): string
+    {
+        //mdc-select
+        $content = Html::beginTag('div', $this->getOptions());
+
+        //mdc-anchor
+        $content .= Html::beginTag('div', $this->getOptionsAnchor());
+            
+        $content .= $this->getTagIcons('leading');
+        
+        $content .= $this->getTagOutlined();
+        
+        $content .= $this->getTagInput();
+        $content .= $this->getTagDropdownIcon();
+
+        $content .= $this->getTagIcons('trailing');
+        
+        //mdc-anchor
+        $content .= Html::endTag('div');
+
+        $content .= $this->menu->renderComponent();
+
+        //mdc-select
+        $content .= Html::endTag('div');
+
+        //Добавить под блок Helper
+        $content .= $this->renderHelper();
+        //Добавить в начале вертикальный лейбл
+        if ($this->labelTemplate != 'inner') {
+            $content = $this->getTagOuterLabel() . $content;
+        }
+
+        return $content;
+    }
 }
