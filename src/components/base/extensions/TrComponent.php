@@ -7,7 +7,9 @@ trait TrComponent
     protected function initOptions(): void
     {
         parent::initOptions();
-        $this->options['id'] = $this->getId();
+        if (!is_null($this->id)) {
+            $this->options['id'] = $this->getId();
+        }
     }
 }
 

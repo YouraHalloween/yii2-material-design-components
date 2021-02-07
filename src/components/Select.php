@@ -4,7 +4,7 @@ namespace yh\mdc\components;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yh\mdc\components\base\CustomTextField;
+use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\base\ComponentRegister;
 use yh\mdc\components\base\extensions\TrComponent;
 use yh\mdc\components\base\extensions\TrList;

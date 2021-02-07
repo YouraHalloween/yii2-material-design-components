@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components\base;
+namespace yh\mdc\components\base\stable;
 
 use yh\mdc\components\base\ComponentRegister;
 use yh\mdc\ActiveForm;
@@ -25,7 +25,7 @@ class _Persistent
     /**
      * @var string $id - id компонента
      */
-    public string $id = '';
+    public ?string $id = '';
     /**
      * @var bool $enabled
      */
@@ -59,7 +59,7 @@ class _Persistent
      * @param string $id
      * @return _Persistent
      */
-    public function setId(string $id): _Persistent
+    public function setId(?string $id): _Persistent
     {
         $this->id = $id;
         return $this;

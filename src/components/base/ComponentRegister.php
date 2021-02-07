@@ -20,6 +20,7 @@ class ComponentRegister {
     const TYPE_DRAWER = 'drawer';
     const TYPE_LEFTAPPBAR = 'leftAppBar';
     const TYPE_SELECT = 'select';
+    const TYPE_DATATABLE = 'dataTable';
 
     private static ?View $_view = null;
     private static int  $positionRegister = View::POS_END;

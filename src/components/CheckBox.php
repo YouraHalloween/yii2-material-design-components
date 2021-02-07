@@ -14,7 +14,7 @@ class CheckBox extends ControlInput {
 
     //Третье состояние чекбокса
     public bool $indeterminate = false; 
-    public $value = false;
+    public $value = false;    
 
     private static string $clsBlock = 'mdc-form-field'; 
     private static string $clsInput = 'mdc-checkbox__native-control';
@@ -95,6 +95,10 @@ class CheckBox extends ControlInput {
 
         $content .= $this->getTagLabel();
 
-        return Html::tag('div', $content, ['class' => self::$clsBlock]);
+        if ($this->formField) {
+            return Html::tag('div', $content, ['class' => self::$clsBlock]);
+        } else {
+            return $content;
+        }
     }        
 }

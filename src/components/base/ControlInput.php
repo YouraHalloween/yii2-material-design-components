@@ -3,9 +3,10 @@
 namespace yh\mdc\components\base;
 
 use yii\helpers\Html;
-use yh\mdc\components\base\_ComponentLabel;
+use yh\mdc\components\base\stable\_ComponentLabel;
 
-class ControlInput extends _ComponentLabel {
+class ControlInput extends _ComponentLabel
+{
 
     /**
      * @var array $inputOptions - input options
@@ -35,11 +36,14 @@ class ControlInput extends _ComponentLabel {
      * @var bool $ripple - ripple animate
      */
     public bool $ripple = true;
-
     /**
      * @var bool $activeField - For use yii2 ActiveField
      */
     protected bool $activeField = false;
+    /**
+     * @var bool $formField - use wrap class - mdc-form-field
+     */
+    public $formField = true;
     /**
      * @var string $templateInput - For use yii2 ActiveField
      */
@@ -47,7 +51,9 @@ class ControlInput extends _ComponentLabel {
 
     protected function initInputOptions(): void
     {
-        $this->inputOptions['id'] = $this->getId();
+        if (!is_null($this->id)) {
+            $this->inputOptions['id'] = $this->getId();
+        }
 
         if (!$this->enabled) {
             $this->inputOptions['disabled'] = 'disabled';
@@ -88,7 +94,7 @@ class ControlInput extends _ComponentLabel {
     }
 
     public function getInputOptions(): array
-    {        
+    {
         if (!$this->hasInitInputOptions) {
             $this->initInputOptions();
             $this->hasInitInputOptions = true;
@@ -112,8 +118,7 @@ class ControlInput extends _ComponentLabel {
     {
         if ($this->activeField) {
             return $this->templateInput;
-        }
-        else {            
+        } else {
             return Html::input($this->type, $this->name, $this->value, $this->getInputOptions());
         }
     }

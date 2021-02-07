@@ -6,20 +6,20 @@ use yii\helpers\Html;
 use yh\mdc\components\base\ControlInput;
 use yh\mdc\components\base\ComponentRegister;
 
-class Radio extends ControlInput {
-
+class Radio extends ControlInput
+{
     protected string $cmpType = ComponentRegister::TYPE_RADIO;
 
     public string $type = 'radio';
     public bool $checked = false;
 
-    private static string $clsBlock = 'mdc-form-field';  
-    private static string $clsInput = 'mdc-radio__native-control';  
+    private static string $clsBlock = 'mdc-form-field';
+    private static string $clsInput = 'mdc-radio__native-control';
     /* Контейнер для чекбокса */
     private static array $clsBlockInput = [
         'base' => 'mdc-radio',
         'disabled' => 'mdc-radio--disabled',
-    ]; 
+    ];
 
     private static array $clsBackground = [
         'base' => 'mdc-radio__background',
@@ -62,12 +62,12 @@ class Radio extends ControlInput {
     }
 
     private function getTagRipple(): string
-    {        
+    {
         return $this->ripple ? Html::tag('div', '', ['class' => self::$clsRipple]) : '';
     }
 
     public function renderComponent(): string
-    {        
+    {
         $content = Html::beginTag('div', $this->getOptions());
         $content .= $this->getTagInput();
         $content .= $this->getTagBackgorund();
@@ -75,7 +75,11 @@ class Radio extends ControlInput {
         $content .= Html::endTag('div');
 
         $content .= $this->getTagLabel();
-
-        return Html::tag('div', $content, ['class' => self::$clsBlock]);
-    }    
+        
+        if ($this->formField) {
+            return Html::tag('div', $content, ['class' => self::$clsBlock]);
+        } else {
+            return $content;
+        }
+    }
 }

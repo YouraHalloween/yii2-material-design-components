@@ -1,8 +1,8 @@
 <?php
 
-namespace yh\mdc\components\base;
+namespace yh\mdc\components\base\stable;
 
-use yh\mdc\components\base\_Persistent;
+use yh\mdc\components\base\stable\_Persistent;
 
 class _ComponentLabel extends _Persistent
 {

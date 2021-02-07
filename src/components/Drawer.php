@@ -35,6 +35,7 @@ class Drawer extends ControlList
     public bool $open = true;
     public string $header = '';
     public string $headerIcon = '';
+    public string $headerLink = '';
     public string $subTitle = '';
 
     public function __construct(array $property = [], array $options = [])
@@ -72,7 +73,14 @@ class Drawer extends ControlList
         } else {
             $header = $this->header;
         }
+
+        if (!empty($this->headerLink)) {
+            $header = Html::a($header, $this->headerLink, $optionsHeader);
+            $optionsHeader = [];
+        }
+
         $content .= Html::tag('h3', $header, $optionsHeader);
+
         if (!empty($this->headerSub)) {
             $content .= Html::tag('h6', $this->headerSub, ['class' => self::$clsHeader['subtitle']]);
         }

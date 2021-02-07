@@ -10453,6 +10453,7 @@ a.mdc-evolution-list-item {
   --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
   --mdc-theme-background-secondary: #1c2132;
   --mdc-theme-text-logo: #be147a;
+  --mdc-theme-primary-border-color: #e5e5e5;
 }
 
 .mdc-theme--primary {
@@ -10609,6 +10610,12 @@ a.mdc-evolution-list-item {
   color: #be147a !important;
   /* @alternate */
   color: var(--mdc-theme-text-logo, #be147a) !important;
+}
+
+.mdc-theme--primary-border-color {
+  color: #e5e5e5 !important;
+  /* @alternate */
+  color: var(--mdc-theme-primary-border-color, #e5e5e5) !important;
 }
 
 .mdc-theme--primary-bg {
@@ -11334,6 +11341,14 @@ a.mdc-evolution-list-item {
   cursor: pointer;
 }
 
+.mdc-data-table {
+  width: 100%;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
 .mdc-drawer {
   border: 0;
 }
@@ -11634,7 +11649,7 @@ a.mdc-evolution-list-item {
 }
 .mdc-text-field + .mdc-text-field-helper-line .mdc-text-field-helper-text {
   opacity: 1;
-  transition: opacity 130ms;
+  transition: opacity 115ms;
 }
 .mdc-text-field + .mdc-text-field-helper-line .mdc-text-field-helper-text.mdc-text-field-helper-text--animation {
   opacity: 0;

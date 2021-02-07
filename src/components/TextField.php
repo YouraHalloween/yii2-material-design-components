@@ -4,7 +4,7 @@ namespace yh\mdc\components;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yh\mdc\components\base\CustomTextField;
+use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\Typography;
 use yh\mdc\components\base\ComponentRegister;
 
@@ -20,6 +20,8 @@ class TextField extends CustomTextField
      * @var string $suffix - input siffix
      */
     public string $suffix = '';
+
+    public $formField = false;
 
     /* Класс для блока textfield */
     protected static array $clsBlock = [

@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components\base;
+namespace yh\mdc\components\base\stdctrls;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
