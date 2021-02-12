@@ -5,7 +5,7 @@ namespace yh\mdc\components;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\stdctrls\CustomTextField;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\extensions\TrComponent;
 use yh\mdc\components\base\extensions\TrList;
 use yh\mdc\components\Menu;
@@ -82,8 +82,7 @@ class Select extends CustomTextField
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
     protected static array $clsIcons = [
-        'base' => 'material-icons mdc-select__icon',
-        'button' => 'mdc-icon-button',
+        'base' => 'mdc-select__icon',        
         'leading' => 'mdc-select__icon--leading',
         'trailing' => 'mdc-select__icon--trailing',
         'group' => 'mdc-select__group-icon'

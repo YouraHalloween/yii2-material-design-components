@@ -3,7 +3,7 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\ButtonBase;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class Button extends ButtonBase
 {

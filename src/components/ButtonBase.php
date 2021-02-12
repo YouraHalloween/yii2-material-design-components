@@ -4,7 +4,7 @@ namespace yh\mdc\components;
 
 use yii\helpers\Html;
 use yh\mdc\components\base\Control;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\Spinner;
 
 class ButtonBase extends Control

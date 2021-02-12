@@ -6,7 +6,8 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\ControlInput;
 use yh\mdc\components\Typography;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\IconButton;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class CustomTextField extends ControlInput
 {
@@ -31,7 +32,7 @@ class CustomTextField extends ControlInput
     /**
      * @var string $placeHolder - input placeholder
      */
-    public string $placeHolder = '';    
+    public string $placeHolder = '';
     /**
      * @var bool $buttonClear - отоброжать кнопку Отчистить
      */
@@ -130,8 +131,7 @@ class CustomTextField extends ControlInput
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
     protected static array $clsIcons = [
-        'base' => 'material-icons mdc-text-field__icon',
-        'button' => 'mdc-icon-button',
+        'base' => 'mdc-text-field__icon',
         'leading' => 'mdc-text-field__icon--leading',
         'trailing' => 'mdc-text-field__icon--trailing',
         'group' => 'mdc-text-field__group-icon'
@@ -141,7 +141,7 @@ class CustomTextField extends ControlInput
      * Классы для input
      */
     protected static array $clsInput = [
-        'base' => 'mdc-text-field__input',        
+        'base' => 'mdc-text-field__input',
     ];
 
     protected function initOptions(): void
@@ -160,7 +160,7 @@ class CustomTextField extends ControlInput
             if ($this->hasIcon($icon)) {
                 $this->options['class'][] = static::$clsBlock['icon-'.$icon];
             }
-        }        
+        }
     }
 
     /**
@@ -312,7 +312,7 @@ class CustomTextField extends ControlInput
      * @param string $mode - prefix | suffix
      */
     protected function getTagPrefixSuffix(string $mode): string
-    {        
+    {
         return '';
     }
 
@@ -328,29 +328,35 @@ class CustomTextField extends ControlInput
     /**
      * Вернет тег иконка или батон
      */
-    private function _getTagIcon(string $mode, string $iconName, array $options= [], bool $button = false): string
+    private function _getTagIcon(string $position, array $property, array $options= []): string
     {
         $options['class'] = [
             static::$clsIcons['base'],
-            static::$clsIcons[$mode],
+            static::$clsIcons[$position],
         ];
-        if ($button) {
-            $options['class'][] = static::$clsIcons['button'];
+        if ($options['role'] === 'button') {
             $options['tabindex'] = '0';
-            $options['role'] = 'button';
-            $options['id'] = 'text-field-button-'.$iconName;
+            $id = $this->getId().'-'.$property['icon'];
+        } else {
+            $id = null;
         }
-        return Html::tag('i', $iconName, $options);
+        $property['isButton'] = false;  
+         
+        return IconButton::one()
+            ->setProperty($property)
+            ->setOptions($options)
+            ->setId($id)
+            ->render();
     }
 
     /**
      * Вернет иконку или кнопку с иконкой
-     * @param string $mode - 'leading', 'trailing'
+     * @param string $position - 'leading', 'trailing'
      */
-    protected function getTagIcons(string $mode): string
+    protected function getTagIcons(string $position): string
     {
-        if ($this->hasIcon($mode)) {
-            $icons = $this->$mode;
+        if ($this->hasIcon($position)) {
+            $icons = $this->$position;
             if (\is_array($icons)) {
                 $countIcon = 0;
                 $content = '';
@@ -359,27 +365,46 @@ class CustomTextField extends ControlInput
                      *  Если строка массива состоит из leading => [
                      *  'clear', 'user'
                      *  'clear' => 'button' or 'icon',
-                     *  'clear' => ['button'],
-                     *  'clear' => ['icon', options],
-                     *  'clear' => [options],
+                     *  'clear' => ['role' => 'icon', ...options],
+                     *  'clear' => ['toggle' => 'UndoClear', ...options],
+                     *  'clear' => [...options],
                      * ]
                      */
                     $options = [];
+                    $property= [];
                     if (\is_array($value)) {
-                        $typeIcon = ArrayHelper::getValue($value, 'role', 'icon');
                         $options = $value;
-                        $icon = $key;
+                        $property['icon'] = $key;
+                        $toggle = ArrayHelper::remove($options, 'toggle', false);
+                        if ($toggle) {
+                            $options['role'] = 'button';
+                            $property['toggle'] = true;
+                            $property['iconOn']= $toggle;
+                        } else {
+                            $options['role'] = ArrayHelper::getValue($value, 'role', 'icon');
+                        }                        
                     } else {
                         /**
                          * Массив иконок может быть двух видов
                          * ['clear', 'phone']
-                         * ['clear' => 'button', 'phone' => 'icon', 'user']
+                         * ['clear' => 'button', 'phone' => 'icon', 'user', 'visible' => 'un_visible']
                          * Если $key is int, то имя иконки берем из $value
                          */
-                        $icon = \is_int($key) ? $value : $key;
-                        $typeIcon = \is_int($key) ? 'icon' : $value;
+                        if (is_int($key)) {
+                            $property['icon'] = $value;
+                            $options['role'] = 'icon';
+                        } else {
+                            $property['icon'] = $key;
+                            if ($value === 'button' || $value === 'icon') {
+                                $options['role'] = $value;                                
+                            } else {
+                                $options['role'] = 'button';
+                                $property['toggle'] = true;
+                                $property['iconOn']= $value;
+                            }
+                        }                                                
                     }
-                    $content .= $this->_getTagIcon($mode, $icon, $options, $typeIcon === 'button');
+                    $content .= $this->_getTagIcon($position, $property, $options);
                     $countIcon++;
                 }
                 // Ессли иконок больше одной, то лучше их объединить
@@ -389,7 +414,6 @@ class CustomTextField extends ControlInput
 
                 return $content;
             }
-            return $this->_getTagIcon($mode, $icons);
         }
         return '';
     }

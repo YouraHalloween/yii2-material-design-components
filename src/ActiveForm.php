@@ -3,7 +3,7 @@
 namespace yh\mdc;
 
 use yii\helpers\Json;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class ActiveForm extends \yii\widgets\ActiveForm
 {

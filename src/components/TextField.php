@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\Typography;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class TextField extends CustomTextField
 {
@@ -81,8 +81,7 @@ class TextField extends CustomTextField
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
     protected static array $clsIcons = [
-        'base' => 'material-icons mdc-text-field__icon',
-        'button' => 'mdc-icon-button',
+        'base' => 'mdc-text-field__icon',        
         'leading' => 'mdc-text-field__icon--leading',
         'trailing' => 'mdc-text-field__icon--trailing',
         'group' => 'mdc-text-field__group-icon'

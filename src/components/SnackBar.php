@@ -3,7 +3,7 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\base\Control;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 use yii\helpers\Html;
 
 class SnackBar extends Control

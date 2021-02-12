@@ -3,7 +3,7 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\base\Component;
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\widget\grid\GridView;
 use yii\helpers\Html;
 

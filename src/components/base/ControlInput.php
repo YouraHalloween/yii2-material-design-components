@@ -7,7 +7,6 @@ use yh\mdc\components\base\stable\_ComponentLabel;
 
 class ControlInput extends _ComponentLabel
 {
-
     /**
      * @var array $inputOptions - input options
      */

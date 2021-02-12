@@ -2,7 +2,7 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\ComponentRegister;
+use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\ControlList;
 use yh\mdc\components\Radio;
 use yh\mdc\components\Checkbox;
@@ -12,7 +12,6 @@ use yii\helpers\ArrayHelper;
 
 class ListItem extends ControlList
 {
-
     protected string $cmpType = ComponentRegister::TYPE_LIST;
 
     private static array $clsBlock = [

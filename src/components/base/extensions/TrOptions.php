@@ -2,7 +2,7 @@
 
 namespace yh\mdc\components\base\extensions;
 
-trait TrComponent
+trait TrOptions
 {
     protected function initOptions(): void
     {

@@ -2,13 +2,13 @@
 
 namespace yh\mdc\components\base;
 
-use yh\mdc\components\base\stable\_Component;
+use yh\mdc\components\base\stable\_Persistant;
 use yh\mdc\components\base\extensions\TrOptions;
 
 /**
  * Without label
  */
-class Component extends _Component
+class ComponentInitial extends _Persistant
 {
     use TrOptions;
 }

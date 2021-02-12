@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components\base;
+namespace yh\mdc\components\base\stable;
 
 use yii\web\View;
 use yii\helpers\Json;
@@ -21,6 +21,7 @@ class ComponentRegister {
     const TYPE_LEFTAPPBAR = 'leftAppBar';
     const TYPE_SELECT = 'select';
     const TYPE_DATATABLE = 'dataTable';
+    const TYPE_ICONBUTTON = 'iconButton';
 
     private static ?View $_view = null;
     private static int  $positionRegister = View::POS_END;
