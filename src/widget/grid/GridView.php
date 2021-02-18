@@ -2,6 +2,8 @@
 
 namespace yh\mdc\widget\grid;
 
+use yh\mdc\components\_DataTablePagination;
+
 use yii\helpers\Html;
 
 class GridView extends \yii\grid\GridView
@@ -14,6 +16,10 @@ class GridView extends \yii\grid\GridView
     ];
 
     public $options = [
+        'class' => 'mdc-data-table'        
+    ];
+
+    public $tableContainerOptions = [
         'class' => 'mdc-data-table__table-container'
     ];
 
@@ -26,17 +32,28 @@ class GridView extends \yii\grid\GridView
     ];
 
     public $rowOptions = [
-                'class' => 'mdc-data-table__row',
+        'class' => 'mdc-data-table__row',
     ];
 
-    public $checkBox = false;
+    public $summaryOptions = ['class' => 'mdc-data-table__pagination-total'];
+
+    public $pager = [
+        'class' => 'yh\mdc\widget\grid\LinkPager'
+    ];
+
+    public $summary = '{begin, number}-{end, number} / <b>{totalCount, number}</b>';
+
+    public $checkBox = false;    
 
     // public $layout = "{items}\n{pager}\n{summary}";
-    public $layout = "{items}";
+    public $layout = "{items}\n{pager}\n{summary}";
+
+    private _DataTablePagination $pagination;
 
     public function init()
     {
         parent::init();
+        $this->pagination = new _DataTablePagination();
         if ($this->checkBox) {
             $this->rowOptions = function ($model, $key, $index, $grid) {
                 return [
@@ -59,5 +76,23 @@ class GridView extends \yii\grid\GridView
         $content = Html::tag('tbody', $content, $this->bodyOptions);
 
         return $content;
+    }
+
+    public function renderItems()
+    {        
+        return Html::tag('div', parent::renderItems(), $this->tableContainerOptions);
+    }
+
+    public function renderSummary()
+    {
+        $this->pagination->contentSummary = parent::renderSummary();
+        return $this->pagination->renderComponent();
+
+    }
+
+    public function renderPager()
+    {
+        $this->pagination->contentPager = parent::renderPager();
+        return '';
     }
 }

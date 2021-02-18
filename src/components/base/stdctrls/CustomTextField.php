@@ -69,9 +69,7 @@ class CustomTextField extends ControlInput
     /**
      * @var string $template - внешний вид textfield FILLED or OUTLINED
      */
-    public string $template = self::FILLED;
-
-    protected static $classPrefix = '';
+    public string $template = self::FILLED;    
 
     /* Класс для блока textfield */
     protected static array $clsBlock = [
@@ -477,7 +475,20 @@ class CustomTextField extends ControlInput
      * Вывод темплайта
      */
     public function renderComponent(): string
+    {        
+        return $this->template === self::FILLED ? $this->getComponentFilled() : $this->getComponentOutlined();
+    }
+
+    public static function filled(string $label = '', array $property = [], array $options = [])
     {
-        return $this->template == self::FILLED ? $this->getComponentFilled() : $this->getComponentOutlined();
+        $property = array_merge($property, ['template' => self::FILLED]);
+        return self::one($label, $property, $options);
+    }
+
+    public static function outlined(string $label = '', array $property = [], array $options = [])
+    {
+        $property = array_merge($property, ['template' => self::OUTLINED]);
+        return self::one($label, $property, $options);
+
     }
 }

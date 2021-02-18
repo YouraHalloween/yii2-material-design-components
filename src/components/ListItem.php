@@ -26,7 +26,7 @@ class ListItem extends ControlList
         'base' => 'mdc-list-item',
         'selected' => 'mdc-list-item--selected',
         'ripple' => 'mdc-list-item__ripple',
-        'label' => 'mdc-list-item__text',
+        'text' => 'mdc-list-item__text',
         'primary' => 'mdc-list-item__primary-text',
         'secondary' => 'mdc-list-item__secondary-text',
         'disabled' => 'mdc-list-item--disabled',
@@ -51,14 +51,14 @@ class ListItem extends ControlList
     /*
     'items' => [
         [
-            'label' => 'Меню 1',
+            'text' => 'Меню 1',
             'helper' => 'Это менюшечка',
             'separator' => true,
             'icon' => 'favorite',
             'meta' => 'button',
         ],
         [
-            'label' => 'Меню 2',
+            'text' => 'Меню 2',
             'selected' => true,
             'meta' => 'Text',
         ],
@@ -166,15 +166,16 @@ class ListItem extends ControlList
      * Текст item + helper
      * @param array $item - текущий item 
      */    
-    private function getTagLabel(array $item): string
+    private function getTagText(array $item): string
     {        
+        $text = ArrayHelper::getValue($item, 'text', $item['value']);
         if ($this->isHelper()) {
-            $content = Html::tag('span', $item['label'], ['class' => self::$clsItem['primary']]);
+            $content = Html::tag('span', $text, ['class' => self::$clsItem['primary']]);
             $content .= Html::tag('span', $item['helper'], ['class' => self::$clsItem['secondary']]);
         } else {            
-            $content = $item['label'];
+            $content = $text;
         }
-        return Html::tag('span', $content, ['class' => self::$clsItem['label']]);
+        return Html::tag('span', $content, ['class' => self::$clsItem['text']]);
     }
 
     /**
@@ -302,8 +303,8 @@ class ListItem extends ControlList
         $content .= Html::tag('span', '', ['class' => self::$clsItem['ripple']]);
         //Icon or Avatar or Radio or Checkbox
         $content .= $this->getTagIcon($item);        
-        //Label
-        $content .= $this->getTagLabel($item);
+        //Text
+        $content .= $this->getTagText($item);
         //Meta
         if (isset($item['meta'])) {
             $content .= $this->getTagMeta($item);
@@ -325,8 +326,8 @@ class ListItem extends ControlList
         $i = 0;
         foreach ($this->items as $key => $item) { 
             //Простой список состоящий из 'value' => 'label'
-            if (is_string($item)) {
-                $item = ['label' => $item, 'value' => $key];
+            if (!is_array($item)) {
+                $item = ['text' => $item, 'value' => $key];
             }           
             $item['index'] = $key;
             // if ($i === 0) {
@@ -400,7 +401,7 @@ class ListItem extends ControlList
     //                     'checkbox'=> true,                      
     //                     'items' => [
     //                         [
-    //                             'label' => 'Меню 1',
+    //                             'text' => 'Меню 1',
     //                             'helper' => 'Это менюшечка',
     //                             'separator' => true,
     //                             'icon' => 'favorite',
@@ -414,13 +415,13 @@ class ListItem extends ControlList
     //                     'avatar' => true,                       
     //                     'items'=> [
     //                         [
-    //                         'label' => 'Меню 2',
+    //                         'text' => 'Меню 2',
     //                         'helper' => 'Это менюшечка',
     //                         'selected' => true,   
     //                         'meta' => 'Text',                                       
     //                         ],
     //                         [
-    //                             'label' => 'Меню 3',
+    //                             'text' => 'Меню 3',
     //                             'helper' => 'Это менюшечка',
     //                             'meta' => 'button',
     //                         ]

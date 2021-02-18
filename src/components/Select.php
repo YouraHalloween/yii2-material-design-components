@@ -6,19 +6,17 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\extensions\TrComponent;
+use yh\mdc\components\base\extensions\TrOptions;
 use yh\mdc\components\base\extensions\TrList;
 use yh\mdc\components\Menu;
 
 class Select extends CustomTextField
 {
-    //TrComponent - устанавливает options['id']
+    //TrOptions - устанавливает options['id']
     //TrList - добавляет свойство items
-    use TrComponent, TrList;
+    use TrOptions, TrList;
 
     protected string $cmpType = ComponentRegister::TYPE_SELECT;
-    
-    protected static $classPrefix = 'mdc-select';
 
     private ?Menu $menu = null;
 

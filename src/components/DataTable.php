@@ -6,38 +6,31 @@ use yh\mdc\components\base\Component;
 use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\widget\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 class DataTable extends Component
 {
     protected string $cmpType = ComponentRegister::TYPE_DATATABLE;
 
-    private static array $clsBlock = [
-        'base' => 'mdc-data-table'        
-    ];
-
     public array $property = [];
+    public bool $pagination = true;    
 
     public function setProperty(array $property): DataTable
     {
         $this->property = $property;
         return $this;
     }
-
-    /**
-     * Css классы для контейнера
-     */
-    public function initOptions(): void
-    {
-        parent::initOptions();
-
-        $this->options['class'][] = self::$clsBlock['base'];
-    }
     
     public function renderComponent(): string
     {
-        $content = Html::beginTag('div', $this->getOptions());
+        $this->property = ArrayHelper::merge($this->property, $this->getOptions());
         $content .= GridView::widget($this->property);
-        $content .= Html::endTag('div');
+        // if ($this->pagination) {
+        //     $pag = new _DataTablePagination([
+        //         'contentNavigation' => $grid->renderPager()
+        //     ]);
+        //     $content .= $pag->renderComponent();
+        // }
         return $content;
     }
 }
