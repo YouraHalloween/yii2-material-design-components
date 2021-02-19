@@ -13,7 +13,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
     public $fieldClass = 'yh\mdc\ActiveField';
     // public $errorCssClass = 'mdc-text-field--invalid';
 
-    /*
+    /**
      * Отключить стандартную валидацию формы и сообщения браузера
     */
     public $options = [

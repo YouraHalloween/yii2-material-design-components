@@ -11616,13 +11616,13 @@ a.mdc-evolution-list-item {
 .mdc-left-app-bar-list .mdc-left-app-bar-item {
   position: relative;
 }
-.mdc-left-app-bar-list .mdc-left-app-bar-item.mdc-left-app-bar-item__custom .mdc-left-app-bar-item__label {
+.mdc-left-app-bar-list .mdc-left-app-bar-item.mdc-left-app-bar-item__all .mdc-left-app-bar-item__label {
   height: 40px;
 }
-.mdc-left-app-bar-list .mdc-left-app-bar-item:not(.mdc-left-app-bar-item__custom) .mdc-left-app-bar-item__label .mdc-left-app-bar-item__icon {
+.mdc-left-app-bar-list .mdc-left-app-bar-item:not(.mdc-left-app-bar-item__all) .mdc-left-app-bar-item__label .mdc-left-app-bar-item__icon {
   font-size: 1.75rem;
 }
-.mdc-left-app-bar-list .mdc-left-app-bar-item:not(.mdc-left-app-bar-item__custom) .mdc-left-app-bar-item__label.active:after {
+.mdc-left-app-bar-list .mdc-left-app-bar-item:not(.mdc-left-app-bar-item__all) .mdc-left-app-bar-item__label.active:after {
   border-radius: 0 2px 2px 0;
   left: -1px;
   content: "";

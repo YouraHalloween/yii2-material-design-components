@@ -95,9 +95,8 @@ class ButtonBase extends Control
         }
 
         $spinner = Spinner::one(['size' => Spinner::MEDIUM], ['aria-visible' => $this->spinner]);
-        $spinner->registerComponent = false;
 
-        return $spinner->render();
+        return $spinner->renderComponent();
     }
 
     protected function getContent(): string

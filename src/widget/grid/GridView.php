@@ -3,7 +3,7 @@
 namespace yh\mdc\widget\grid;
 
 use yh\mdc\components\_DataTablePagination;
-
+use yii\widgets\BaseListView;
 use yii\helpers\Html;
 
 class GridView extends \yii\grid\GridView
@@ -54,6 +54,8 @@ class GridView extends \yii\grid\GridView
     {
         parent::init();
         $this->pagination = new _DataTablePagination();
+        $this->pagination->grid = $this;
+
         if ($this->checkBox) {
             $this->rowOptions = function ($model, $key, $index, $grid) {
                 return [
@@ -62,6 +64,16 @@ class GridView extends \yii\grid\GridView
                 ];
             };
         }
+    }
+
+    public function run()
+    {
+        // $view = $this->getView();
+        // GridViewAsset::register($view);
+        // $id = $this->options['id'];
+        // $options = Json::htmlEncode(array_merge($this->getClientOptions(), ['filterOnFocusOut' => $this->filterOnFocusOut]));
+        // $view->registerJs("jQuery('#$id').yiiGridView($options);");
+        BaseListView::run();
     }
 
     public function getRowId($key): string

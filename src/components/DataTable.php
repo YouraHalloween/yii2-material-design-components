@@ -24,13 +24,7 @@ class DataTable extends Component
     public function renderComponent(): string
     {
         $this->property = ArrayHelper::merge($this->property, $this->getOptions());
-        $content .= GridView::widget($this->property);
-        // if ($this->pagination) {
-        //     $pag = new _DataTablePagination([
-        //         'contentNavigation' => $grid->renderPager()
-        //     ]);
-        //     $content .= $pag->renderComponent();
-        // }
+        $content .= GridView::widget($this->property);    
         return $content;
     }
 }

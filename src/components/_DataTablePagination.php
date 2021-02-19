@@ -25,6 +25,8 @@ class _DataTablePagination extends ComponentInitial
         'button' => 'mdc-data-table__pagination-button',
     ];
 
+    public $grid;
+
     public string $label = '';
     public array $items = [
         ['value' => 8, 'selected' => true], 
@@ -53,7 +55,9 @@ class _DataTablePagination extends ComponentInitial
             'items' => $this->items
         ],[
             'class' => self::$clsPerPage['select']
-        ])->render();
+        ])
+        ->setId($this->getSelectId())
+        ->render();
         $content .= Html::endTag('div');
         return $content;
     }
@@ -61,6 +65,11 @@ class _DataTablePagination extends ComponentInitial
     private function getTagSummary(): string
     {
         return Html::tag('div', $this->contentSummary,['class' => self::$clsNavig['total']]);
+    }
+
+    public function getSelectId(): string
+    {
+        return $this->grid->getId().'-rows';
     }
 
     public function renderComponent(): string

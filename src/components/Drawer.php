@@ -41,7 +41,7 @@ class Drawer extends ControlList
     public function __construct(array $property = [], array $options = [])
     {
         parent::__construct($property, $options);
-        $this->listItem = new ListItem();      
+        $this->listItem = new ListItem();
     }
 
     /**
@@ -66,7 +66,7 @@ class Drawer extends ControlList
         }
         $content = Html::beginTag('div', ['class' => self::$clsHeader['base']]);
         $optionsHeader = ['class' => [self::$clsHeader['title']]];
-        if (!empty($this->headerIcon)) {            
+        if (!empty($this->headerIcon)) {
             $header =  Html::tag('span', $this->headerIcon, ['class' => self::$clsHeader['icon']]);
             $header .=  Html::tag('span', $this->header, ['class' => self::$clsHeader['title-with-icon-name']]);
             $optionsHeader['class'][] = self::$clsHeader['title-with-icon'];
@@ -88,6 +88,17 @@ class Drawer extends ControlList
         return $content;
     }
 
+    public function setSelected($value, string $prop = 'value'): Drawer
+    {        
+        foreach ($this->items as $key => $listProperty) {
+            $list = new ListItem();       
+            $list->items = $listProperty['items'];     
+            $this->items[$key]['items'] = $list->setSelected($value, $prop)->items;
+            $this->items[$key]['selected'] = count($list->getSelectedIndex()) > 0;
+        }               
+        return $this;
+    }
+
     /**
      * Нарисовать Snackbar
      */
@@ -98,19 +109,19 @@ class Drawer extends ControlList
         $content .= Html::beginTag('div', ['class' => self::$clsContent]);
         
         $list = '';
-        foreach ($this->items as $listProperty) {
-            $listOptions = ArrayHelper::remove($listProperty, 'options', []);            
+        foreach ($this->items as $key => $listProperty) {
+            $listOptions = ArrayHelper::remove($listProperty, 'options', []);
             $item = $this
                         ->listItem
-                        ->setProperty($listProperty)                        
-                        ->renderList(false);            
+                        ->setProperty($listProperty)
+                        ->renderList(false);
             $list .= Html::tag('div', $item, $listOptions);
         }
         
         $content .= $this->listItem->renderFrame($list);
 
         $content .= Html::endTag('div');
-        $content .= Html::endTag('aside');        
+        $content .= Html::endTag('aside');
 
         return $content;
     }

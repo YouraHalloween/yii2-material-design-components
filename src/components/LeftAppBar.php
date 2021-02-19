@@ -19,7 +19,7 @@ class LeftAppBar extends ControlList
         'item' => 'mdc-left-app-bar-item',
         'label' => 'mdc-left-app-bar-item__label',
         'icon' => 'material-icons mdc-left-app-bar-item__icon',
-        'custom' => 'mdc-left-app-bar-item__custom',
+        'all' => 'mdc-left-app-bar-item__all',
         'selected' => 'active'
     ];
     
@@ -35,17 +35,18 @@ class LeftAppBar extends ControlList
     private function getTagIem(array $item): string
     {
         $options = ['class'=> [self::$clsList['item']]];
-        if (isset($item['custom'])) {
-            $options['class'][] = self::$clsList['custom'];
+        if (isset($item['all'])) {
+            $options['class'][] = self::$clsList['all'];
+            $item['menu-index'] = '--visible-all';
         }
         $content = Html::beginTag('li', $options);
 
         $text = Html::tag('i', $item['icon'], ['class' => self::$clsList['icon']]);
         
-        $options = [            
+        $options = [
             'title' => $item['title'],
             'class' => [self::$clsList['label']]
-        ];
+        ];        
         $options['menu-index'] = isset($item['menu-index']) ? $item['menu-index'] : $item['icon'];
         if (isset($item['selected']) && $item['selected']) {
             $options['class'][] = self::$clsList['selected'];
@@ -72,15 +73,26 @@ class LeftAppBar extends ControlList
     public function attachDrawer(Drawer $drawer): LeftAppBar
     {
         $i = 0;
+        $activeClass = 'active';        
+        $selectedItemAll = true;
         foreach ($drawer->items as $key => $item) {
-            if (isset($this->items[$key]['custom'])) {
+            if (isset($this->items[$key]['all'])) {
+                //Инициализация, если не найдется другого активного блока меню
+                $this->items[$key]['selected'] = &$selectedItemAll;
                 $i++;
             }
             $this->items[$key + $i]['title'] = $item['header'];
             $drawer->items[$key]['options']['menu-index'] = $this->items[$key+ $i]['icon'];
-            $drawer->items[$key]['options']['class'][] = 'active';
-        }
-
+            
+            if ($drawer->items[$key]['selected'] === true) {
+                $this->items[$key + $i]['selected'] = true;
+                $selectedItemAll = false;
+                $drawer->items[$key]['options']['class'][] = 'active';
+                $activeClass = '';    
+            } else {
+                $drawer->items[$key]['options']['class'][] = &$activeClass;                
+            }
+        }        
         return $this;
     }
 
