@@ -1,3 +1,5 @@
-material-components-web.min.css.js
-material-components-web.min.css.js.map
-material-components-web.min.js.map
+mdc/material-components-web.min.css.js
+mdc/material-components-web.min.css.js.map
+mdc/material-components-web.min.js.map
+
+utils/dist/*.css.js

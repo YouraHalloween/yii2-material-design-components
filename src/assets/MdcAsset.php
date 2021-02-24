@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class MdcAsset extends AssetBundle
 {
-    public $sourcePath = '@yh/mdc/assets';
+    public $sourcePath = '@yh/mdc/assets/mdc';
     public $css = [
         'material-components-web.min.css'
     ];

@@ -1,0 +1,39 @@
+{
+  "name": "yii2-material-design-components",
+  "version": "0.0.1",
+  "description": "Components developed by Google. Transferred them to php.\r ========================================================\r The components are developed by Google. Transferred them to php. It is possible to use the ActiveField and ActiveForm components in the yii2 framework",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youra-halloween/yii2-material-design-components.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youra-halloween/yii2-material-design-components/issues"
+  },
+  "homepage": "https://github.com/youra-halloween/yii2-material-design-components#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.2",
+    "extract-loader": "^5.1.0",
+    "file-loader": "^6.2.0",
+    "postcss": "^8.2.6",
+    "postcss-loader": "^5.0.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "webpack": "^5.24.1",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.2.4",
+    "postcss-cli": "^8.3.1"
+  }
+}
