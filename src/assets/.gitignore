@@ -3,3 +3,4 @@ mdc/material-components-web.min.css.js.map
 mdc/material-components-web.min.js.map
 
 utils/dist/*.css.js
+utils/dist/clean.js

@@ -3,12 +3,12 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\_Component;
+use yh\mdc\components\base\stable\_Component;
 use yii\helpers\Html;
 
-class LineProgress extends _Component
+class LinearProgress extends _Component
 {
-    protected string $cmpType = ComponentRegister::TYPE_LINEPROGRESS;
+    protected string $cmpType = ComponentRegister::TYPE_LINEARPROGRESS;
 
     private static array $clsBlock = [
         'base' => 'mdc-linear-progress',
@@ -86,19 +86,13 @@ class LineProgress extends _Component
         return $content;
     }
 
-    /**
-     * Нарисовать Snackbar
-     */
-    public function render(): string
+    public function renderComponent(): string
     {
-        //Регистрация компонента
-        parent::render();
-
-        //LineProgress begin
-        $content = Html::beginTag('div', $this->options);
+        //LinearProgress begin
+        $content = Html::beginTag('div', $this->getOptions());
         $content .= $this->getTagBuffer();
         $content .= $this->getTagBar();
-        //LineProgress end
+        //LinearProgress end
         $content .= Html::endTag('div');
 
         return $content;

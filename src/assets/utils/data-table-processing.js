@@ -13,9 +13,36 @@ function DataTableProcessing(id) {
         return new DataTableProcessing(id);
     }
 
+    let idDataTable = id;
     let _eventSuccess;
 
-    let _table = app.controls.item(id);    
+    let _table = app.controls.item(id);
+    console.log(_table);
+    let _pagination = _table.root.querySelectorAll('.mdc-data-table__pagination');
+
+    if (_pagination.length > 0) {
+        _refreshNavigation();
+    }
+    
+    function _refreshNavigation() {
+        if (_pagination.length > 0) {
+            let _buttonsLink = _pagination[0].querySelectorAll('.mdc-data-table__pagination-navigation button a');
+
+            if (_buttonsLink.length > 0) {
+                _buttonsLink.forEach((elem) => {
+                    elem.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        console.log(event.target.href);
+                        _table.showProgress();
+                    });
+                });
+            }
+        }
+    }   
+
+    DataTableProcessing.prototype.refreshNavigation = function() {
+        _refreshNavigation();
+    }
 
     // ax.done((data) => {
     //     if (data.status === 'success') {
@@ -61,18 +88,13 @@ function DataTableProcessing(id) {
     //     _eventSuccess = fn;
     // };
 
-    // Object.defineProperty(DataTableProcessing.prototype, "id", {
-    //     get: function () {
-    //         return _$form.attr('id');
-    //     },
-    //     set: function (value) {
-    //         if (this.id != value) {
-    //             _$form.attr('id', value);
-    //         }
-    //     },
-    //     enumerable: true,
-    //     configurable: true
-    // });
+    Object.defineProperty(DataTableProcessing.prototype, "id", {
+        get: function () {
+            return idDataTable + '-processing';
+        },
+        enumerable: true,
+        configurable: true
+    });
 }
 
 // export { DataTableProcessing };

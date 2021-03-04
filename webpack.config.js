@@ -1,9 +1,7 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const Env = (function () {
     const PATH_DEFAULT = 'src/assets/utils/';
-    const NAME = 'yii2-material-components-web';
     /**      
      * @param {string} param      
      */
@@ -29,7 +27,7 @@ const Env = (function () {
     };
 
     Env.prototype.sourceMap = function () {
-        return this.isProd() ? false : 'source-map';
+        return false;//this.isProd() ? false : 'source-map';
     };
 
     Env.path = function (dir = '', pathDefault = true) {
@@ -110,7 +108,7 @@ const CSSConfig = (env) => {
     return DefaultConfig.config(env, {
         name: 'css-template',
         entry: {
-            'form-processing': './form-processing.scss'
+            'utils': './utils.scss'
         },        
         output: {
             path: Env.path('dist'),
@@ -125,7 +123,6 @@ const CSSConfig = (env) => {
                 },
             ],
         },
-        // plugins: [new CleanWebpackPlugin()],
     });
 }
 
@@ -134,18 +131,15 @@ const JSConfig = (env) => {
     let output = {
         path: Env.path('dist'),
         filename: env.getFileName('js'),
+        library: ['app', '[name]'],
+        libraryTarget: 'umd',
+        clean: true
     };
-
-    if (env.isProd() || env.remote) {
-        output.library = 'app';
-        output.libraryTarget = 'umd';
-    }
 
     return DefaultConfig.config(env, {
         name: 'js-template',
         entry: {
-            ajax: 'ajax.js',
-            'form-processing': 'form-processing.js'
+            'utils': './utils.js'
         },
         output: output,
         resolve: DefaultConfig.resolve(['.js']),
@@ -189,75 +183,7 @@ module.exports = ({ }, param) => {
     const jsConfig = JSConfig(env);
 
     return [
-        {
-            plugins: [new CleanWebpackPlugin()]
-        },
         cssConfig,
         jsConfig
     ];
 };
-
-
-
-
-// const path = require('path');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-// module.exports = {
-//     // context: path.resolve(__dirname, '/src/assets/utils'),
-//     performance: {
-//         hints: false,
-//     },
-//     devtool: false,//'source-map',
-//     optimization: {
-//         minimize: true,
-//     },
-//     entry: {
-//         ajax: './src/assets/utils/ajax.js',
-//         'form-processing': './src/assets/utils/form-processing.js'
-//     },
-//     output: {
-//         filename: '[name].min.js',
-//         path: path.resolve(__dirname, 'src/assets/utils/dist'),
-//         library: 'utils',
-//         libraryTarget: 'umd'
-//     },
-//     module: {
-//         rules: [
-//             // {
-//             //     test: /\.ts$/,
-//             //     exclude: /node_modules/,
-//             //     use: [
-//             //         // { loader: 'babel-loader', options: { cacheDirectory: true } },
-//             //         {
-//             //             loader: 'ts-loader',
-//             //             options: {
-//             //                 configFile: 'tsconfig.json'
-//             //             }
-//             //         }
-//             //     ]
-//             // },
-//             {
-//                 test: /\.m?js$/,
-//                 exclude: /node_modules/,
-//                 use: {
-//                     loader: 'babel-loader',
-//                     options: {
-//                         cacheDirectory: true,
-//                         presets: [
-//                             ['@babel/preset-env', { targets: 'defaults' }],
-//                         ],
-//                     },
-//                 },
-//             },
-//         ],
-//     },
-//     resolve: {
-//         extensions: [/*'.ts',*/ '.js'],
-//         modules: [
-//             path.resolve(__dirname, 'src/assets/utils'),
-//             'node_modules'
-//         ],
-//     },
-//     plugins: [new CleanWebpackPlugin()]
-// };

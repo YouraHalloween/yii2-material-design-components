@@ -12,7 +12,7 @@ class ComponentRegister {
     const TYPE_SUBMIT = 'submit';
     const TYPE_FAB = 'fab';
     const TYPE_SNACKBAR = 'snackbar';
-    const TYPE_LINEPROGRESS = 'linearProgress';
+    const TYPE_LINEARPROGRESS = 'linearProgress';
     const TYPE_MENU = 'menu';
     const TYPE_LIST = 'list';
     const TYPE_RADIO = 'radio';
@@ -64,15 +64,25 @@ class ComponentRegister {
         return 'app.controls.add('.implode(',', $param).');';
     }
 
+    // /**
+    //  * @param string $id - Form id
+    //  * @param array $blockedControls
+    //  * @return string
+    //  */
+    // private static function getRegisterObjectJs(string $id, array $blockedControls = []): string
+    // {
+    //     $param = ["'$id'", Json::encode($blockedControls)];
+    //     return 'app.controls.addObject(FormProcessing('.implode(',', $param).'));';
+    // }
+
     /**
      * @param string $id - Form id
      * @param array $blockedControls
      * @return string
      */
-    private static function getRegisterFormJS(string $id, array $blockedControls = []): string
-    {
-        $param = ["'$id'", Json::encode($blockedControls)];
-        return 'app.controls.addControl(FormProcessing('.implode(',', $param).'));';
+    private static function getRegisterObjectJs(string $obj): string
+    {    
+        return "app.controls.addObject($obj);";
     }
 
     /**
@@ -95,16 +105,28 @@ class ComponentRegister {
         );
     }
 
+    // /**
+    //  * Регистрация компонента
+    //  * @param string $id - Form id
+    //  * @param array $blockedControls 
+    //  * @see yh\mdc\ActiveForm
+    //  */
+    // public static function registerFormJs(string $id, array $blockedControls = []): void
+    // {
+    //     self::getView()->registerJs(
+    //         self::getRegisterObjectJs($id, $blockedControls),
+    //         self::$positionRegister,
+    //         $id
+    //     );
+    // }
     /**
-     * Регистрация компонента
-     * @param string $id - Form id
-     * @param array $blockedControls 
-     * @see yh\mdc\ActiveForm
+     * Регистрация контрола
+     * @param string $obj
      */
-    public static function registerFormJs(string $id, array $blockedControls = []): void
+    public static function registerObjectJs(string $obj): void
     {
         self::getView()->registerJs(
-            self::getRegisterFormJS($id, $blockedControls),
+            self::getRegisterObjectJs($obj),
             self::$positionRegister,
             $id
         );

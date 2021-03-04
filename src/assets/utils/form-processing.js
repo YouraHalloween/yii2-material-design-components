@@ -48,7 +48,7 @@ function FormProcessing(id, blockedControls = { control: 'submit', unblock: fals
                 } else if (data.status === 'model-error') {
                     let focusField = false;
                     let snackbar = app.controls.item('app-snackbar');
-                    for (key in data.message) {
+                    for (let key in data.message) {
                         data.message[key].forEach((item) => {
                             snackbar.add(item);
                         })

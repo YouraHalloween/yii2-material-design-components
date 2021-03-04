@@ -3,6 +3,7 @@
 namespace yh\mdc\widget\grid;
 
 use yh\mdc\components\_DataTablePagination;
+use yh\mdc\components\_DataTableProgressIndicator;
 use yii\widgets\BaseListView;
 use yii\helpers\Html;
 
@@ -16,7 +17,7 @@ class GridView extends \yii\grid\GridView
     ];
 
     public $options = [
-        'class' => 'mdc-data-table'        
+        'class' => 'mdc-data-table'
     ];
 
     public $tableContainerOptions = [
@@ -43,18 +44,19 @@ class GridView extends \yii\grid\GridView
 
     public $summary = '{begin, number}-{end, number} / <b>{totalCount, number}</b>';
 
-    public $checkBox = false;    
+    public $checkBox = false;
+    public $progress = true;
 
     // public $layout = "{items}\n{pager}\n{summary}";
     public $layout = "{items}\n{pager}\n{summary}";
 
-    private _DataTablePagination $pagination;
+    private _DataTablePagination $_pagination;
 
     public function init()
     {
         parent::init();
-        $this->pagination = new _DataTablePagination();
-        $this->pagination->grid = $this;
+        $this->_pagination = new _DataTablePagination();
+        $this->_pagination->grid = $this;
 
         if ($this->checkBox) {
             $this->rowOptions = function ($model, $key, $index, $grid) {
@@ -68,11 +70,6 @@ class GridView extends \yii\grid\GridView
 
     public function run()
     {
-        // $view = $this->getView();
-        // GridViewAsset::register($view);
-        // $id = $this->options['id'];
-        // $options = Json::htmlEncode(array_merge($this->getClientOptions(), ['filterOnFocusOut' => $this->filterOnFocusOut]));
-        // $view->registerJs("jQuery('#$id').yiiGridView($options);");
         BaseListView::run();
     }
 
@@ -91,20 +88,24 @@ class GridView extends \yii\grid\GridView
     }
 
     public function renderItems()
-    {        
-        return Html::tag('div', parent::renderItems(), $this->tableContainerOptions);
+    {
+        $content = Html::tag('div', parent::renderItems(), $this->tableContainerOptions);
+        if ($this->progress) {
+            $_progress = new _DataTableProgressIndicator();
+            $content .= $_progress->renderComponent();
+        }
+        return $content;
     }
 
     public function renderSummary()
     {
-        $this->pagination->contentSummary = parent::renderSummary();
-        return $this->pagination->renderComponent();
-
+        $this->_pagination->contentSummary = parent::renderSummary();
+        return $this->_pagination->renderComponent();
     }
 
     public function renderPager()
     {
-        $this->pagination->contentPager = parent::renderPager();
+        $this->_pagination->contentPager = parent::renderPager();
         return '';
     }
 }

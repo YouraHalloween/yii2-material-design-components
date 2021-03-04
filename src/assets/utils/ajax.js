@@ -7,6 +7,7 @@ function ajax(config = {}) {
 	let _fail;
 	let _complete;
 	let _ajaxParams;
+	
 	init(config);
 
 	function init(config) {

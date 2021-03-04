@@ -41,6 +41,8 @@ class ActiveForm extends \yii\widgets\ActiveForm
     public function registerClientScript()
     {
         parent::registerClientScript();
-        ComponentRegister::registerFormJs($this->options['id'], $this->blockedControls);
+        $param = ["'".$this->options['id']."'", Json::encode($this->blockedControls)];
+        $obj = 'app.utils.FormProcessing('.implode(',', $param).')';
+        ComponentRegister::registerObjectJs($obj);
     }
 }

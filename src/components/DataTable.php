@@ -12,19 +12,36 @@ class DataTable extends Component
 {
     protected string $cmpType = ComponentRegister::TYPE_DATATABLE;
 
-    public array $property = [];
-    public bool $pagination = true;    
+    public array $gridProperty = [];
+    public bool $pagination = true;
+    public bool $useAjax = true;
+    public bool $progress = true;
 
-    public function setProperty(array $property): DataTable
+    public function setGridProperty(array $property): DataTable
     {
-        $this->property = $property;
+        $this->gridProperty = $property;
         return $this;
     }
     
     public function renderComponent(): string
     {
-        $this->property = ArrayHelper::merge($this->property, $this->getOptions());
-        $content .= GridView::widget($this->property);    
+        $this->gridProperty = ArrayHelper::merge($this->gridProperty, $this->getOptions());
+        $content = GridView::widget($this->gridProperty);
+        // if ($this->progress) {
+        //     $progress = new _DataTableProgressIndicator();
+        //     $content .= $progress->renderComponent();
+        // }
+        return $content;
+    }
+
+    public function render(): string
+    {
+        $content = parent::render();
+        if ($this->useAjax) {
+            $param = ["'".$this->options['id']."'"];
+            $obj = 'DataTableProcessing('.implode(',', $param).')';
+            ComponentRegister::registerObjectJs($obj);
+        }
         return $content;
     }
 }
