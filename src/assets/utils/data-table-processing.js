@@ -13,80 +13,130 @@ function DataTableProcessing(id) {
         return new DataTableProcessing(id);
     }
 
+    let th = this;
     let idDataTable = id;
     let _eventSuccess;
+    let _eventComplete;
 
-    let _table = app.controls.item(id);
-    console.log(_table);
-    let _pagination = _table.root.querySelectorAll('.mdc-data-table__pagination');
-
-    if (_pagination.length > 0) {
-        _refreshNavigation();
+    let table = app.controls.item(id);
+    let pagination = table.root.querySelectorAll('.mdc-data-table__pagination');
+    if (pagination.length > 0) {
+        var summury = pagination[0].querySelector('.mdc-data-table__pagination-total');
+        var nav = pagination[0].querySelector('.mdc-data-table__pagination-navigation');
     }
-    
-    function _refreshNavigation() {
-        if (_pagination.length > 0) {
-            let _buttonsLink = _pagination[0].querySelectorAll('.mdc-data-table__pagination-navigation button a');
+    let tableBody = table.root.querySelector('tbody');
 
-            if (_buttonsLink.length > 0) {
-                _buttonsLink.forEach((elem) => {
-                    elem.addEventListener('click', (event) => {
+    let rows = app.controls.item(id+'-rows');
+
+    if (rows) {
+        console.log(rows.value);
+        rows.root.addEventListener('MDCSelect:change', (value) => {
+            console.log(rows.value);
+        });
+    }
+
+    if (pagination.length > 0) {
+        refreshNavigation();
+    }
+
+    function refreshNavigation() {
+        if (pagination.length > 0) {
+            let buttonsNav = pagination[0].querySelectorAll('.mdc-data-table__pagination-navigation button');
+
+            if (buttonsNav.length > 0) {
+                buttonsNav.forEach((elem) => {
+                    let tagA = elem.querySelector('a');
+                    tagA.addEventListener('click', (event) => {
                         event.preventDefault();
-                        console.log(event.target.href);
-                        _table.showProgress();
                     });
+                    elem.addEventListener('click', () => {                        
+                        reload(tagA.href, true);
+                    })
                 });
             }
         }
-    }   
-
-    DataTableProcessing.prototype.refreshNavigation = function() {
-        _refreshNavigation();
     }
 
-    // ax.done((data) => {
-    //     if (data.status === 'success') {
-    //         _eventSuccess(data);
-    //     } else if (data.status === 'model-error') {
-    //         let focusField = false;
-    //         let snackbar = app.controls.item('app-snackbar');
-    //         for (key in data.message) {
-    //             data.message[key].forEach((item) => {
-    //                 snackbar.add(item);
-    //             })
-    //             if (key.trim() !== '') {
-    //                 let control = app.controls.item(key);
+    function setSummury(begin, end, totalCount) {
+        let containers = summury.querySelectorAll('b');
+        if (containers.length > 0) {
+            containers[0].innerHTML = `${begin}-${end}`;
+            containers[1].innerHTML = totalCount;
+        }
+    }
 
-    //                 if (!focusField) {
-    //                     control.focus();
-    //                     focusField = true;
-    //                 }
+    function setNavigation(navContent) {
+        nav.innerHTML = navContent;
+        refreshNavigation();
+    }
 
-    //                 control.valid = false;
-    //                 control.helperMessage.error = data.message[key][0];
-    //             }
-    //         }
-    //         snackbar.showMessage();
-    //     }
-    // })
-    //     .complete((data) => {
-    //         let unblock = _blockedControls.unblock || !(data.status === 'success');
+    function setBody(data) {
+        tableBody.classList.add('mdc-data-table__content-reload');        
+        setTimeout(() => {
+            if (pagination.length > 0) {
+                if (summury) {
+                    let s = data.summury;
+                    setSummury(s.begin, s.end, s.totalCount);
+                }
+                if (nav) {
+                    setNavigation(data.nav);
+                }
+            }
+            tableBody.innerHTML = data.items;
+            tableBody.classList.remove('mdc-data-table__content-reload');
+        }, 150);
+    }
 
-    //         if (_blockedControls.control == 'all') {
-    //             app.controls.groupEnabled(_$form.attr('id'), unblock);
-    //         } else {
-    //             _submit.disabled = !unblock;
-    //         }
-    //     })
-    //     .post();
+    function reload(link, fromNavigation = false) {
+        table.showProgress();
+        app.utils.ajax({
+                'url': link
+            })
+            .done((data) => {                
+                if (data.status === 'success') {
+                    if (typeof _eventSuccess !== 'undefined') {
+                        _eventSuccess(data);
+                    }                    
+                    if (fromNavigation) {
+                        window.history.pushState({link: link, id: th.id}, '', link);
+                    }
+                    setBody(data.data);
+                } else if (data.status === 'error') {                    
+                    let snackbar = app.controls.item('app-snackbar');
+                    snackbar.showMessage(data.message);
+                    table.hideProgress();
+                }
+            })
+            .complete((data) => {
+                if (typeof _eventComplete !== 'undefined') {
+                    _eventComplete(data);
+                }
+                table.hideProgress();
+            })
+            .get();
+    }
 
+    /**
+     * Перезагрузить таблицу
+     * @param {string} link 
+     */
+    DataTableProcessing.prototype.reload = function (link) {
+        reload(link, false);
+    }
 
-    // /**     
-    //  * @param {callback} fn - вызывается в случае успешного выполнения
-    //  */
-    // DataTableProcessing.prototype.eventSuccess = function (fn) {
-    //     _eventSuccess = fn;
-    // };
+    /**     
+     * @param {callback} fn - вызывается в случае успешного выполнения
+     */
+    DataTableProcessing.prototype.eventSuccess = function (fn) {
+        _eventSuccess = fn;
+    };
+
+    /**     
+     * @param {callback} fn - вызывается в любом случае
+     */
+    DataTableProcessing.prototype.eventComplete = function (fn) {
+        _eventComplete = fn;
+    };
 
     Object.defineProperty(DataTableProcessing.prototype, "id", {
         get: function () {
@@ -96,5 +146,13 @@ function DataTableProcessing(id) {
         configurable: true
     });
 }
+
+window.onpopstate = function (e) {    
+    if (e.state) {
+        app.controls.item(e.state.id).reload(e.state.link);
+    } else {
+        document.location.reload();
+    }
+};
 
 // export { DataTableProcessing };

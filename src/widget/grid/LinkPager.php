@@ -14,7 +14,12 @@ class LinkPager extends \yii\widgets\LinkPager
         'tag' => 'button'
     ];
 
-    public $pageCssClass = 'mdc-button';
+    public $disabledListItemSubTagOptions = [
+        'tag' => 'a',
+        'href' => '#'
+    ];
+
+    public $pageCssClass = 'mdc-icon-button';
 
     public $firstPageCssClass =  'mdc-icon-button material-icons mdc-data-table__pagination-button';
     public $lastPageCssClass =  'mdc-icon-button material-icons mdc-data-table__pagination-button';

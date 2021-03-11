@@ -52,7 +52,7 @@ class LeftAppBar extends ControlList
             $options['class'][] = self::$clsList['selected'];
         }
 
-        $content .= Html::a($text, '#', $options);
+        $content .= Html::tag('span', $text, $options);
         $content .= Html::endTag('li');
 
         return $content;

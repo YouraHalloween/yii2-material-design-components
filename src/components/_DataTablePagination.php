@@ -64,7 +64,8 @@ class _DataTablePagination extends ComponentInitial
 
     private function getTagSummary(): string
     {
-        return Html::tag('div', $this->contentSummary,['class' => self::$clsNavig['total']]);
+        // return Html::tag('div', $this->contentSummary,['class' => self::$clsNavig['total']]);
+        return $this->contentSummary;
     }
 
     public function getSelectId(): string

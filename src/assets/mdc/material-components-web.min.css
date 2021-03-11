@@ -11482,23 +11482,80 @@ a.mdc-evolution-list-item {
   font-size: 0.8em;
   padding: 0 8px;
 }
+.mdc-data-table .mdc-data-table__content {
+  opacity: 1;
+  transition: opacity linear 150ms;
+}
+.mdc-data-table .mdc-data-table__content.mdc-data-table__content-reload {
+  opacity: 0;
+}
 
-.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page-select .mdc-select__selected-text {
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor {
+  height: 36px;
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor .mdc-floating-label--float-above {
+  transform: translateY(-27.25px) scale(1);
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor .mdc-floating-label--float-above {
+  font-size: 0.75rem;
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+  transform: translateY(-24.75px) scale(0.75);
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+  font-size: 1rem;
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__anchor .mdc-floating-label--shake {
+  -webkit-animation: mdc-floating-label-shake-float-above-select-outlined-36px 250ms 1;
+          animation: mdc-floating-label-shake-float-above-select-outlined-36px 250ms 1;
+}
+@keyframes mdc-floating-label-shake-float-above-select-outlined-36px {
+  0% {
+    transform: translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75);
+  }
+  33% {
+    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
+            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
+    transform: translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75);
+  }
+  66% {
+    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
+            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
+    transform: translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75);
+  }
+  100% {
+    transform: translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75);
+  }
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__dropdown-icon {
+  width: 20px;
+  height: 20px;
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select.mdc-select--outlined .mdc-select__anchor :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch {
+  max-width: calc(100% - 56px);
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-rows-per-page .mdc-select .mdc-select__selected-text {
   font-size: 0.875rem;
 }
 .mdc-data-table__pagination .mdc-data-table__pagination-total {
   line-height: initial;
 }
 .mdc-data-table__pagination .mdc-data-table__pagination-navigation .mdc-icon-button {
-  width: 40px;
-  height: 40px;
-  padding: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  line-height: inherit;
+  font-size: 0.9375rem;
 }
-.mdc-data-table__pagination .mdc-data-table__pagination-navigation .mdc-button {
-  min-width: 30px;
-  line-height: initial;
+.mdc-data-table__pagination .mdc-data-table__pagination-navigation .mdc-icon-button.mdc-data-table__pagination-button {
+  font-size: 1.1875rem;
 }
-.mdc-data-table__pagination .mdc-data-table__pagination-navigation button a {
+.mdc-data-table__pagination .mdc-data-table__pagination-navigation .mdc-icon-button:disabled a {
+  color: inherit;
+}
+.mdc-data-table__pagination .mdc-data-table__pagination-navigation .mdc-icon-button:not([disabled]) a {
   color: var(--mdc-theme-text-primary-on-background);
 }
 
@@ -11635,6 +11692,7 @@ a.mdc-evolution-list-item {
 }
 .mdc-left-app-bar-list .mdc-left-app-bar-item .mdc-left-app-bar-item__label {
   color: var(--mdc-theme-text-icon-on-dark);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11661,6 +11719,10 @@ a.mdc-evolution-list-item {
 
 .mdc-list-item__meta .material-icons {
   color: rgba(0, 0, 0, 0.54);
+}
+
+.mdc-list-item__text {
+  line-height: initial;
 }
 
 .mdc-menu-surface {

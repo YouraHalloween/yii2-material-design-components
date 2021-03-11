@@ -2,6 +2,7 @@
 
 namespace yh\mdc\widget\grid;
 
+use yh\mdc\components\DataTable;
 use yh\mdc\components\_DataTablePagination;
 use yh\mdc\components\_DataTableProgressIndicator;
 use yii\widgets\BaseListView;
@@ -42,13 +43,11 @@ class GridView extends \yii\grid\GridView
         'class' => 'yh\mdc\widget\grid\LinkPager'
     ];
 
-    public $summary = '{begin, number}-{end, number} / <b>{totalCount, number}</b>';
-
-    public $checkBox = false;
-    public $progress = true;
-
-    // public $layout = "{items}\n{pager}\n{summary}";
+    // public $summary = '{begin, number}-{end, number} / <b>{totalCount, number}</b>';    
+    
     public $layout = "{items}\n{pager}\n{summary}";
+
+    public DataTable $dataTable;
 
     private _DataTablePagination $_pagination;
 
@@ -58,7 +57,7 @@ class GridView extends \yii\grid\GridView
         $this->_pagination = new _DataTablePagination();
         $this->_pagination->grid = $this;
 
-        if ($this->checkBox) {
+        if ($this->dataTable->checkBox) {
             $this->rowOptions = function ($model, $key, $index, $grid) {
                 return [
                     'class' => 'mdc-data-table__row',
@@ -70,11 +69,14 @@ class GridView extends \yii\grid\GridView
 
     public function run()
     {
+        if ($this->dataTable->isAjax()) {
+            return $this->renderTableBody();
+        }
         BaseListView::run();
     }
 
     public function getRowId($key): string
-    {
+    {        
         $key = is_array($key) ? json_encode($key) : (string) $key;
         return $this->getId().'-'.$key;
     }
@@ -82,6 +84,14 @@ class GridView extends \yii\grid\GridView
     public function renderTableBody()
     {
         $content = substr(parent::renderTableBody(), 7, -9);
+        
+        /**
+         * Если необходимо вывести только строки, например для ajax запроса
+         */
+        if ($this->dataTable->isAjax()) {
+            return $content;
+        }
+
         $content = Html::tag('tbody', $content, $this->bodyOptions);
 
         return $content;
@@ -90,7 +100,7 @@ class GridView extends \yii\grid\GridView
     public function renderItems()
     {
         $content = Html::tag('div', parent::renderItems(), $this->tableContainerOptions);
-        if ($this->progress) {
+        if ($this->dataTable->progress) {
             $_progress = new _DataTableProgressIndicator();
             $content .= $_progress->renderComponent();
         }
@@ -101,6 +111,7 @@ class GridView extends \yii\grid\GridView
     {
         $this->_pagination->contentSummary = parent::renderSummary();
         return $this->_pagination->renderComponent();
+        // return parent::renderSummary();
     }
 
     public function renderPager()

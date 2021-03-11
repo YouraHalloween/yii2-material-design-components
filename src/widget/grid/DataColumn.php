@@ -19,7 +19,7 @@ class DataColumn extends \yii\grid\DataColumn
     public function init()
     {
         parent::init();
-        if ($this->grid->checkBox && $this->attribute === 'name') {
+        if ($this->grid->dataTable->checkBox && $this->attribute === 'name') {
             $this->contentOptions['id'] = $this->getRowId();
             $this->contentOptions['scope'] = 'row';
         }

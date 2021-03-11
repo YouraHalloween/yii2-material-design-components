@@ -94,7 +94,7 @@ function ajax(config = {}) {
 		send(ajaxParams, 'POST');
 	}
 
-	function json(ajaxParams, method = 'GET') {
+	function json(ajaxParams = [], method = 'GET') {
 		ajaxParams['dataType'] = 'json';
 		send(ajaxParams, method);
 	}

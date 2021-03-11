@@ -20,7 +20,7 @@ class CheckboxColumn extends \yh\mdc\widget\grid\Column
 
     public function init()
     {
-        $this->grid->checkBox= true;
+        $this->grid->dataTable->checkBox= true;
         $this->headerOptions['class'][] = 'mdc-data-table__header-cell--checkbox';
         $this->contentOptions['class'][] = 'mdc-data-table__cell--checkbox';        
         $this->header = self::getCheckBox(['class' => 'mdc-data-table__header-row-checkbox']);

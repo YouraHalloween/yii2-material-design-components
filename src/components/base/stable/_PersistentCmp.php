@@ -35,10 +35,10 @@ class _PersistentCmp extends _Persistent
      */
     public array $jsProperty = [];
     /**
-     * @var bool $registerComponent - В некоторых случаях компонент является составной частью
-     * другого компонента и его не надо регистрировать
+     * @var bool $registerControlJs - В некоторых случаях компонент не надо регистрировать
+     * Лучше пользоваться @see renderComponent()
      */
-    // public bool $registerComponent = true;
+    public bool $registerControlJs = true;
     
     public function __construct(array $property = [], array $options = [])
     {
@@ -118,7 +118,9 @@ class _PersistentCmp extends _Persistent
     {
         $content = $this->renderComponent();
         //Регистрация компонента
-        $this->registerComponent();
+        if ($this->registerControlJs) {
+            $this->registerComponent();
+        }
         return $content;
     }
 }
