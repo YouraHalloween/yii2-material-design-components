@@ -110,8 +110,8 @@ class GridView extends \yii\grid\GridView
     public function renderSummary()
     {
         $this->_pagination->contentSummary = parent::renderSummary();
-        return $this->_pagination->renderComponent();
-        // return parent::renderSummary();
+        $this->_pagination->value = $this->dataProvider->pagination->getPageSize();        
+        return $this->_pagination->renderComponent();        
     }
 
     public function renderPager()

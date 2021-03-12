@@ -8,19 +8,26 @@ use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\extensions\TrOptions;
 use yh\mdc\components\base\extensions\TrList;
+use yh\mdc\components\base\extensions\TrParentList;
 use yh\mdc\components\Menu;
 
 class Select extends CustomTextField
 {
     //TrOptions - устанавливает options['id']
     //TrList - добавляет свойство items
-    use TrOptions, TrList;
+    //TrParentList - добалвяет listProperty, setListProperty
+    use TrOptions, TrList, TrParentList;
 
     protected string $cmpType = ComponentRegister::TYPE_SELECT;
 
     private ?Menu $menu = null;
 
     public $fullWidth = true;
+
+    // /**
+    //  * @var array $listProperty - Настройки для ListItem
+    //  */
+    // public array $listProperty = [];
     
     /* Класс для блока textfield */
     protected static array $clsBlock = [
@@ -134,17 +141,21 @@ class Select extends CustomTextField
             $menuOptions['class'][] = self::$clsMenu['fullWidth'];
         }
 
+        $listProperty = [
+            'tagList' => 'ul',
+            'tagListItem' => 'li',
+            'roleItem' => 'option'
+        ];
+
+        $listProperty = array_merge($this->listProperty, $listProperty);
+
         $this->menu
             ->setProperty([
                 'items' => $this->items,
                 'anchor' => false,
-                'roleMenu' => 'listbox',
-                'listProperty' => [
-                    'tagList' => 'ul',
-                    'tagListItem' => 'li',
-                    'roleItem' => 'option'
-                ]
+                'roleMenu' => 'listbox'                
             ])
+            ->setListProperty($listProperty)
             ->setOptions($menuOptions);        
     }
 

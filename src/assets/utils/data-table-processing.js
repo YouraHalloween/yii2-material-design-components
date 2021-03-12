@@ -27,11 +27,15 @@ function DataTableProcessing(id) {
     let tableBody = table.root.querySelector('tbody');
 
     let rows = app.controls.item(id+'-rows');
+    let rowsReload = true;
 
     if (rows) {
-        console.log(rows.value);
-        rows.root.addEventListener('MDCSelect:change', (value) => {
-            console.log(rows.value);
+        rows.root.addEventListener('MDCSelect:change', (event) => {              
+            if (rowsReload) {
+                reload(getNewUrl(document.location.href, 'per-page', event.detail.value), true);                
+            } else {
+                rowsReload = true;
+            }
         });
     }
 
@@ -81,6 +85,10 @@ function DataTableProcessing(id) {
                 if (nav) {
                     setNavigation(data.nav);
                 }
+                if (rows && rows.value != data.pageSize.toString()) {
+                    rowsReload = false;
+                    rows.value = data.pageSize.toString();                    
+                }
             }
             tableBody.innerHTML = data.items;
             tableBody.classList.remove('mdc-data-table__content-reload');
@@ -114,6 +122,12 @@ function DataTableProcessing(id) {
                 table.hideProgress();
             })
             .get();
+    }
+
+    function getNewUrl(link, param, value) {
+        let url = new URL(link);
+        url.searchParams.set(param, value);
+        return url.href;
     }
 
     /**

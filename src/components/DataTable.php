@@ -93,7 +93,8 @@ class DataTable extends Component
             $data = [
                 'items' => $content,
                 'summury' => $this->getSummury(),
-                'nav' => $navContent
+                'nav' => $navContent,
+                'pageSize' => $this->getDataProvider()->getPagination()->getPageSize()
             ];
             return json_encode([
                 'data' => $data,

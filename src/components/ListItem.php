@@ -112,9 +112,9 @@ class ListItem extends ControlList
      */
     // public string $selectedProp = 'value';
     /**
-     * @var string|array $selectedValue - если значение совпадает, то item будет выделен
+     * @var string|array $value - если значение совпадает, то item будет выделен
      */
-    // public $selectedValue = '';
+    public $value = '';
 
     /**
      * Используется для вывода сгруппированных списков
@@ -301,10 +301,22 @@ class ListItem extends ControlList
         //         $item['selected'] = ((\is_array($this->selectedValue) && array_search($propValue, $this->selectedValue))) || ($this->selectedValue === $propValue);
         //     }
         // }
-        if (isset($item['selected']) && $item['selected'] === true) {
+        /**
+         * selected - можно указать в item
+         * либо в свойстве value, оно может быть типа string|array
+         */
+        $isSelect = (isset($item['selected']) && $item['selected'] === true && empty($this->value))
+                    ||                    
+                    (!empty($this->value) && isset($item['value']) && (
+                        (is_array($this->value) && ArrayHelper::isIn($item['value'], $this->value))
+                        ||
+                        (!is_array($this->value) && $this->value == $item['value'])
+                    ));
+
+        if ($isSelect) {
             $item['options']['class'][] = self::$clsItem['selected'];
             $item['options']['aria-selected'] = 'true';
-        }
+        } 
         if (isset($item['value'])) {
             $this->jsProperty['values'][] = $item['value'];
             $item['options']['data-value'] = $item['value'];

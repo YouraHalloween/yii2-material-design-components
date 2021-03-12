@@ -29,12 +29,13 @@ class _DataTablePagination extends ComponentInitial
 
     public string $label = '';
     public array $items = [
-        ['value' => 8, 'selected' => true], 
+        ['value' => 8], 
         ['value' => 16], 
         ['value' => 30],
     ];
     public string $contentSummary = '';
     public string $contentPager = '';
+    public int $value = 8;
 
     /**
      * Css классы для контейнера
@@ -52,12 +53,15 @@ class _DataTablePagination extends ComponentInitial
         $content = Html::beginTag('div', ['class' => self::$clsPerPage['base']]);
         $content .= Html::tag('div', $this->label, ['class' => self::$clsPerPage['label']]);
         $content .= Select::outlined('', [
-            'items' => $this->items
-        ],[
-            'class' => self::$clsPerPage['select']
-        ])
-        ->setId($this->getSelectId())
-        ->render();
+                'items' => $this->items,
+                'listProperty' => [
+                    'value' => $this->value
+                ]                
+            ],[
+                'class' => self::$clsPerPage['select']
+            ])            
+            ->setId($this->getSelectId())
+            ->render();
         $content .= Html::endTag('div');
         return $content;
     }
