@@ -11559,6 +11559,29 @@ a.mdc-evolution-list-item {
   color: var(--mdc-theme-text-primary-on-background);
 }
 
+.mdc-data-table__header-cell {
+  justify-content: space-between;
+  font-weight: 600;
+}
+.mdc-data-table__header-cell a {
+  color: inherit;
+}
+
+.mdc-data-table__header-cell-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.mdc-data-table__header-cell-wrapper .mdc-data-table__sort-icon-button {
+  font-size: 0.9375rem;
+  opacity: 1;
+  color: var(--mdc-theme-text-disabled-on-background);
+}
+
+.mdc-data-table__sort-icon-button:focus, .mdc-data-table__header-cell:hover .mdc-data-table__sort-icon-button, .mdc-data-table__header-cell--sorted .mdc-data-table__sort-icon-button {
+  color: inherit;
+}
+
 .mdc-drawer {
   border: 0;
 }

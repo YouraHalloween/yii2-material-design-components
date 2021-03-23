@@ -87,6 +87,12 @@ class IconButton extends Control
         }
         return $content;
     }
+
+    public function setIcon($icon): IconButton 
+    {
+        $this->icon = $icon;
+        return $this;
+    }
     
     /**
      * Нарисовать Snackbar

@@ -26,7 +26,7 @@ class GridView extends \yii\grid\GridView
     ];
 
     public $headerRowOptions = [
-        'class' => 'mdc-data-table__header-row'
+        'class' => 'mdc-data-table__header-row',        
     ];
 
     public $bodyOptions = [

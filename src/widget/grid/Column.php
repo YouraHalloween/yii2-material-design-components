@@ -2,6 +2,10 @@
 
 namespace yh\mdc\widget\grid;
 
+/**
+ * ВНИМАНИЕ
+ * Класс не используется в DataColumn
+ */
 class Column extends \yii\grid\Column
 {
     public $headerOptions = [

@@ -2,6 +2,8 @@
 
 namespace yh\mdc\widget\grid;
 
+use yh\mdc\components\_DataTableSortButton;
+
 class DataColumn extends \yii\grid\DataColumn
 {
     public $headerOptions = [
@@ -23,5 +25,50 @@ class DataColumn extends \yii\grid\DataColumn
             $this->contentOptions['id'] = $this->getRowId();
             $this->contentOptions['scope'] = 'row';
         }
+    }
+
+    public function getSortObject()
+    {
+        if ($this->attribute !== null && $this->enableSorting &&
+            ($sort = $this->grid->dataProvider->getSort()) !== false && $sort->hasAttribute($this->attribute)) {
+            return $sort;
+        }
+        return false;
+    }
+
+    public function renderHeaderCell()
+    {
+        if ($this->grid->dataTable->useAjax && $sort = $this->getSortObject()) {
+            $this->headerOptions['data-column-id'] = $this->attribute;
+            $direction = $sort->getAttributeOrder($this->attribute);
+            $this->headerOptions['aria-sort'] = _DataTableSortButton::getSortName($direction);
+            $this->headerOptions['class'] .= ' '._DataTableSortButton::getClassTh($direction);
+            $this->headerOptions['link'] = $sort->createUrl($this->attribute, true);
+        }
+
+        return parent::renderHeaderCell();
+    }
+
+    protected function renderHeaderCellContent()
+    {
+        //Отключить enableSorting, чтобы не формировать тег <а>
+        $enableSorting = $this->enableSorting;
+        $this->enableSorting = false;
+        $content = parent::renderHeaderCellContent();
+        $this->enableSorting = $enableSorting;
+
+        if ($this->grid->dataTable->useAjax && $sort = $this->getSortObject()) {
+            $direction = $sort->getAttributeOrder($this->attribute);
+            $btn = new _DataTableSortButton();
+            $content = $btn
+                ->setProperty([
+                    'attribute' => $this->attribute, 
+                    'label' => $content,
+                    'direction' => $direction
+                ])
+                ->renderComponent();
+        }
+
+        return $content;
     }
 }

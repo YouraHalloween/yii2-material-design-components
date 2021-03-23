@@ -19,7 +19,7 @@ class _ComponentLabel extends _PersistentCmp
 
     public static function one(string $label = '', array $property = [], array $options = [])
     {
-        $class = static::class;
+        $class = static::class;        
         return new $class($label, $property, $options);
     }
 }
