@@ -99,7 +99,9 @@ class TextField extends CustomTextField
         parent::initInputOptions();
 
         $this->inputOptions['class'][] = 'mdc-text-field__input';
-        $this->inputOptions['aria-labelledby'] = $this->getLabelId();
+        if ($this->labelTemplate === 'inner') {
+            $this->inputOptions['aria-labelledby'] = $this->getLabelId();
+        }
 
         if (!empty($this->placeHolder)) {
             $this->inputOptions['placeholder'] = $this->placeHolder;

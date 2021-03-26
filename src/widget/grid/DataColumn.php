@@ -50,14 +50,14 @@ class DataColumn extends \yii\grid\DataColumn
     }
 
     protected function renderHeaderCellContent()
-    {
-        //Отключить enableSorting, чтобы не формировать тег <а>
-        $enableSorting = $this->enableSorting;
-        $this->enableSorting = false;
-        $content = parent::renderHeaderCellContent();
-        $this->enableSorting = $enableSorting;
-
+    {        
         if ($this->grid->dataTable->useAjax && $sort = $this->getSortObject()) {
+            //Отключить enableSorting, чтобы не формировать тег <а> и вернуть $content
+            $enableSorting = $this->enableSorting;
+            $this->enableSorting = false;
+            $content = parent::renderHeaderCellContent();
+            $this->enableSorting = $enableSorting;
+
             $direction = $sort->getAttributeOrder($this->attribute);
             $btn = new _DataTableSortButton();
             $content = $btn
@@ -67,6 +67,8 @@ class DataColumn extends \yii\grid\DataColumn
                     'direction' => $direction
                 ])
                 ->renderComponent();
+        } else {
+            $content = parent::renderHeaderCellContent();
         }
 
         return $content;

@@ -88,6 +88,11 @@ class _DataTableSortButton extends ComponentInitial
         ]);
     }
 
+    protected function getLabel(): string 
+    {
+        return \Yii::t('mdc/components/DataTable', 'Сортировка по').' '.$this->label;
+    }
+
     public function renderComponent(): string
     {
         // $sortArrow = self::SORT_ARROW[$this->direction];
@@ -97,7 +102,7 @@ class _DataTableSortButton extends ComponentInitial
             ->setOptions([
                 'class' => self::$clsButton,
                 'aria-describedby' => $this->getHiddenId(),
-                'aria-label' => $this->label
+                'aria-label' => $this->getLabel()
             ])
             ->renderComponent();
 

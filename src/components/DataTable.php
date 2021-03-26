@@ -18,8 +18,10 @@ class DataTable extends Component
     public bool $isAjaxRequest = false;    
     public bool $progress = true;
     public bool $checkBox = false;
+    public bool $byScreenHeight = false;
+    public int $rowHeight= 52; //52px
 
-    public function setGridProperty(array $property): DataTable
+    public function setGridView(array $property): DataTable
     {
         $this->gridProperty = $property;
         return $this;
@@ -35,7 +37,7 @@ class DataTable extends Component
         return $this->gridProperty['dataProvider'];
     }
 
-    public function getSummury(): array
+    public function getSummuryAjax(): array
     {
         $dataProvider = $this->getDataProvider();
         $count = $dataProvider->getCount();
@@ -92,7 +94,7 @@ class DataTable extends Component
             }
             $data = [
                 'items' => $content,
-                'summury' => $this->getSummury(),
+                'summury' => $this->getSummuryAjax(),
                 'nav' => $navContent,
                 'pageSize' => $this->getDataProvider()->getPagination()->getPageSize()
             ];

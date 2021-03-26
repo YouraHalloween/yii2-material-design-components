@@ -29,13 +29,13 @@ class _DataTablePagination extends ComponentInitial
 
     public string $label = '';
     public array $items = [
-        ['value' => 8], 
-        ['value' => 16], 
-        ['value' => 30],
+        ['value' => 10], 
+        ['value' => 20], 
+        ['value' => 50],
     ];
     public string $contentSummary = '';
     public string $contentPager = '';
-    public int $value = 8;
+    public int $value = 10;
 
     /**
      * Css классы для контейнера

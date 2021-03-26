@@ -214,11 +214,11 @@ function DataTableProcessing(id) {
 }
 
 window.onpopstate = function (e) {
-    if (e.state) {
-        app.controls.item(e.state.id).reload(e.state.link);
-    } else {
-        document.location.reload();
-    }
+    // if (e.state) {
+    //     app.controls.item(e.state.id).reload(e.state.link);
+    // } else {
+    //     document.location.reload();
+    // }
 };
 
 // export { DataTableProcessing };
