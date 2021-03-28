@@ -8,6 +8,7 @@ use yh\mdc\components\base\ControlInput;
 use yh\mdc\components\Typography;
 use yh\mdc\components\IconButton;
 use yh\mdc\components\base\stable\ComponentRegister;
+use yh\mdc\components\base\Vars;
 
 class CustomTextField extends ControlInput
 {
@@ -21,6 +22,10 @@ class CustomTextField extends ControlInput
      * @var string $helper - если null helper не отоброжать
      */
     public ?string $helper = null;
+    /**
+     * @var string $height - Высота компонента
+     */
+    public int $height = Vars::CMP_HEIGHT_SMALL;
     /**
      * @var bool $helperPersistent -  Если true, Helper всегда видим, default = true
      */
@@ -45,6 +50,7 @@ class CustomTextField extends ControlInput
      * @var string $labelSize - Задать размер внешнего лейбл
      */
     public string $labelSize = 'large';
+
     /**
      * @var array $leading
      * ICONS or BUTTONS
@@ -73,20 +79,20 @@ class CustomTextField extends ControlInput
 
     /* Класс для блока textfield */
     protected static array $clsBlock = [
-        'base' => 'mdc-text-field',
-        self::FILLED => 'mdc-text-field--filled',
-        self::OUTLINED => 'mdc-text-field--outlined',
-        'disabled' => 'mdc-text-field--disabled',
-        'icon-leading' => 'mdc-text-field--with-leading-icon',
-        'icon-trailing' => 'mdc-text-field--with-trailing-icon'
+        // 'base' => 'mdc-text-field',
+        // self::FILLED => 'mdc-text-field--filled',
+        // self::OUTLINED => 'mdc-text-field--outlined',
+        // 'disabled' => 'mdc-text-field--disabled',
+        // 'icon-leading' => 'mdc-text-field--with-leading-icon',
+        // 'icon-trailing' => 'mdc-text-field--with-trailing-icon'
     ];
     protected static array $clsLabel = [
-        'inner' => 'mdc-floating-label',
-        'outer-base' => 'mdc-outer-label',
-        'outline-notched' => 'mdc-notched-outline',
-        'outline-leading' => 'mdc-notched-outline__leading',
-        'outline-notch' => 'mdc-notched-outline__notch',
-        'outline-trailing' => 'mdc-notched-outline__trailing',
+        // 'inner' => 'mdc-floating-label',
+        // 'outer-base' => 'mdc-outer-label',
+        // 'outline-notched' => 'mdc-notched-outline',
+        // 'outline-leading' => 'mdc-notched-outline__leading',
+        // 'outline-notch' => 'mdc-notched-outline__notch',
+        // 'outline-trailing' => 'mdc-notched-outline__trailing',
     ];
 
     /* Классы для лейбла
@@ -95,22 +101,22 @@ class CustomTextField extends ControlInput
     no-label - лейбл отсуствует
     */
     protected static array $clsLabelFloating = [
-        'block' => 'mdc-text-field--label-floating',
-        'label' => 'mdc-floating-label--float-above',
-        'no-label' => 'mdc-text-field--no-label',
+        // 'block' => 'mdc-text-field--label-floating',
+        // 'label' => 'mdc-floating-label--float-above',
+        // 'no-label' => 'mdc-text-field--no-label',
     ];
 
     /* Классы для анимации линий */
     protected static array $clsRipple = [
-        'filled' => 'mdc-text-field__ripple',
-        'line' => 'mdc-line-ripple',
+        // 'filled' => 'mdc-text-field__ripple',
+        // 'line' => 'mdc-line-ripple',
     ];
 
     /*Классы для преикса и суфикса */
     protected static array $clsAffix = [
-        'base' => 'mdc-text-field__affix',
-        'prefix' => 'mdc-text-field__affix--prefix',
-        'suffix' => 'mdc-text-field__affix--suffix',
+        // 'base' => 'mdc-text-field__affix',
+        // 'prefix' => 'mdc-text-field__affix--prefix',
+        // 'suffix' => 'mdc-text-field__affix--suffix',
     ];
     
     /* Хелпер может быть в 3 состояниях
@@ -119,27 +125,27 @@ class CustomTextField extends ControlInput
     class = "mdc-text-field-helper-text--validation-msg" может выводить ошибку
     */
     protected static array $clsHelper = [
-        'base' => 'mdc-text-field-helper-line',
-        'required' => 'mdc-text-field-helper-text',
-        'persistent' => 'mdc-text-field-helper-text--persistent',
-        'validation' => 'mdc-text-field-helper-text--validation-msg'
+        // 'base' => 'mdc-text-field-helper-line',
+        // 'required' => 'mdc-text-field-helper-text',
+        // 'persistent' => 'mdc-text-field-helper-text--persistent',
+        // 'validation' => 'mdc-text-field-helper-text--validation-msg'
     ];
 
     /**
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
     protected static array $clsIcons = [
-        'base' => 'mdc-text-field__icon',
-        'leading' => 'mdc-text-field__icon--leading',
-        'trailing' => 'mdc-text-field__icon--trailing',
-        'group' => 'mdc-text-field__group-icon'
+        // 'base' => 'mdc-text-field__icon',
+        // 'leading' => 'mdc-text-field__icon--leading',
+        // 'trailing' => 'mdc-text-field__icon--trailing',
+        // 'group' => 'mdc-text-field__group-icon'
     ];
 
     /**
      * Классы для input
      */
     protected static array $clsInput = [
-        'base' => 'mdc-text-field__input',
+        // 'base' => 'mdc-text-field__input',
     ];
 
     protected function initOptions(): void
@@ -149,6 +155,7 @@ class CustomTextField extends ControlInput
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
         $this->options['class'][] = $this->getClsLabelFloating('block');
+        $this->options['class'][] = Vars::getCmpHeight($this->height);
 
         if (!$this->enabled) {
             $this->options['class'][] = static::$clsBlock['disabled'];
@@ -158,7 +165,7 @@ class CustomTextField extends ControlInput
             if ($this->hasIcon($icon)) {
                 $this->options['class'][] = static::$clsBlock['icon-'.$icon];
             }
-        }
+        }        
     }
 
     /**

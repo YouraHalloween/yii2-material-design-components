@@ -9,6 +9,7 @@ use yh\mdc\components\Checkbox;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use yh\mdc\components\base\Vars;
 
 class ListItem extends ControlList
 {
@@ -65,7 +66,10 @@ class ListItem extends ControlList
     ];
     */
     
-    
+    /**
+     * @var string $heightItem - Высота items
+     */
+    public int $heightItem = Vars::CMP_HEIGHT_SMALL;
     /**
      * @var bool $single - Возможность фокусировать на Item
      */
@@ -158,6 +162,8 @@ class ListItem extends ControlList
         parent::initOptions();
 
         $this->options['class'][] = self::$clsBlock['base'];
+        $this->options['class'][] = Vars::getCmpHeight($this->heightItem);
+
         if ($this->isHelper()) {
             $this->options['class'][] = self::$clsBlock['helper'];
         }
