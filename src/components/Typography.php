@@ -2,8 +2,7 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\ActiveForm;
+use yh\mdc\components\base\Vars;
 
 class Typography
 {
@@ -17,9 +16,9 @@ class Typography
     const OVERLINE = 'oveline';
     
     private static array $_labelSize = [
-        'small' => self::CAPTION,
-        'medium' => self::SUBTITLE . 2,
-        'large' => self::SUBTITLE . 1,        
+        Vars::SMALL => self::CAPTION,
+        Vars::MEDIUM => self::SUBTITLE . 2,
+        Vars::LARGE => self::SUBTITLE . 1,        
     ];
 
     private static function getCssClass(string $style, int $number = 0): string

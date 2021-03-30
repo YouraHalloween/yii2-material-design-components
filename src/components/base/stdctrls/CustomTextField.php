@@ -25,7 +25,7 @@ class CustomTextField extends ControlInput
     /**
      * @var string $height - Высота компонента
      */
-    public int $height = Vars::CMP_HEIGHT_SMALL;
+    public string $height = Vars::SMALL;
     /**
      * @var bool $helperPersistent -  Если true, Helper всегда видим, default = true
      */
@@ -49,7 +49,7 @@ class CustomTextField extends ControlInput
     /**
      * @var string $labelSize - Задать размер внешнего лейбл
      */
-    public string $labelSize = 'large';
+    public string $labelSize = Vars::MEDIUM;
 
     /**
      * @var array $leading

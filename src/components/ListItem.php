@@ -69,7 +69,7 @@ class ListItem extends ControlList
     /**
      * @var string $heightItem - Высота items
      */
-    public int $heightItem = Vars::CMP_HEIGHT_SMALL;
+    public string $heightItem = Vars::SMALL;
     /**
      * @var bool $single - Возможность фокусировать на Item
      */
