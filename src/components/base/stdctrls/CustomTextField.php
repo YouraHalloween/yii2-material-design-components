@@ -50,6 +50,10 @@ class CustomTextField extends ControlInput
      * @var string $labelSize - Задать размер внешнего лейбл
      */
     public string $labelSize = Vars::MEDIUM;
+    /**
+     * @var string $textSize - задается размер текста
+     */
+    public string $textSize = Vars::NORMAL;
 
     /**
      * @var array $leading
@@ -155,7 +159,7 @@ class CustomTextField extends ControlInput
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
         $this->options['class'][] = $this->getClsLabelFloating('block');
-        $this->options['class'][] = Vars::getCmpHeight($this->height);
+        $this->options['class'][] = Vars::cmpHeight($this->height);        
 
         if (!$this->enabled) {
             $this->options['class'][] = static::$clsBlock['disabled'];
@@ -166,6 +170,12 @@ class CustomTextField extends ControlInput
                 $this->options['class'][] = static::$clsBlock['icon-'.$icon];
             }
         }        
+    }
+
+    protected function initInputOptions(): void
+    {
+        parent::initInputOptions();
+        $this->inputOptions['class'][] = Typography::fontSize($this->textSize);
     }
 
     /**
@@ -235,9 +245,9 @@ class CustomTextField extends ControlInput
      */
     protected function getTagOuterLabel()
     {
-        $clsSize = Typography::getLabelSize($this->labelSize);
+        $fontStyle = Typography::fontStyle($this->labelSize);
         $options = [
-                'class' => [static::$clsLabel['outer-base'], $clsSize],
+                'class' => [static::$clsLabel['outer-base'], $fontStyle],
                 'for' => $this->getId(),
             ];
         return Html::tag('label', $this->label, $options);

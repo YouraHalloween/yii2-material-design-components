@@ -22,9 +22,9 @@
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 1rem;
   /* @alternate */
-  font-size: var(--mdc-typography-button-font-size, 0.875rem);
+  font-size: var(--mdc-typography-button-font-size, 1rem);
   line-height: 2.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-button-line-height, 2.25rem);
@@ -1293,9 +1293,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -1530,9 +1530,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -1577,9 +1577,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-subtitle2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-subtitle2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-subtitle2-font-size, 0.95rem);
   line-height: 1.375rem;
   /* @alternate */
   line-height: var(--mdc-typography-subtitle2-line-height, 1.375rem);
@@ -1720,9 +1720,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -2227,9 +2227,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 1rem;
   /* @alternate */
-  font-size: var(--mdc-typography-button-font-size, 0.875rem);
+  font-size: var(--mdc-typography-button-font-size, 1rem);
   line-height: 2.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-button-line-height, 2.25rem);
@@ -2566,9 +2566,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -2760,9 +2760,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-subtitle2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-subtitle2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-subtitle2-font-size, 0.95rem);
   line-height: 1.375rem;
   /* @alternate */
   line-height: var(--mdc-typography-subtitle2-line-height, 1.375rem);
@@ -2795,9 +2795,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -2872,9 +2872,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 1.25rem;
+  font-size: 1.1428571429rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline6-font-size, 1.25rem);
+  font-size: var(--mdc-typography-headline6-font-size, 1.1428571429rem);
   line-height: 2rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline6-line-height, 2rem);
@@ -2918,9 +2918,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -4676,9 +4676,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -4786,9 +4786,9 @@ svg.mdc-button__icon {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -5586,9 +5586,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -6312,9 +6312,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -8745,9 +8745,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -8957,9 +8957,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -10414,9 +10414,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -10462,9 +10462,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -10843,9 +10843,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 1.25rem;
+  font-size: 1.1428571429rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline6-font-size, 1.25rem);
+  font-size: var(--mdc-typography-headline6-font-size, 1.1428571429rem);
   line-height: 2rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline6-line-height, 2rem);
@@ -11086,9 +11086,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline1-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 6rem;
+  font-size: 4.2857142857rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline1-font-size, 6rem);
+  font-size: var(--mdc-typography-headline1-font-size, 4.2857142857rem);
   line-height: 6rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline1-line-height, 6rem);
@@ -11113,9 +11113,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 3.75rem;
+  font-size: 3.4285714286rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline2-font-size, 3.75rem);
+  font-size: var(--mdc-typography-headline2-font-size, 3.4285714286rem);
   line-height: 3.75rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline2-line-height, 3.75rem);
@@ -11140,9 +11140,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline3-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 3rem;
+  font-size: 2.4285714286rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline3-font-size, 3rem);
+  font-size: var(--mdc-typography-headline3-font-size, 2.4285714286rem);
   line-height: 3.125rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline3-line-height, 3.125rem);
@@ -11167,9 +11167,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline4-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 2.125rem;
+  font-size: 1.7142857143rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline4-font-size, 2.125rem);
+  font-size: var(--mdc-typography-headline4-font-size, 1.7142857143rem);
   line-height: 2.5rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline4-line-height, 2.5rem);
@@ -11194,9 +11194,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline5-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 1.5rem;
+  font-size: 1.4285714286rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline5-font-size, 1.5rem);
+  font-size: var(--mdc-typography-headline5-font-size, 1.4285714286rem);
   line-height: 2rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline5-line-height, 2rem);
@@ -11221,9 +11221,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 1.25rem;
+  font-size: 1.1428571429rem;
   /* @alternate */
-  font-size: var(--mdc-typography-headline6-font-size, 1.25rem);
+  font-size: var(--mdc-typography-headline6-font-size, 1.1428571429rem);
   line-height: 2rem;
   /* @alternate */
   line-height: var(--mdc-typography-headline6-line-height, 2rem);
@@ -11275,9 +11275,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-subtitle2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-subtitle2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-subtitle2-font-size, 0.95rem);
   line-height: 1.375rem;
   /* @alternate */
   line-height: var(--mdc-typography-subtitle2-line-height, 1.375rem);
@@ -11329,9 +11329,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+  font-size: var(--mdc-typography-body2-font-size, 0.95rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-body2-line-height, 1.25rem);
@@ -11356,9 +11356,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.8571428571rem;
   /* @alternate */
-  font-size: var(--mdc-typography-caption-font-size, 0.75rem);
+  font-size: var(--mdc-typography-caption-font-size, 0.8571428571rem);
   line-height: 1.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-caption-line-height, 1.25rem);
@@ -11383,9 +11383,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.875rem;
+  font-size: 1rem;
   /* @alternate */
-  font-size: var(--mdc-typography-button-font-size, 0.875rem);
+  font-size: var(--mdc-typography-button-font-size, 1rem);
   line-height: 2.25rem;
   /* @alternate */
   line-height: var(--mdc-typography-button-line-height, 2.25rem);
@@ -11410,9 +11410,9 @@ a.mdc-evolution-list-item {
   font-family: Nunito, Roboto, sans-serif;
   /* @alternate */
   font-family: var(--mdc-typography-overline-font-family, var(--mdc-typography-font-family, Nunito, Roboto, sans-serif));
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   /* @alternate */
-  font-size: var(--mdc-typography-overline-font-size, 0.75rem);
+  font-size: var(--mdc-typography-overline-font-size, 0.95rem);
   line-height: 2rem;
   /* @alternate */
   line-height: var(--mdc-typography-overline-line-height, 2rem);
@@ -11462,7 +11462,7 @@ a.mdc-evolution-list-item {
 }
 
 .mdc-collapse__header {
-  font-size: 0.83125rem;
+  font-size: 0.95rem;
 }
 .mdc-collapse__header .mdc-list-item__text {
   width: 100%;
@@ -11498,6 +11498,13 @@ a.mdc-evolution-list-item {
 
 .mdc-collapse-search .mdc-collapse__header {
   color: var(--mdc-theme-text-secondary-on-background);
+}
+
+.mdc-collapse-search__item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
 .mdc-checkbox.mdc-checkbox--disabled + label {
@@ -11661,12 +11668,12 @@ a.mdc-evolution-list-item {
   height: 44px;
 }
 .mdc-drawer .mdc-list .mdc-list-item .mdc-list-item__graphic {
-  font-size: 1.3125rem;
+  font-size: 1.5rem;
   margin-right: 12px;
 }
 .mdc-drawer .mdc-list .mdc-list-group__subheader {
   color: rgba(0, 0, 0, 0.54);
-  font-size: 0.83125rem;
+  font-size: 0.95rem;
   margin-bottom: 8px;
 }
 
@@ -11758,22 +11765,10 @@ a.mdc-evolution-list-item {
   --mdc-ripple-press-opacity: 0.04;
   --mdc-ripple-focus-opacity: 0.04;
 }
-.mdc-cmp-height__extra-small .mdc-list-item {
-  height: 36px;
-}
-.mdc-cmp-height__small .mdc-list-item {
-  height: 38px;
-}
-.mdc-cmp-height__medium .mdc-list-item {
-  height: 40px;
-}
-.mdc-cmp-height__large .mdc-list-item {
-  height: 44px;
-}
 
 .mdc-menu .mdc-list-item__graphic {
   color: var(--mdc-theme-text-secondary-on-background);
-  font-size: 1.3125rem;
+  font-size: 1.5rem;
   margin-right: 12px;
 }
 
@@ -11782,7 +11777,7 @@ a.mdc-evolution-list-item {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 .mdc-menu .mdc-list {
-  font-size: 0.83125rem;
+  font-size: 0.95rem;
   padding: 6px 0;
 }
 .mdc-menu .mdc-list-item {
@@ -11800,433 +11795,6 @@ a.mdc-evolution-list-item {
 .mdc-select:not(.mdc-select--disabled) .mdc-select__anchor {
   background-color: #fff;
 }
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor {
-  height: 36px;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-floating-label--float-above {
-  transform: translateY(-27.25px) scale(1);
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-floating-label--float-above {
-  font-size: 0.75rem;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  transform: translateY(-24.75px) scale(0.75);
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  font-size: 1rem;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-floating-label--shake {
-  -webkit-animation: mdc-floating-label-shake-float-above-select-outlined-36px 250ms 1;
-          animation: mdc-floating-label-shake-float-above-select-outlined-36px 250ms 1;
-}
-@keyframes mdc-floating-label-shake-float-above-select-outlined-36px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75);
-  }
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--outlined .mdc-select__anchor :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch {
-  max-width: calc(100% - 56px);
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor {
-  height: 36px;
-  display: flex;
-  align-items: baseline;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor::before {
-  display: inline-block;
-  width: 0;
-  height: 40px;
-  content: "";
-  vertical-align: 0;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__anchor .mdc-floating-label {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--no-label .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__extra-small .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--filled .mdc-floating-label {
-  max-width: calc(100% - 60px);
-}
-.mdc-select.mdc-cmp-height__extra-small.mdc-select--filled .mdc-floating-label--float-above {
-  max-width: calc(100% / 0.75 - 60px / 0.75);
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor {
-  height: 38px;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-floating-label--float-above {
-  transform: translateY(-28.25px) scale(1);
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-floating-label--float-above {
-  font-size: 0.75rem;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  transform: translateY(-25.75px) scale(0.75);
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  font-size: 1rem;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-floating-label--shake {
-  -webkit-animation: mdc-floating-label-shake-float-above-select-outlined-38px 250ms 1;
-          animation: mdc-floating-label-shake-float-above-select-outlined-38px 250ms 1;
-}
-@-webkit-keyframes mdc-floating-label-shake-float-above-select-outlined-38px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-25.75px) scale(0.75);
-  }
-}
-@keyframes mdc-floating-label-shake-float-above-select-outlined-38px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-25.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-25.75px) scale(0.75);
-  }
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--outlined .mdc-select__anchor :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch {
-  max-width: calc(100% - 56px);
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor {
-  height: 38px;
-  display: flex;
-  align-items: baseline;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor::before {
-  display: inline-block;
-  width: 0;
-  height: 40px;
-  content: "";
-  vertical-align: 0;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__anchor .mdc-floating-label {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--no-label .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__small .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--filled .mdc-floating-label {
-  max-width: calc(100% - 60px);
-}
-.mdc-select.mdc-cmp-height__small.mdc-select--filled .mdc-floating-label--float-above {
-  max-width: calc(100% / 0.75 - 60px / 0.75);
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor {
-  height: 40px;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-floating-label--float-above {
-  transform: translateY(-29.25px) scale(1);
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-floating-label--float-above {
-  font-size: 0.75rem;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  transform: translateY(-26.75px) scale(0.75);
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  font-size: 1rem;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-floating-label--shake {
-  -webkit-animation: mdc-floating-label-shake-float-above-select-outlined-40px 250ms 1;
-          animation: mdc-floating-label-shake-float-above-select-outlined-40px 250ms 1;
-}
-@-webkit-keyframes mdc-floating-label-shake-float-above-select-outlined-40px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-26.75px) scale(0.75);
-  }
-}
-@keyframes mdc-floating-label-shake-float-above-select-outlined-40px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-26.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-26.75px) scale(0.75);
-  }
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--outlined .mdc-select__anchor :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch {
-  max-width: calc(100% - 56px);
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor {
-  height: 40px;
-  display: flex;
-  align-items: baseline;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor::before {
-  display: inline-block;
-  width: 0;
-  height: 40px;
-  content: "";
-  vertical-align: 0;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__anchor .mdc-floating-label {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--no-label .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__medium .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--filled .mdc-floating-label {
-  max-width: calc(100% - 60px);
-}
-.mdc-select.mdc-cmp-height__medium.mdc-select--filled .mdc-floating-label--float-above {
-  max-width: calc(100% / 0.75 - 60px / 0.75);
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor {
-  height: 44px;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-floating-label--float-above {
-  transform: translateY(-31.25px) scale(1);
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-floating-label--float-above {
-  font-size: 0.75rem;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  transform: translateY(-28.75px) scale(0.75);
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor.mdc-notched-outline--upgraded .mdc-floating-label--float-above,
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-  font-size: 1rem;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-floating-label--shake {
-  -webkit-animation: mdc-floating-label-shake-float-above-select-outlined-44px 250ms 1;
-          animation: mdc-floating-label-shake-float-above-select-outlined-44px 250ms 1;
-}
-@-webkit-keyframes mdc-floating-label-shake-float-above-select-outlined-44px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-28.75px) scale(0.75);
-  }
-}
-@keyframes mdc-floating-label-shake-float-above-select-outlined-44px {
-  0% {
-    transform: translateX(calc(0 - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  33% {
-    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-            animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
-    transform: translateX(calc(4% - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  66% {
-    -webkit-animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-            animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
-    transform: translateX(calc(-4% - 0%)) translateY(-28.75px) scale(0.75);
-  }
-  100% {
-    transform: translateX(calc(0 - 0%)) translateY(-28.75px) scale(0.75);
-  }
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--outlined .mdc-select__anchor :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch {
-  max-width: calc(100% - 56px);
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor {
-  height: 44px;
-  display: flex;
-  align-items: baseline;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor::before {
-  display: inline-block;
-  width: 0;
-  height: 40px;
-  content: "";
-  vertical-align: 0;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__anchor .mdc-floating-label {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text::before {
-  content: "​";
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--no-label .mdc-select__anchor .mdc-select__selected-text-container {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--no-label .mdc-select__anchor::before {
-  display: none;
-}
-.mdc-select.mdc-cmp-height__large .mdc-select__dropdown-icon {
-  width: 20px;
-  height: 20px;
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--filled .mdc-floating-label {
-  max-width: calc(100% - 60px);
-}
-.mdc-select.mdc-cmp-height__large.mdc-select--filled .mdc-floating-label--float-above {
-  max-width: calc(100% / 0.75 - 60px / 0.75);
-}
-
 .mdc-select__anchor {
   --mdc-ripple-hover-opacity: 0.04;
   --mdc-ripple-press-opacity: 0.04;
@@ -12337,86 +11905,6 @@ a.mdc-evolution-list-item {
 .mdc-text-field:not(.mdc-text-field--disabled) {
   background-color: #fff;
 }
-.mdc-text-field.mdc-cmp-height__extra-small {
-  height: 36px;
-}
-.mdc-text-field.mdc-cmp-height__extra-small .mdc-text-field__input {
-  height: 100%;
-}
-.mdc-text-field.mdc-cmp-height__extra-small .mdc-floating-label {
-  display: none;
-}
-.mdc-text-field.mdc-cmp-height__extra-small::before {
-  display: none;
-}
-@supports (-webkit-hyphens: none) {
-  .mdc-text-field.mdc-cmp-height__extra-small .mdc-text-field__affix {
-    align-items: center;
-    align-self: center;
-    display: inline-flex;
-    height: 100%;
-  }
-}
-.mdc-text-field.mdc-cmp-height__small {
-  height: 38px;
-}
-.mdc-text-field.mdc-cmp-height__small .mdc-text-field__input {
-  height: 100%;
-}
-.mdc-text-field.mdc-cmp-height__small .mdc-floating-label {
-  display: none;
-}
-.mdc-text-field.mdc-cmp-height__small::before {
-  display: none;
-}
-@supports (-webkit-hyphens: none) {
-  .mdc-text-field.mdc-cmp-height__small .mdc-text-field__affix {
-    align-items: center;
-    align-self: center;
-    display: inline-flex;
-    height: 100%;
-  }
-}
-.mdc-text-field.mdc-cmp-height__medium {
-  height: 40px;
-}
-.mdc-text-field.mdc-cmp-height__medium .mdc-text-field__input {
-  height: 100%;
-}
-.mdc-text-field.mdc-cmp-height__medium .mdc-floating-label {
-  display: none;
-}
-.mdc-text-field.mdc-cmp-height__medium::before {
-  display: none;
-}
-@supports (-webkit-hyphens: none) {
-  .mdc-text-field.mdc-cmp-height__medium .mdc-text-field__affix {
-    align-items: center;
-    align-self: center;
-    display: inline-flex;
-    height: 100%;
-  }
-}
-.mdc-text-field.mdc-cmp-height__large {
-  height: 44px;
-}
-.mdc-text-field.mdc-cmp-height__large .mdc-text-field__input {
-  height: 100%;
-}
-.mdc-text-field.mdc-cmp-height__large .mdc-floating-label {
-  display: none;
-}
-.mdc-text-field.mdc-cmp-height__large::before {
-  display: none;
-}
-@supports (-webkit-hyphens: none) {
-  .mdc-text-field.mdc-cmp-height__large .mdc-text-field__affix {
-    align-items: center;
-    align-self: center;
-    display: inline-flex;
-    height: 100%;
-  }
-}
 .mdc-text-field + .mdc-text-field-helper-line {
   justify-content: left;
   padding: 0 14px;
@@ -12441,6 +11929,15 @@ a.mdc-evolution-list-item {
 
 .mdc-outer-label {
   padding: 0 14px;
+}
+
+.mdc-outer-label__gor {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 40%;
+  text-align: right;
+  margin-right: 14px;
 }
 
 /* TEXTFIELD LABEL */
@@ -12552,6 +12049,38 @@ a.mdc-evolution-list-item {
 
 .mdc-top-app-bar__section {
   padding: 0 12px;
+}
+
+.mdc-h__exsmall {
+  height: 36px;
+}
+
+.mdc-h__small {
+  height: 38px;
+}
+
+.mdc-h__medium {
+  height: 40px;
+}
+
+.mdc-h__large {
+  height: 44px;
+}
+
+.mdc-fs__exsmall {
+  font-size: 0.8571428571rem;
+}
+
+.mdc-fs__small {
+  font-size: 0.95rem;
+}
+
+.mdc-fs__medium {
+  font-size: 1rem;
+}
+
+.mdc-fs__large {
+  font-size: 1.1428571429rem;
 }
 
 /* MY CUZTOMAZING COMPONENTS */

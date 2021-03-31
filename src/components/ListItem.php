@@ -162,7 +162,7 @@ class ListItem extends ControlList
         parent::initOptions();
 
         $this->options['class'][] = self::$clsBlock['base'];
-        $this->options['class'][] = Vars::getCmpHeight($this->heightItem);
+        $this->options['class'][] = Vars::cmpHeight($this->heightItem);
 
         if ($this->isHelper()) {
             $this->options['class'][] = self::$clsBlock['helper'];
