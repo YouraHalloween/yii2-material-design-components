@@ -14,7 +14,7 @@ class CheckBox extends ControlInput {
 
     //Третье состояние чекбокса
     public bool $indeterminate = false; 
-    public $value = false;    
+    public $value = false;  
 
     private static string $clsBlock = 'mdc-form-field'; 
     private static string $clsInput = 'mdc-checkbox__native-control';
@@ -32,12 +32,14 @@ class CheckBox extends ControlInput {
     ];
 
     private static string $clsRipple = 'mdc-checkbox__ripple';
+
+    private static string $clsLabel = 'mdc-switch__label';
     
     protected function initInputOptions(): void
     {
         parent::initInputOptions();
 
-        $this->inputOptions['class'][] = self::$clsInput;        
+        $this->inputOptions['class'][] = self::$clsInput;             
 
         if ($this->indeterminate) {
             $this->inputOptions['data-indeterminate'] = 'true';
@@ -56,6 +58,13 @@ class CheckBox extends ControlInput {
         if (!$this->enabled) {
             $this->options['class'][] = self::$clsBlockInput['disabled'];
         }
+    }
+
+    protected function getTagLabel(): string
+    {
+        $this->labelOptions['class'][] = self::$clsLabel;
+
+        return parent::getTagLabel();
     }
 
     private function getTagBackgorund(): string

@@ -13,6 +13,10 @@ class Radio extends ControlInput
     public string $type = 'radio';
     public bool $checked = false;
 
+    protected array $labelOptions = [
+        'class' => 'mdc-switch__label'
+    ];
+
     private static string $clsBlock = 'mdc-form-field';
     private static string $clsInput = 'mdc-radio__native-control';
     /* Контейнер для чекбокса */
@@ -28,6 +32,8 @@ class Radio extends ControlInput
     ];
 
     private static string $clsRipple = 'mdc-radio__ripple';
+
+    private static string $clsLabel = 'mdc-switch__label';
 
     protected function initInputOptions(): void
     {
@@ -49,6 +55,13 @@ class Radio extends ControlInput
         if (!$this->enabled) {
             $this->options['class'][] = self::$clsBlockInput['disabled'];
         }
+    }
+
+    protected function getTagLabel(): string
+    {
+        $this->labelOptions['class'][] = self::$clsLabel;
+
+        return parent::getTagLabel();
     }
 
     private function getTagBackgorund(): string

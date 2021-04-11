@@ -3,15 +3,24 @@
 namespace yh\mdc\components\base;
 
 use yii\helpers\Html;
+use yh\mdc\components\Typography;
+
 use yh\mdc\components\base\stable\_ComponentLabel;
 
 class ControlInput extends _ComponentLabel
 {
+    const ALIGN_INNER = 'inner';
+    const ALIGN_LEFT ='left';
+    const ALIGN_RIGHT = 'right';
+    const ALIGN_TOP = 'top';
+
     /**
      * @var array $inputOptions - input options
      */
     protected array $inputOptions = [];
     private bool $hasInitInputOptions = false;
+
+    protected array $labelOptions = [];
 
     /**
      * @var string $name - input name
@@ -20,13 +29,21 @@ class ControlInput extends _ComponentLabel
     /**
      * @var string $type - input type
      */
-    public string $type = 'text';
+    public string $type = 'text';    
  
     /**
      * @var string $value - input value
      * @var bool $value - input checbox, radio value
      */
     public $value;
+    /**
+     * @var string $labelTemplate - Задать расположение label
+     */
+    public string $labelTemplate = self::ALIGN_INNER;
+    /**
+     * @var string $labelSize - Задать размер внешнего лейбл
+     */
+    public string $labelSize = Vars::NORMAL;
     /**
      * @var bool $autoFocus - input auto focus
      */
@@ -106,8 +123,10 @@ class ControlInput extends _ComponentLabel
     {
         if (empty($this->label)) {
             return '';
-        }
-        return Html::label($this->label, $this->getId());
+        }        
+        $this->labelOptions['class'][] = Typography::fontSize($this->labelSize);
+
+        return Html::label($this->label, $this->getId(), $this->labelOptions);
     }
 
     /**

@@ -41,15 +41,7 @@ class CustomTextField extends ControlInput
     /**
      * @var bool $buttonClear - отоброжать кнопку Отчистить
      */
-    public bool $buttonClear = false;
-    /**
-     * @var string $labelTemplate - Задать расположение label: 'inner', 'vert', 'gor'
-     */
-    public string $labelTemplate = 'inner';
-    /**
-     * @var string $labelSize - Задать размер внешнего лейбл
-     */
-    public string $labelSize = Vars::MEDIUM;
+    public bool $buttonClear = false;    
     /**
      * @var string $textSize - задается размер текста
      */
@@ -79,7 +71,11 @@ class CustomTextField extends ControlInput
     /**
      * @var string $template - внешний вид textfield FILLED or OUTLINED
      */
-    public string $template = self::FILLED;    
+    public string $template = self::FILLED;  
+    
+    protected array $labelOptions = [
+        'class' => ['mdc-typography--subtitle1']
+    ];  
 
     /* Класс для блока textfield */
     protected static array $clsBlock = [
@@ -227,7 +223,7 @@ class CustomTextField extends ControlInput
 
         if (!empty($this->label)) {
             $content .= Html::beginTag('span', ['class' => static::$clsLabel['outline-notch']]);
-            if ($this->labelTemplate == 'inner') {
+            if ($this->labelTemplate == self::ALIGN_INNER) {
                 $content .= $this->getTagInnerLabel();
             }
             $content .= Html::endTag('span');
@@ -241,16 +237,11 @@ class CustomTextField extends ControlInput
 
     /**
      * Лейбл вертикальный или горизонтальный
-     * @param string $mode - 'vert' | 'gor'
      */
     protected function getTagOuterLabel()
     {
-        $fontStyle = Typography::fontStyle($this->labelSize);
-        $options = [
-                'class' => [static::$clsLabel['outer-base'], $fontStyle],
-                'for' => $this->getId(),
-            ];
-        return Html::tag('label', $this->label, $options);
+        $this->labelOptions['class'][] = static::$clsLabel['outer-base'];
+        return $this->getTagLabel();
     }
 
     /**
@@ -260,7 +251,7 @@ class CustomTextField extends ControlInput
     */
     protected function getClsLabelFloating(string $mode): string
     {
-        if (empty($this->label) || $this->labelTemplate !== 'inner') {
+        if (empty($this->label) || $this->labelTemplate !== self::ALIGN_INNER) {
             return static::$clsLabelFloating['no-label'];
         }
 
@@ -440,7 +431,7 @@ class CustomTextField extends ControlInput
         $content .= $this->getTagRipple('filled');
         $content .= $this->getTagIcons('leading');
 
-        if ($this->labelTemplate == 'inner') {
+        if ($this->labelTemplate == self::ALIGN_INNER) {
             $content .= $this->getTagInnerLabel();
         }
         $content .= $this->getTagPrefixSuffix('prefix');
@@ -455,7 +446,7 @@ class CustomTextField extends ControlInput
         //Добавить под блок Helper
         $content .= $this->renderHelper();
         //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
+        if ($this->labelTemplate != self::ALIGN_INNER) {
             $content = $this->getTagOuterLabel() . $content;
         }
 
@@ -481,7 +472,7 @@ class CustomTextField extends ControlInput
         //Добавить под блок Helper
         $content .= $this->renderHelper();
         //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
+        if ($this->labelTemplate != self::ALIGN_INNER) {
             $content = $this->getTagOuterLabel() . $content;
         }
 

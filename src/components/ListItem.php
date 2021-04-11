@@ -10,6 +10,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\Vars;
+use yh\mdc\components\Typography;
 
 class ListItem extends ControlList
 {
@@ -70,6 +71,10 @@ class ListItem extends ControlList
      * @var string $heightItem - Высота items
      */
     public string $heightItem = Vars::SMALL;
+    /**
+     * @var string $itemTextSize - задается размер текста item
+     */
+    public string $itemTextSize = Vars::SMALL;
     /**
      * @var bool $single - Возможность фокусировать на Item
      */
@@ -161,8 +166,9 @@ class ListItem extends ControlList
     {
         parent::initOptions();
 
-        $this->options['class'][] = self::$clsBlock['base'];
+        $this->options['class'][] = self::$clsBlock['base'];    
         $this->options['class'][] = Vars::cmpHeight($this->heightItem);
+        $this->options['class'][] = Typography::fontSize($this->itemTextSize);
 
         if ($this->isHelper()) {
             $this->options['class'][] = self::$clsBlock['helper'];
@@ -292,7 +298,7 @@ class ListItem extends ControlList
      */
     private function getTagItem(array $item): string
     {
-        $item['options']['class'][] = self::$clsItem['base'];
+        $item['options']['class'][] = self::$clsItem['base'];        
         if ($this->single) {
             $item['options']['role'] = 'option';
         }
