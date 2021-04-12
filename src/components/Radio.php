@@ -11,13 +11,21 @@ class Radio extends ControlInput
     protected string $cmpType = ComponentRegister::TYPE_RADIO;
 
     public string $type = 'radio';
-    public bool $checked = false;
 
-    protected array $labelOptions = [
-        'class' => 'mdc-switch__label'
-    ];
+    /**
+     * @var bool $value - checked
+     */
+    public $value = false;  
+    /**
+     * @var bool $rtl - render right to left     
+     */
+    public bool $rtl = false;
 
-    private static string $clsBlock = 'mdc-form-field';
+    private static array $clsBlock = [
+        'base' => 'mdc-form-field',
+        'rtl' => 'mdc-form-field--align-end'
+    ]; 
+    
     private static string $clsInput = 'mdc-radio__native-control';
     /* Контейнер для чекбокса */
     private static array $clsBlockInput = [
@@ -41,7 +49,7 @@ class Radio extends ControlInput
 
         $this->inputOptions['class'][] = self::$clsInput;
 
-        if ($this->checked) {
+        if ($this->value) {
             $this->inputOptions['checked'] = 'true';
         }
     }
@@ -90,7 +98,11 @@ class Radio extends ControlInput
         $content .= $this->getTagLabel();
         
         if ($this->formField) {
-            return Html::tag('div', $content, ['class' => self::$clsBlock]);
+            $cls = [self::$clsBlock['base']];
+            if ($this->rtl) {
+                $cls[] = self::$clsBlock['rtl'];
+            }
+            return Html::tag('div', $content, ['class' => $cls]);
         } else {
             return $content;
         }

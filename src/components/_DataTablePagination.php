@@ -3,6 +3,7 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\base\ComponentInitial;
+use yh\mdc\components\base\Vars;
 use yh\mdc\components\Select;
 use yii\helpers\Html;
 
@@ -54,6 +55,8 @@ class _DataTablePagination extends ComponentInitial
         $content .= Html::tag('div', $this->label, ['class' => self::$clsPerPage['label']]);
         $content .= Select::outlined('', [
                 'items' => $this->items,
+                'height' => Vars::EXTRA_SMALL,
+                'textSize' => Vars::SMALL,
                 'listProperty' => [
                     'value' => $this->value
                 ]                

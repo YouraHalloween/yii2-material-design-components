@@ -12,11 +12,23 @@ class CheckBox extends ControlInput {
 
     public string $type = 'checkbox';
 
-    //Третье состояние чекбокса
+    /**
+     * @var bool $indeterminate - third state checkbox
+     */
     public bool $indeterminate = false; 
+    /**
+     * @var bool $value - checked
+     */
     public $value = false;  
+    /**
+     * @var bool $rtl - render right to left     
+     */
+    public bool $rtl = false;
 
-    private static string $clsBlock = 'mdc-form-field'; 
+    private static array $clsBlock = [
+        'base' => 'mdc-form-field',
+        'rtl' => 'mdc-form-field--align-end'
+    ]; 
     private static string $clsInput = 'mdc-checkbox__native-control';
     /* Контейнер для чекбокса */
     private static array $clsBlockInput = [
@@ -105,7 +117,11 @@ class CheckBox extends ControlInput {
         $content .= $this->getTagLabel();
 
         if ($this->formField) {
-            return Html::tag('div', $content, ['class' => self::$clsBlock]);
+            $cls = [self::$clsBlock['base']];
+            if ($this->rtl) {
+                $cls[] = self::$clsBlock['rtl'];
+            }
+            return Html::tag('div', $content, ['class' => $cls]);
         } else {
             return $content;
         }

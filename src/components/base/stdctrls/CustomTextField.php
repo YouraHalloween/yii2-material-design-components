@@ -155,7 +155,8 @@ class CustomTextField extends ControlInput
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
         $this->options['class'][] = $this->getClsLabelFloating('block');
-        $this->options['class'][] = Vars::cmpHeight($this->height);        
+        $this->options['class'][] = Vars::cmpHeight($this->height);   
+        $this->options['class'][] = Typography::fontSize($this->textSize);
 
         if (!$this->enabled) {
             $this->options['class'][] = static::$clsBlock['disabled'];
@@ -168,11 +169,10 @@ class CustomTextField extends ControlInput
         }        
     }
 
-    protected function initInputOptions(): void
-    {
-        parent::initInputOptions();
-        $this->inputOptions['class'][] = Typography::fontSize($this->textSize);
-    }
+    // protected function initInputOptions(): void
+    // {
+    //     parent::initInputOptions();        
+    // }
 
     /**
      * Class ControlInput
