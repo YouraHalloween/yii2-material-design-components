@@ -22,6 +22,7 @@ class ComponentRegister {
     const TYPE_SELECT = 'select';
     const TYPE_DATATABLE = 'dataTable';
     const TYPE_ICONBUTTON = 'iconButton';
+    const TYPE_COLLAPSE = 'collapse';
 
     private static ?View $_view = null;
     private static int  $positionRegister = View::POS_END;

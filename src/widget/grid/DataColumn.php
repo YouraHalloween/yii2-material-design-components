@@ -73,4 +73,13 @@ class DataColumn extends \yii\grid\DataColumn
 
         return $content;
     }
+
+    public function renderDataCell($model, $key, $index)
+    {
+        if ($this->grid->dataTable->checkBox && $this->attribute === 'name') {
+            // dump($this->grid->getRowId($key));
+            $this->contentOptions['id'] = $this->grid->getRowId($key);
+        }
+        return parent::renderDataCell($model, $key, $index);
+    }
 }
