@@ -61,6 +61,15 @@ class _PersistentCmp extends _Persistent
         return $this;
     }
 
+    /**
+     * Установить Id равным Null    
+     * @return _Persistent
+     */
+    public function setIdNull(): _Persistent
+    {
+        return $this->setId(Null);
+    }
+
     public function getId(): string
     {
         if (empty($this->id)) {

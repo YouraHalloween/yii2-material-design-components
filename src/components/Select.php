@@ -142,9 +142,10 @@ class Select extends CustomTextField
         }
 
         $listProperty = [
-            'tagList' => 'ul',
-            'tagListItem' => 'li',
-            'roleItem' => 'option'
+            // 'tagList' => 'ul',
+            // 'tagItem' => 'li',
+            'action' => false,
+            'itemOptions' => ['role' => 'option']
         ];
 
         $listProperty = array_merge($this->listProperty, $listProperty);

@@ -16,7 +16,7 @@ class ListItem extends ControlList
 {
     protected string $cmpType = ComponentRegister::TYPE_LIST;
 
-    private static array $clsBlock = [
+    protected static array $clsBlock = [
         'base' => 'mdc-list',
         //for helper
         'helper' => 'mdc-list--two-line',
@@ -24,7 +24,7 @@ class ListItem extends ControlList
         'avatar' => 'mdc-list--avatar-list',
     ];
 
-    private static array $clsItem = [
+    protected static array $clsItem = [
         'base' => 'mdc-list-item',
         'selected' => 'mdc-list-item--selected',
         'ripple' => 'mdc-list-item__ripple',
@@ -34,22 +34,22 @@ class ListItem extends ControlList
         'disabled' => 'mdc-list-item--disabled',
     ];
 
-    private static array $clsGroup = [
+    protected static array $clsGroup = [
         'base' => 'mdc-list-group',
         'label' => 'mdc-list-group__subheader'
     ];
 
-    private static array $clsIcon = [
+    protected static array $clsIcon = [
         'base' => 'mdc-list-item__graphic',
         'icon' => 'material-icons',
     ];
 
-    private static array $clsMeta = [
+    protected static array $clsMeta = [
         'base' => 'mdc-list-item__meta',
         'button' => 'mdc-icon-button material-icons'
     ];
 
-    private static string $clsSeparator = 'mdc-list-divider';
+    protected static string $clsSeparator = 'mdc-list-divider';
     /*
     'items' => [
         [
@@ -107,15 +107,16 @@ class ListItem extends ControlList
     /**
      * @var string $tagList - Тонкая настройка. Для Drawer необходим <a>
      */
-    public string $tagListItem = 'a';
+    public string $tagItem = 'a';
     /**
-     * @var bool $action - использует tagListItem = a или tagList = ul, TagListItem = li
+     * @var bool $action - использует tagItem = a, если = true, иначе tagList = ul, tagItem = li
      */
     public bool $action = true;
     /**
-     * @var string $roleItem - хуй его знает зачем это
+     * @var string $roleItem
      */
-    public string $roleItem = '';
+    public array $itemOptions = [];
+
     /**
      * @var string $selectedProp - свойство по которому будет сравниваться selectedValue
      */
@@ -145,7 +146,7 @@ class ListItem extends ControlList
         }
         if (!$this->action) {
             $this->tagList = 'ul';
-            $this->tagListItem = 'li';
+            $this->tagItem = 'li';
         }
         return $this;
     }
@@ -166,7 +167,7 @@ class ListItem extends ControlList
     {
         parent::initOptions();
 
-        $this->options['class'][] = self::$clsBlock['base'];    
+        $this->options['class'][] = self::$clsBlock['base'];
         $this->options['class'][] = Vars::cmpHeight($this->heightItem);
         $this->options['class'][] = Typography::fontSize($this->itemTextSize);
 
@@ -179,7 +180,7 @@ class ListItem extends ControlList
     }
 
     //Добавляет разделяющую линию между items
-    private function getTagSeparator(): string
+    protected function getTagSeparator(): string
     {
         return Html::tag('li', '', ['class' => self::$clsSeparator, 'role' => 'separator']);
     }
@@ -188,7 +189,7 @@ class ListItem extends ControlList
      * Текст item + helper
      * @param array $item - текущий item
      */
-    private function getTagText(array $item): string
+    protected function getTagText(array $item): string
     {
         $text = ArrayHelper::getValue($item, 'text', $item['value']);
         if ($this->isHelper()) {
@@ -204,7 +205,7 @@ class ListItem extends ControlList
      * Вывести компонент Radio
      * @param array $item - текущий item
      */
-    private function renderRadio(array $item): string
+    public function renderRadio(array $item): string
     {
         $checked = ArrayHelper::getValue($item, 'checked', false);
         $name = $this->getId().'-radio';
@@ -219,7 +220,7 @@ class ListItem extends ControlList
      * Вывести компонент Checbox
      * @param array $item - текущий item
      */
-    private function renderCheckbox(array $item): string
+    public function renderCheckbox(array $item): string
     {
         $checked = ArrayHelper::getValue($item, 'checked', false);
         $name = $this->getId().'-radio';
@@ -234,7 +235,7 @@ class ListItem extends ControlList
      * Выводит иконку либо автар
      * @param array $item - текущий item
      */
-    private function getTagIcon(array $item): string
+    protected function getTagIcon(array $item): string
     {
         if ($this->checkbox ||
             $this->radio ||
@@ -266,7 +267,7 @@ class ListItem extends ControlList
     /**
      * Вернуть аватар из View _avatar.php
      */
-    private function getAvatar(): string
+    protected function getAvatar(): string
     {
         if (empty($this->_avatarBuf)) {
             $this->_avatarBuf = $this->renderView('_avatar');
@@ -278,7 +279,7 @@ class ListItem extends ControlList
      * Доабвить мета текст с права item
      * @param array $item - текущий item
      */
-    private function getTagMeta(array $item): string
+    protected function getTagMeta(array $item): string
     {
         if ($item['meta'] == 'button') {
             $meta = Html::button('more_vert', [
@@ -293,42 +294,45 @@ class ListItem extends ControlList
     }
 
     /**
-     * Выводит Item
-     * @param array $item - текущий item
+     * set custom item options
+     * @var array &$options - стандартные параметры item
      */
-    private function getTagItem(array $item): string
+    protected function setCustomItemOptions(array &$options): void
     {
-        $item['options']['class'][] = self::$clsItem['base'];        
+        if (!empty($this->itemOptions)) {
+            $options = ArrayHelper::merge($options, $this->itemOptions);
+        }
+    }
+
+    /**
+     * selected - можно указать в item
+     * либо в свойстве value, оно может быть типа string|array
+    */
+    protected function isSelect(array $item): bool
+    {
+        return (isset($item['selected']) && $item['selected'] === true && empty($this->value))
+                    ||
+                    (!empty($this->value) && isset($item['value']) && (
+                        (is_array($this->value) && ArrayHelper::isIn($item['value'], $this->value))
+                        ||
+                        (!is_array($this->value) && $this->value == $item['value'])
+                    ));
+    }
+
+    protected function initItemOptions(array &$item)
+    {
+        $item['options']['class'][] = self::$clsItem['base'];
         if ($this->single) {
             $item['options']['role'] = 'option';
         }
         if (!ArrayHelper::getValue($item, 'enabled', true)) {
             $item['options']['class'][] = self::$clsItem['disabled'];
         }
-        //Если задано значение selectedValue
-        // if (!empty($this->selectedValue)) {
-        //     if (isset($item[$this->selectedProp])) {
-        //         $propValue = $item[$this->selectedProp];
-        //         //Если $this->selectedValue == $propValue, либо ищем $propValue в массиве
-        //         $item['selected'] = ((\is_array($this->selectedValue) && array_search($propValue, $this->selectedValue))) || ($this->selectedValue === $propValue);
-        //     }
-        // }
-        /**
-         * selected - можно указать в item
-         * либо в свойстве value, оно может быть типа string|array
-         */
-        $isSelect = (isset($item['selected']) && $item['selected'] === true && empty($this->value))
-                    ||                    
-                    (!empty($this->value) && isset($item['value']) && (
-                        (is_array($this->value) && ArrayHelper::isIn($item['value'], $this->value))
-                        ||
-                        (!is_array($this->value) && $this->value == $item['value'])
-                    ));
-
-        if ($isSelect) {
+        
+        if ($this->isSelect($item)) {
             $item['options']['class'][] = self::$clsItem['selected'];
             $item['options']['aria-selected'] = 'true';
-        } 
+        }
         if (isset($item['value'])) {
             $this->jsProperty['values'][] = $item['value'];
             $item['options']['data-value'] = $item['value'];
@@ -336,10 +340,19 @@ class ListItem extends ControlList
         if (isset($item['href'])) {
             $item['options']['href'] = Url::to([$item['href']]);
         }
-        if (!empty($this->roleItem)) {
-            $item['options']['role'] = $this->roleItem;
-        }
-        $content = Html::beginTag($this->tagListItem, $item['options']);
+    }
+
+    /**
+     * Выводит Item
+     * @param array $item - текущий item
+     */
+    protected function getTagItem(array $item): string
+    {
+        $this->initItemOptions($item);
+        // set custom item options
+        $this->setCustomItemOptions($item['options']);
+
+        $content = Html::beginTag($this->tagItem, $item['options']);
         //Ripple
         $content .= Html::tag('span', '', ['class' => self::$clsItem['ripple']]);
         //Icon or Avatar or Radio or Checkbox
@@ -350,7 +363,7 @@ class ListItem extends ControlList
         if (isset($item['meta'])) {
             $content .= $this->getTagMeta($item);
         }
-        $content .= Html::endTag($this->tagListItem);
+        $content .= Html::endTag($this->tagItem);
         //Separator
         if (isset($item['separator'])) {
             $content .= $this->getTagSeparator();
@@ -359,7 +372,7 @@ class ListItem extends ControlList
     }
 
     public function setSelected($value, string $prop = 'value'): ListItem
-    {        
+    {
         foreach ($this->items as $key => $item) {
             if (isset($item[$prop])) {
                 $propValue = $item[$prop];
@@ -373,7 +386,8 @@ class ListItem extends ControlList
         return $this;
     }
 
-    public function getSelectedIndex(): array {
+    public function getSelectedIndex(): array
+    {
         return $this->selectedIndex;
     }
 
@@ -419,7 +433,7 @@ class ListItem extends ControlList
     }
 
     /**
-     * Нарисовать список tagListItem внутри TagList
+     * Нарисовать список tagItem внутри TagList
      * @param string $content - Html items
      */
     public function renderFrame(string $content): string

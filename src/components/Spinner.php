@@ -21,7 +21,7 @@ class Spinner extends Component
         'small' => 'mdc-spinner-small',
         'medium' => 'mdc-spinner-medium',
         'large' => 'mdc-spinner-large',
-        'open' => 'mdc-spinner--open'
+        'show' => 'mdc-spinner--show'
     ];
 
     public bool $enabled = false;
@@ -40,7 +40,7 @@ class Spinner extends Component
         $this->options['class'][] = self::$clsBlock['base'];
         $this->options['class'][] = self::$clsBlock[$this->size];
         if ($this->enabled) {
-            $this->options['class'][] = self::$clsBlock['open'];
+            $this->options['class'][] = self::$clsBlock['show'];
         }        
     }
     
