@@ -62,7 +62,7 @@ class Collapse extends ListItem
     public function __construct(array $property = [], array $options = [])
     {
         parent::__construct($property, $options);
-        self::$clsItem['selected'] = self::$clsHeader['active'];
+        $this->clsItem['selected'] = self::$clsHeader['active'];
     }
 
     /**

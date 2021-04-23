@@ -24,7 +24,7 @@ class ListItem extends ControlList
         'avatar' => 'mdc-list--avatar-list',
     ];
 
-    protected static array $clsItem = [
+    protected array $clsItem = [
         'base' => 'mdc-list-item',
         'selected' => 'mdc-list-item--selected',
         'ripple' => 'mdc-list-item__ripple',
@@ -193,12 +193,12 @@ class ListItem extends ControlList
     {
         $text = ArrayHelper::getValue($item, 'text', $item['value']);
         if ($this->isHelper()) {
-            $content = Html::tag('span', $text, ['class' => self::$clsItem['primary']]);
-            $content .= Html::tag('span', $item['helper'], ['class' => self::$clsItem['secondary']]);
+            $content = Html::tag('span', $text, ['class' => $this->clsItem['primary']]);
+            $content .= Html::tag('span', $item['helper'], ['class' => $this->clsItem['secondary']]);
         } else {
             $content = $text;
         }
-        return Html::tag('span', $content, ['class' => self::$clsItem['text']]);
+        return Html::tag('span', $content, ['class' => $this->clsItem['text']]);
     }
 
     /**
@@ -321,16 +321,16 @@ class ListItem extends ControlList
 
     protected function initItemOptions(array &$item)
     {
-        $item['options']['class'][] = self::$clsItem['base'];
+        $item['options']['class'][] = $this->clsItem['base'];
         if ($this->single) {
             $item['options']['role'] = 'option';
         }
         if (!ArrayHelper::getValue($item, 'enabled', true)) {
-            $item['options']['class'][] = self::$clsItem['disabled'];
+            $item['options']['class'][] = $this->clsItem['disabled'];
         }
         
         if ($this->isSelect($item)) {
-            $item['options']['class'][] = self::$clsItem['selected'];
+            $item['options']['class'][] = $this->clsItem['selected'];
             $item['options']['aria-selected'] = 'true';
         }
         if (isset($item['value'])) {
@@ -354,7 +354,7 @@ class ListItem extends ControlList
 
         $content = Html::beginTag($this->tagItem, $item['options']);
         //Ripple
-        $content .= Html::tag('span', '', ['class' => self::$clsItem['ripple']]);
+        $content .= Html::tag('span', '', ['class' => $this->clsItem['ripple']]);
         //Icon or Avatar or Radio or Checkbox
         $content .= $this->getTagIcon($item);
         //Text
