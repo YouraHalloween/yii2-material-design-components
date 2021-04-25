@@ -103,6 +103,11 @@ class _PersistentCmp extends _Persistent
         return $this;
     }
 
+    public function hasParent(): bool
+    {
+        return !is_null($this->parent);
+    }
+
     /**
      * Принудительная регистрация компонента
      * Все компоненты регистрируются через Render()

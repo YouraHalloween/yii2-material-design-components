@@ -24,7 +24,7 @@ class Typography
         Vars::LARGE => self::HEADLINE . 6,        
     ];    
 
-    private static function getCssClass(string $style, int $number = 0): string
+    public static function getCssClass(string $style, int $number = 0): string
     {        
         return self::_CLASSNAME . $style . ($number === 0 ? '' : $number);
     }
@@ -63,7 +63,7 @@ class Typography
      * Дополнительный текст
      * @param int $number 1-2
      */
-    public static function subtitle(int $number): string
+    public static function subtitle(int $number = 1): string
     {
         return self::getCssClass(self::SUBTITLE, $number);
     }
@@ -72,7 +72,7 @@ class Typography
      * Основной текст
      * @param int $number 1-2
      */
-    public static function body(int $number): string
+    public static function body(int $number = 1): string
     {
         return self::getCssClass(self::BODY, $number);
     }

@@ -234,13 +234,6 @@ class Select extends CustomTextField
         //mdc-select
         $content .= Html::endTag('div');
 
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
-            $content = $this->getTagOuterLabel() . $content;
-        }
-
         return $content;
     }
 
@@ -268,13 +261,6 @@ class Select extends CustomTextField
 
         //mdc-select
         $content .= Html::endTag('div');
-
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
-            $content = $this->getTagOuterLabel() . $content;
-        }
 
         return $content;
     }

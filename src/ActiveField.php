@@ -10,6 +10,10 @@ class ActiveField extends \yii\widgets\ActiveField
     public $errorOptions = ['tag' => false];
     public $hintOptions = ['tag' => false];
 
+    public $options = [
+        'class' => ['mdc-form-field__i']
+    ];
+
     private static $pathComponent = 'yh\\mdc\\components\\';
     /**
      * @var bool adds aria HTML attributes `aria-required` and `aria-invalid` for inputs
@@ -26,19 +30,24 @@ class ActiveField extends \yii\widgets\ActiveField
         return $property;
     }
 
-    private function generateInput(string $class, array $options = []): array
+    private function generateInput(string $className, array $options = []): array
     {        
         //В options записаны property
         $property = $this->getProperty($options);
-        $class = self::$pathComponent.$class;
-        $textField = new $class('', $property); 
-        $textField->setInputOptions($options);  
-        $textField->setParent($this->form); 
-        // template для textField
-        $this->template = $textField->template();
+        $class = self::$pathComponent.$className;
+        $mdcInput = new $class('', $property); 
+        $mdcInput->setInputOptions($options);  
+        $mdcInput->setParent($this->form); 
+        // template для mdcInput
+        $this->template = $mdcInput->template();
+
+        //TODO Select
+        if ($className === 'TextField' && !$mdcInput->isLabelInner()) {
+            $this->options['class'][] = $mdcInput::$clsFormField['label-' . $mdcInput->labelTemplate];
+        }
     
         // Options input
-        return $textField->getInputOptions();
+        return $mdcInput->getInputOptions();
     }
 
     public function textInput($options = [])

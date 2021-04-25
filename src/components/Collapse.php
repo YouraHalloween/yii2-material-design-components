@@ -3,10 +3,10 @@
 namespace yh\mdc\components;
 
 use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\ControlList;
 use yh\mdc\components\ListItem;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yh\mdc\components\Typography;
 
 class Collapse extends ListItem
 {
@@ -33,16 +33,6 @@ class Collapse extends ListItem
     ];
 
     /**
-     * @var string $header - Заголовок списка
-     */
-    // public string $header = '';
-
-    /**
-     * @var array $listProperty - Настройки для ListItem
-     */
-    // public array $listProperty = [];
-
-    /**
      * @var string $itemIcon - конка для items
      */
     public string $itemIcon = 'unfold_more';
@@ -52,10 +42,9 @@ class Collapse extends ListItem
      * В items необходимо указать content, компоненты, которые будут использоваться для фильтрации
      * Например:
      * 'content' => [
-     *      TextField::one(Yii::t('backend/user-filter', 'Пользователь'))->setId('filter-user-name'),
-     *      TextField::one(Yii::t('backend/user-filter', 'Email'))->setId('filter-email'),
-     *      Select::one(Yii::t('backend/user-filter', 'Статус'))->setId('filter-status'),
-     *      CheckBox::one(Yii::t('backend/user-filter', 'Активный'))->setId('filter-active')
+     *      text,
+     *      text,
+     *      ...
      *    ]
      */
 
@@ -110,13 +99,18 @@ class Collapse extends ListItem
         return $options;
     }
 
+    protected function renderItemContent($itemContent)
+    {
+        return Html::tag('p', $itemContent, ['class' => Typography::body()]);        
+    }
+
     protected function getTagItemContent(array $item): string
     {
         $itemContent = $item['content'];
 
         if (is_array($itemContent)) {
-            $itemContent = array_map(function ($item) {
-                return "<p class='mdc-typography--body'>$item</p>";
+            $itemContent = array_map(function ($i) {
+                return $this->renderItemContent($i);
             }, $itemContent);
             $itemContent = \implode('', $itemContent);
         }

@@ -149,13 +149,6 @@ class TextField extends CustomTextField
         $content .= $this->getTagRipple('line');
         $content .= Html::endTag('label');
 
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
-            $content = $this->getTagOuterLabel() . $content;
-        }
-
         return $content;
     }
 
@@ -174,13 +167,6 @@ class TextField extends CustomTextField
         $content .= $this->getTagIcons('trailing');
         
         $content .= Html::endTag('label');
-
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != 'inner') {
-            $content = $this->getTagOuterLabel() . $content;
-        }
 
         return $content;
     }

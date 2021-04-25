@@ -10,7 +10,7 @@ use yh\mdc\components\IconButton;
 use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\Vars;
 
-class CustomTextField extends ControlInput
+abstract class CustomTextField extends ControlInput
 {
     const FILLED = 'filled';
     const OUTLINED = 'outlined';
@@ -41,7 +41,7 @@ class CustomTextField extends ControlInput
     /**
      * @var bool $buttonClear - отоброжать кнопку Отчистить
      */
-    public bool $buttonClear = false;    
+    public bool $buttonClear = false;
     /**
      * @var string $textSize - задается размер текста
      */
@@ -71,28 +71,20 @@ class CustomTextField extends ControlInput
     /**
      * @var string $template - внешний вид textfield FILLED or OUTLINED
      */
-    public string $template = self::FILLED;  
+    public string $template = self::FILLED;
     
     protected array $labelOptions = [
         'class' => ['mdc-typography--subtitle1']
-    ];  
+    ];
 
     /* Класс для блока textfield */
-    protected static array $clsBlock = [
-        // 'base' => 'mdc-text-field',
-        // self::FILLED => 'mdc-text-field--filled',
-        // self::OUTLINED => 'mdc-text-field--outlined',
-        // 'disabled' => 'mdc-text-field--disabled',
-        // 'icon-leading' => 'mdc-text-field--with-leading-icon',
-        // 'icon-trailing' => 'mdc-text-field--with-trailing-icon'
-    ];
-    protected static array $clsLabel = [
-        // 'inner' => 'mdc-floating-label',
-        // 'outer-base' => 'mdc-outer-label',
-        // 'outline-notched' => 'mdc-notched-outline',
-        // 'outline-leading' => 'mdc-notched-outline__leading',
-        // 'outline-notch' => 'mdc-notched-outline__notch',
-        // 'outline-trailing' => 'mdc-notched-outline__trailing',
+    protected static array $clsBlock = [];
+    protected static array $clsLabel = [];
+    public static array $clsFormField = [
+        'label-top' => 'mdc-form-field__label--top',
+        'label-left' => 'mdc-form-field__label--left',
+        'label-inner' => 'mdc-form-field__label--inner',
+        'with-label' => 'mdc-form-field__with-label',
     ];
 
     /* Классы для лейбла
@@ -100,53 +92,30 @@ class CustomTextField extends ControlInput
     label - класс для лейбла, если в inpute есть значение во время инициализации
     no-label - лейбл отсуствует
     */
-    protected static array $clsLabelFloating = [
-        // 'block' => 'mdc-text-field--label-floating',
-        // 'label' => 'mdc-floating-label--float-above',
-        // 'no-label' => 'mdc-text-field--no-label',
-    ];
+    protected static array $clsLabelFloating = [];
 
     /* Классы для анимации линий */
-    protected static array $clsRipple = [
-        // 'filled' => 'mdc-text-field__ripple',
-        // 'line' => 'mdc-line-ripple',
-    ];
+    protected static array $clsRipple = [];
 
     /*Классы для преикса и суфикса */
-    protected static array $clsAffix = [
-        // 'base' => 'mdc-text-field__affix',
-        // 'prefix' => 'mdc-text-field__affix--prefix',
-        // 'suffix' => 'mdc-text-field__affix--suffix',
-    ];
+    protected static array $clsAffix = [];
     
     /* Хелпер может быть в 3 состояниях
     class = "" - хелпер появляется, когда input в фокусе и исчезает, когда input теряет фокусе
     class = "mdc-text-field-helper-text--persistent" - хелпер отображается все время
     class = "mdc-text-field-helper-text--validation-msg" может выводить ошибку
     */
-    protected static array $clsHelper = [
-        // 'base' => 'mdc-text-field-helper-line',
-        // 'required' => 'mdc-text-field-helper-text',
-        // 'persistent' => 'mdc-text-field-helper-text--persistent',
-        // 'validation' => 'mdc-text-field-helper-text--validation-msg'
-    ];
+    protected static array $clsHelper = [];
 
     /**
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
-    protected static array $clsIcons = [
-        // 'base' => 'mdc-text-field__icon',
-        // 'leading' => 'mdc-text-field__icon--leading',
-        // 'trailing' => 'mdc-text-field__icon--trailing',
-        // 'group' => 'mdc-text-field__group-icon'
-    ];
+    protected static array $clsIcons = [];
 
     /**
      * Классы для input
      */
-    protected static array $clsInput = [
-        // 'base' => 'mdc-text-field__input',
-    ];
+    protected static array $clsInput = [];
 
     protected function initOptions(): void
     {
@@ -155,7 +124,7 @@ class CustomTextField extends ControlInput
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
         $this->options['class'][] = $this->getClsLabelFloating('block');
-        $this->options['class'][] = Vars::cmpHeight($this->height);   
+        $this->options['class'][] = Vars::cmpHeight($this->height);
         $this->options['class'][] = Typography::fontSize($this->textSize);
 
         if (!$this->enabled) {
@@ -166,12 +135,12 @@ class CustomTextField extends ControlInput
             if ($this->hasIcon($icon)) {
                 $this->options['class'][] = static::$clsBlock['icon-'.$icon];
             }
-        }        
+        }
     }
 
     // protected function initInputOptions(): void
     // {
-    //     parent::initInputOptions();        
+    //     parent::initInputOptions();
     // }
 
     /**
@@ -223,7 +192,7 @@ class CustomTextField extends ControlInput
 
         if (!empty($this->label)) {
             $content .= Html::beginTag('span', ['class' => static::$clsLabel['outline-notch']]);
-            if ($this->labelTemplate == self::ALIGN_INNER) {
+            if ($this->isLabelInner()) {
                 $content .= $this->getTagInnerLabel();
             }
             $content .= Html::endTag('span');
@@ -251,7 +220,7 @@ class CustomTextField extends ControlInput
     */
     protected function getClsLabelFloating(string $mode): string
     {
-        if (empty($this->label) || $this->labelTemplate !== self::ALIGN_INNER) {
+        if (empty($this->label) || !$this->isLabelInner()) {
             return static::$clsLabelFloating['no-label'];
         }
 
@@ -346,7 +315,7 @@ class CustomTextField extends ControlInput
         } else {
             $id = null;
         }
-        $property['isButton'] = false;  
+        $property['isButton'] = false;
          
         return IconButton::one()
             ->setProperty($property)
@@ -388,7 +357,7 @@ class CustomTextField extends ControlInput
                             $property['iconOn']= $toggle;
                         } else {
                             $options['role'] = ArrayHelper::getValue($value, 'role', 'icon');
-                        }                        
+                        }
                     } else {
                         /**
                          * Массив иконок может быть двух видов
@@ -402,13 +371,13 @@ class CustomTextField extends ControlInput
                         } else {
                             $property['icon'] = $key;
                             if ($value === 'button' || $value === 'icon') {
-                                $options['role'] = $value;                                
+                                $options['role'] = $value;
                             } else {
                                 $options['role'] = 'button';
                                 $property['toggle'] = true;
                                 $property['iconOn']= $value;
                             }
-                        }                                                
+                        }
                     }
                     $content .= $this->_getTagIcon($position, $property, $options);
                     $countIcon++;
@@ -424,67 +393,39 @@ class CustomTextField extends ControlInput
         return '';
     }
 
-    protected function getComponentFilled(): string
-    {
-        $content = Html::beginTag('label', $this->getOptions());
+    abstract protected function getComponentFilled(): string;
+
+    abstract protected function getComponentOutlined(): string;
     
-        $content .= $this->getTagRipple('filled');
-        $content .= $this->getTagIcons('leading');
-
-        if ($this->labelTemplate == self::ALIGN_INNER) {
-            $content .= $this->getTagInnerLabel();
-        }
-        $content .= $this->getTagPrefixSuffix('prefix');
-        $content .= $this->getTagInput();
-        $content .= $this->getTagPrefixSuffix('suffix');
-
-        $content .= $this->getTagIcons('trailing');
-
-        $content .= $this->getTagRipple('line');
-        $content .= Html::endTag('label');
-
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != self::ALIGN_INNER) {
-            $content = $this->getTagOuterLabel() . $content;
-        }
-
-        return $content;
-    }
-
-    protected function getComponentOutlined(): string
+    public function isLabelInner(): bool
     {
-        $content = Html::beginTag('label', $this->getOptions());
-            
-        $content .= $this->getTagIcons('leading');
-        $content .= $this->getTagPrefixSuffix('prefix');
-        
-        $content .= $this->getTagOutlined();
-        
-        $content .= $this->getTagInput();
-
-        $content .= $this->getTagPrefixSuffix('suffix');
-        $content .= $this->getTagIcons('trailing');
-        
-        $content .= Html::endTag('label');
-
-        //Добавить под блок Helper
-        $content .= $this->renderHelper();
-        //Добавить в начале вертикальный лейбл
-        if ($this->labelTemplate != self::ALIGN_INNER) {
-            $content = $this->getTagOuterLabel() . $content;
-        }
-
-        return $content;
+        return $this->labelTemplate === self::ALIGN_INNER;
     }
+
     /**
      * Class _ComponentInput
      * Вывод темплайта
      */
     public function renderComponent(): string
-    {        
-        return $this->template === self::FILLED ? $this->getComponentFilled() : $this->getComponentOutlined();
+    {
+        $content = $this->template === self::FILLED ? $this->getComponentFilled() : $this->getComponentOutlined();
+
+        // Добавить внешний лейбл
+        if (!$this->isLabelInner()) {
+            $content = $this->getTagOuterLabel() . $content;
+            if ($this->labelTemplate === self::ALIGN_LEFT) {
+                $content = Html::tag('div', $content, ['class' => self::$clsFormField['with-label']]);
+            }
+        }
+
+        // Добавить блок Helper
+        $content .= $this->renderHelper();
+
+        if (!$this->hasParent()) {
+            $content= Html::tag('div', $content, ['class' => self::$clsFormField['label-' . $this->labelTemplate]]);
+        }
+        
+        return $content;
     }
 
     public static function filled(string $label = '', array $property = [], array $options = [])
@@ -497,6 +438,5 @@ class CustomTextField extends ControlInput
     {
         $property = array_merge($property, ['template' => self::OUTLINED]);
         return self::one($label, $property, $options);
-
     }
 }
