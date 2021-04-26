@@ -26,11 +26,21 @@ class CollapseSearch extends Collapse
      * @var bool $showHelperSearch - Вывести панель, накоторой будут показано количество найденных записей
      */
     public bool $showHelperSearch = true;
-
     /**
      * @var int $countSearch - Количество найденых записей
      */
     public int $countSearch = -1;
+    /**
+     * @var string $captionSearch - Текст для кнопки поиска
+     * Инициализация в конструкторе
+     */
+    public string $captionSearch = '';
+    /**
+     * @var string $helperText - Найдено
+     * Инициализация в конструкторе
+     */
+    public string $helperText = '';
+    
 
     protected static array $clsWrapAlt = [
         'base' => 'mdc-collapse-search'
@@ -62,6 +72,14 @@ class CollapseSearch extends Collapse
      *    ]
      */
 
+    public function __construct(array $property = [], array $options = [])
+    {
+        parent::__construct($property, $options);
+        $this->header = \Yii::t('mdc/components/CollapseSearch/header', 'Параметры поиска');
+        $this->captionSearch = \Yii::t('mdc/components/CollapseSearch/captionSearch', 'Найти');
+        $this->helperText = \Yii::t('mdc/components/CollapseSearch/helperText', 'Найдено');
+    }
+
     /**
      * Css классы для контейнера
      */
@@ -76,13 +94,7 @@ class CollapseSearch extends Collapse
     {
         if ($this->showHelperSearch) {
             $content = Html::beginTag('div', ['class' => self::$clsSearch['helper']]);
-            $content .= Html::tag(
-                'span',
-                \Yii::t('mdc/components/CollapseSearch/HelperSearch', 'Найдено'),
-                [
-                    'class' => self::$clsSearch['helper-text']
-                ]
-            );
+            $content .= Html::tag('span', $this->helperText, ['class' => self::$clsSearch['helper-text']]);
             $countText = $this->countSearch === -1 ? '...' : $this->countSearch;
             $content .= Html::tag('span', $countText, ['class' => self::$clsSearch['helper-count']]);
             $content .= Html::endTag('div');
@@ -97,7 +109,7 @@ class CollapseSearch extends Collapse
         if ($this->showButtonSearch || $this->showHelperSearch) {
             $content .= Html::beginTag('div', ['class' => self::$clsSearch['base']]);
             if ($this->showButtonSearch) {
-                $content .= Button::one(\Yii::t('mdc/components/CollapseSearch/BtnSearch', 'Найти'))
+                $content .= Button::one($this->captionSearch)
                 ->setProperty([
                     'icon' => 'search',
                     'spinner' => Button::SP_AUTO
@@ -105,6 +117,7 @@ class CollapseSearch extends Collapse
                 ->setOptions([
                     'class' => self::$clsSearch['button']
                 ])
+                ->setId($this->getId().'-action')
                 ->raised();
             }
             if ($this->showHelperSearch) {

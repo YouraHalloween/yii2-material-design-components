@@ -118,8 +118,13 @@ function DataTableProcessing(id) {
     }
 
     function setNavigation(navContent) {
-        nav.innerHTML = navContent;
-        initNavigation();
+        if (navContent === false) 
+        {
+            nav.innerHTML = '';
+        } else {
+            nav.innerHTML = navContent;
+            initNavigation();
+        }
     }
 
     function setBody(data) {

@@ -43,7 +43,7 @@ class LinkPager extends \yii\widgets\LinkPager
         if ($disabled) {
             $this->linkContainerOptions['disabled'] = 'disabled';
         }
-        $content = parent::renderPageButton($label, $page, $class, $disabled, $active);
+        $content = parent::renderPageButton($label, $page, $class, $disabled, $active);        
         if ($disabled) {
             ArrayHelper::remove($this->linkContainerOptions, 'disabled'); 
         }
