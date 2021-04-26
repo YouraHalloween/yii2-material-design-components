@@ -414,6 +414,14 @@ class ListItem extends ControlList
         return $content;
     }
 
+    public function renderHeader(): string
+    {
+        if (!empty($this->header)) {
+            return Html::tag('h4', $this->header, ['class' => self::$clsGroup['label']]);
+        }
+        return '';
+    }
+
     /**
      * Вывести список
      * @param bool $frame - обрамлять тегом tagList
@@ -425,10 +433,8 @@ class ListItem extends ControlList
             $content = $this->renderFrame($content);
         }
 
-        if (!empty($this->header)) {
-            $content = Html::tag('h4', $this->header, ['class' => self::$clsGroup['label']])
-                        .$content;
-        }
+        $content = $this->renderHeader().$content;
+        
         return $content;
     }
 

@@ -11520,14 +11520,28 @@ a.mdc-evolution-list-item {
   align-items: center;
 }
 
-.mdc-collapse-search__label {
-  box-sizing: border-box;
-  text-align: right;
-  width: 40%;
+.mdc-collapse-search__action {
+  margin-bottom: 10px;
 }
 
-.mdc-collapse-search__component {
-  width: 60%;
+.mdc-collapse-search__action-helper {
+  padding: 7px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--mdc-theme-primary-border-color);
+}
+
+.mdc-collapse-search__button {
+  width: 100%;
+}
+.mdc-collapse-search__button.mdc-button {
+  --mdc-typography-button-font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.mdc-collapse-search__action-text {
+  color: var(--mdc-theme-text-secondary-on-background);
 }
 
 .mdc-checkbox.mdc-checkbox--disabled + label {

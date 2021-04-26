@@ -22,7 +22,7 @@ class Button extends ButtonBase
     protected static string $clsIcon = 'material-icons mdc-button__icon';
 
     protected function getContent(): string
-    {                    
+    {
         $content = '';
         if ($this->ripple) {
             $content .= $this->getTagiRipple();
@@ -44,17 +44,17 @@ class Button extends ButtonBase
         return $content;
     }
 
-    public function submit(string $viewType = 'gray'): string
-    {        
+    public function submit(string $viewType = self::VIEW_GRAY): string
+    {
         $this->options['type'] = 'submit';
         $this->cmpType = ComponentRegister::TYPE_SUBMIT;
-        $this->viewType = $viewType;        
+        $this->viewType = $viewType;
 
         return $this->render();
     }
 
     // public function default(string $label, array $options = [], array $property = []): string
-    // {        
+    // {
     //     return $this->render($label, $property, $options);
     // }
 
@@ -64,11 +64,11 @@ class Button extends ButtonBase
     //     return $this->render($label, $property, $options);
     // }
 
-    // public function raised(string $label, array $options = [], array $property = []): string
-    // {
-    //     $property['view-type'] = 'raised';
-    //     return $this->render($label, $property, $options);
-    // }
+    public function raised(string $viewType = self::VIEW_RAISED): string
+    {
+        $this->viewType = $viewType;
+        return $this->render();
+    }
 
     // public function unelevated(string $label, array $options = [], array $property = []): string
     // {

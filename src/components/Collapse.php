@@ -15,6 +15,11 @@ class Collapse extends ListItem
     public array $wrapOptions = [];
     public array $itemContentOptions = [];
 
+    /**
+     * @var bool $itemDevider разделяет заголовки item чертой
+     */
+    public bool $itemDevider = false;
+
     public bool $action = false;
 
     protected static array $clsWrap = [
@@ -24,7 +29,8 @@ class Collapse extends ListItem
     protected static array $clsHeader = [
         'item' => 'mdc-list-item__collapse',
         'header' => 'mdc-collapse__header',
-        'active' => 'mdc-collapse__header-active'
+        'active' => 'mdc-collapse__header-active',
+        'devider' => 'mdc-list-divider'
     ];
 
     protected static array $clsContent = [
@@ -158,6 +164,9 @@ class Collapse extends ListItem
     protected function getTagItem(array $item): string
     {
         $content = parent::getTagItem($item);
+        if ($this->itemDevider) {
+            $content .= Html::tag('hr', '', ['class' => self::$clsHeader['devider']]);
+        }
         if (isset($item['content'])) {
             $content .= $this->getTagItemContent($item);                        
         }

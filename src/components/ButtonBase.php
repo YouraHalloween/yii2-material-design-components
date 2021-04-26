@@ -11,10 +11,19 @@ class ButtonBase extends Control
 {       
     protected string $cmpType = ComponentRegister::TYPE_BUTTON;
 
+    const VIEW_BASE = 'base';
+    const VIEW_RAISED = 'raised';
+    const VIEW_GRAY = 'gray';
+    const VIEW_SUBMIT = 'submit';
+
+    const SP_NONE = '';
+    const SP_AUTO = 'auto';
+    const SP_MANUAL = 'manual';
+
     /**
      * @var string $viewType - Вид кнопки base, submit, raised
      */
-    public string $viewType = 'base';
+    public string $viewType = self::VIEW_BASE;
     /**
      * @var string $icon - выводимая иконка
      */
@@ -29,7 +38,7 @@ class ButtonBase extends Control
      * auto - спинер появится, если disabled = true
      * manual - появлением спинера управляет пользователь
      */
-    public string $spinner = '';
+    public string $spinner = self::SP_NONE;
         
     protected static array $clsBlock = [
         'base' => ''
@@ -56,10 +65,10 @@ class ButtonBase extends Control
         parent::initOptions();
 
         $this->options['class'][] = static::$clsBlock['base']; 
-        if ($this->viewType == 'gray') {
+        if ($this->viewType == self::VIEW_GRAY) {
             $this->options['class'][] = static::$clsBlock['raised'];
         }
-        if ($this->viewType != 'base') {
+        if ($this->viewType != self::VIEW_BASE) {
             $this->options['class'][] = static::$clsBlock[$this->viewType];
         }        
     }
