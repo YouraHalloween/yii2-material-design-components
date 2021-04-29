@@ -3,6 +3,7 @@
 namespace yh\mdc;
 
 use yii\helpers\ArrayHelper;
+use yh\mdc\Config;
 
 class ActiveField extends \yii\widgets\ActiveField
 {
@@ -13,60 +14,69 @@ class ActiveField extends \yii\widgets\ActiveField
     public $options = [
         'class' => ['mdc-form-field__i']
     ];
-
-    private static $pathComponent = 'yh\\mdc\\components\\';
+    
+    public $component;
+    
     /**
      * @var bool adds aria HTML attributes `aria-required` and `aria-invalid` for inputs
      * @since 2.0.11
      */
     public $addAriaAttributes = false;
 
-    private function getProperty(array &$options) 
+    private function getProperty(array &$options)
     {
         $property = ArrayHelper::remove($options, 'property', []);
         $property['id'] = $this->getInputId();
         $property['name'] = $this->attribute;
-        $property['value'] = $this->model[$this->attribute];        
+        $property['value'] = $this->model[$this->attribute];
         return $property;
     }
 
-    private function generateInput(string $className, array $options = []): array
-    {        
+    public function generateInput(string $className, array $options = []): ActiveField
+    {
         //В options записаны property
         $property = $this->getProperty($options);
-        $class = self::$pathComponent.$className;
-        $mdcInput = new $class('', $property); 
-        $mdcInput->setInputOptions($options);  
-        $mdcInput->setParent($this->form); 
-        // template для mdcInput
-        $this->template = $mdcInput->template();
+        $class = Config::$pathComponent.$className;
+        $this->component = new $class('', $property);
+        $this->component->setInputOptions($options);
+        $this->component->setParent($this->form);
 
-        //TODO Select
-        if ($className === 'TextField' && !$mdcInput->isLabelInner()) {
-            $this->options['class'][] = $mdcInput::$clsFormField['label-' . $mdcInput->labelTemplate];
-        }
-    
-        // Options input
-        return $mdcInput->getInputOptions();
+        return $this;
     }
 
     public function textInput($options = [])
     {
-        return parent::textInput($this->generateInput('TextField', $options));
+        $this->generateInput('TextField', $options);
+        return parent::textInput($this->component->getInputOptions());
     }
 
     public function passwordInput($options = [])
-    {        
-        return parent::passwordInput($this->generateInput('TextField', $options));
+    {
+        $this->generateInput('TextField', $options);
+        return parent::passwordInput($this->component->getInputOptions());
     }
 
     public function checkbox($options = [], $enclosedByLabel = false)
-    {            
-        return parent::checkbox($this->generateInput('CheckBox', $options), $enclosedByLabel);
+    {
+        $this->generateInput('CheckBox', $options);
+        return parent::checkbox($this->component->getInputOptions(), $enclosedByLabel);
     }
 
     public function radio($options = [], $enclosedByLabel = false)
     {
-        return parent::checkbox($this->generateInput('Radio', $options), $enclosedByLabel);
+        $this->generateInput('Radio', $options);
+        return parent::checkbox($this->component->getInputOptions(), $enclosedByLabel);
+    }
+
+    public function render($content = null)
+    {
+        //TODO Select        
+        if ($this->component->className(true) === 'TextField' && !$this->component->isLabelInner()) {
+            $this->options['class'][] = $this->component::$clsFormField['label-' . $this->component->labelTemplate];
+        }
+
+        // $component->render()
+        $this->template = $this->component->template();
+        return parent::render($content);
     }
 }

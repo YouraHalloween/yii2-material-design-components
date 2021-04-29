@@ -7,6 +7,7 @@ use yh\mdc\components\Collapse;
 use yh\mdc\components\Button;
 use yh\mdc\components\base\Vars;
 use yh\mdc\components\base\stdctrls\CustomTextField;
+use yh\mdc\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -14,7 +15,7 @@ class CollapseSearch extends Collapse
 {
     protected string $cmpType = ComponentRegister::TYPE_COLLAPSE_SEARCH;
 
-    public string $labelTemplate = CustomTextField::ALIGN_LEFT;
+    public string $labelTemplate = CustomTextField::ALIGN_TOP;
     public string $cmpTemplate = CustomTextField::OUTLINED;
     public string $cmpHeight = Vars::EXTRA_SMALL;
 
@@ -40,6 +41,14 @@ class CollapseSearch extends Collapse
      * Инициализация в конструкторе
      */
     public string $helperText = '';
+    /**
+     *
+     */
+    public $model = null;
+    /**
+     *
+     */
+    public $form = null;
     
 
     protected static array $clsWrapAlt = [
@@ -47,7 +56,7 @@ class CollapseSearch extends Collapse
     ];
 
     protected static array $clsContentAlt = [
-        'wrap' => 'mdc-collapse-search__item',
+        'switch' => 'mdc-collapse-search__i--switch',
     ];
 
     protected static array $clsSearch = [
@@ -63,21 +72,26 @@ class CollapseSearch extends Collapse
      * В items необходимо указать content, компоненты, которые будут использоваться для фильтрации
      * Например:
      * 'content' => [
-     *      TextField::one(Yii::t('backend/user-filter', 'Пользователь'))->setId('filter-user-name'),
-     *      TextField::one(Yii::t('backend/user-filter', 'Email'))->setId('filter-email'),
-     *      Select::one(Yii::t('backend/user-filter', 'Статус'))->setId('filter-status'),
-     *      CheckBox::one(Yii::t('backend/user-filter', 'Активный'))->setId('filter-active'),
-     *      text,
-     *      ...
-     *    ]
+     *                    [
+     *                            'class' => 'TextField',
+     *                            'name' => 'username',
+     *                            'property' => [
+     *                                'label' => Yii::t('backend/user', 'Пользователь:'),
+     *                            ]
+     *                        ],
      */
 
     public function __construct(array $property = [], array $options = [])
     {
         parent::__construct($property, $options);
+        // Init
         $this->header = \Yii::t('mdc/components/CollapseSearch/header', 'Параметры поиска');
         $this->captionSearch = \Yii::t('mdc/components/CollapseSearch/captionSearch', 'Найти');
         $this->helperText = \Yii::t('mdc/components/CollapseSearch/helperText', 'Найдено');
+        //
+        $this->form = ActiveForm::begin([
+                'id' => 'filterform'
+            ]);
     }
 
     /**
@@ -117,8 +131,9 @@ class CollapseSearch extends Collapse
                 ->setOptions([
                     'class' => self::$clsSearch['button']
                 ])
-                ->setId($this->getId().'-action')
-                ->raised();
+                ->setParent($this->form)
+                ->raised()
+                ->submit();
             }
             if ($this->showHelperSearch) {
                 $content .= $this->getTagHelperSearch();
@@ -128,16 +143,56 @@ class CollapseSearch extends Collapse
         return $content;
     }
 
+    protected function renderItemComponent($configComponent): string
+    {    
+        $className = ArrayHelper::remove($configComponent, 'class');
+        $name = ArrayHelper::remove($configComponent, 'name', $configComponent['id']);
+
+        $field = $this->form->field($this->model, $name);
+
+        $bufCmpHeight = $this->cmpHeight;
+        
+        switch ($className) {
+            case 'TextField':
+                // $configComponent['property']['buttonClear'] = true;
+                $field->textInput($configComponent);
+                break;
+            case 'CheckBox':      
+                if ($this->labelTemplate == CustomTextField::ALIGN_LEFT) {
+                    $configComponent['property']['rtl'] = true;
+                }
+                if ($bufCmpHeight === Vars::EXTRA_SMALL) {
+                    $bufCmpHeight = Vars::SMALL;
+                }
+                $field->options['class'][] = self::$clsContentAlt['switch'];
+                $field->checkbox($configComponent);                                
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        $field->component->labelTemplate = $this->labelTemplate;
+        $field->component->template= $this->cmpTemplate;
+        $field->component->height = $bufCmpHeight;
+
+        return $field->render();
+    }
+
     protected function renderItemContent($itemContent)
     {
         if (\is_string($itemContent)) {
             return parent::renderItemContent($itemContent);
-        } elseif (is_object($itemContent)) {
-            $itemContent->labelTemplate = $this->labelTemplate;
-            $itemContent->template= $this->cmpTemplate;
-            $itemContent->height = $this->cmpHeight;
-            return Html::tag('div', $itemContent->render(), ['class' => self::$clsContentAlt['wrap']]);
+        } elseif (is_array($itemContent)) {             
+            return $this->renderItemComponent($itemContent);
         }
         return "";
+    }
+
+    public function renderComponent(): string
+    {
+        $content = parent::renderComponent();
+        ActiveForm::end();
+        return $content;
     }
 }

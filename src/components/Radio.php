@@ -3,76 +3,50 @@
 namespace yh\mdc\components;
 
 use yii\helpers\Html;
-use yh\mdc\components\base\ControlInput;
+use yh\mdc\components\base\stdctrls\CustomSwitch;
+
 use yh\mdc\components\base\stable\ComponentRegister;
 
-class Radio extends ControlInput
+class Radio extends CustomSwitch
 {
     protected string $cmpType = ComponentRegister::TYPE_RADIO;
 
     public string $type = 'radio';
 
-    /**
-     * @var bool $value - checked
-     */
-    public $value = false;  
-    /**
-     * @var bool $rtl - render right to left     
-     */
-    public bool $rtl = false;
-
-    private static array $clsBlock = [
-        'base' => 'mdc-form-field',
-        'rtl' => 'mdc-form-field--align-end'
-    ]; 
-    
-    private static string $clsInput = 'mdc-radio__native-control';
+    protected static string $clsInput = 'mdc-radio__native-control';
     /* Контейнер для чекбокса */
-    private static array $clsBlockInput = [
+    protected static array $clsBlockInput = [
         'base' => 'mdc-radio',
         'disabled' => 'mdc-radio--disabled',
     ];
 
-    private static array $clsBackground = [
+    protected static array $clsBackground = [
         'base' => 'mdc-radio__background',
         'outer' => 'mdc-radio__outer-circle',
         'inner' => 'mdc-radio__inner-circle',
     ];
 
-    private static string $clsRipple = 'mdc-radio__ripple';
+    protected static string $clsRipple = 'mdc-radio__ripple';
 
-    private static string $clsLabel = 'mdc-switch__label';
+    // protected function initOptions(): void
+    // {
+    //     parent::initOptions();
 
-    protected function initInputOptions(): void
-    {
-        parent::initInputOptions();
+    //     $this->options['class'][] = self::$clsBlockInput['base'];
 
-        $this->inputOptions['class'][] = self::$clsInput;
+    //     if (!$this->enabled) {
+    //         $this->options['class'][] = self::$clsBlockInput['disabled'];
+    //     }
+    // }
 
-        if ($this->value) {
-            $this->inputOptions['checked'] = 'true';
-        }
-    }
+    // protected function getTagLabel(): string
+    // {
+    //     $this->labelOptions['class'][] = self::$clsLabel;
 
-    protected function initOptions(): void
-    {
-        parent::initOptions();
+    //     return parent::getTagLabel();
+    // }
 
-        $this->options['class'][] = self::$clsBlockInput['base'];
-
-        if (!$this->enabled) {
-            $this->options['class'][] = self::$clsBlockInput['disabled'];
-        }
-    }
-
-    protected function getTagLabel(): string
-    {
-        $this->labelOptions['class'][] = self::$clsLabel;
-
-        return parent::getTagLabel();
-    }
-
-    private function getTagBackgorund(): string
+    protected function getTagBackgorund(): string
     {
         $content = Html::beginTag('div', ['class' => self::$clsBackground['base']]);
         $content .= Html::tag('div', '', ['class' => self::$clsBackground['outer']]);
@@ -82,29 +56,24 @@ class Radio extends ControlInput
         return $content;
     }
 
-    private function getTagRipple(): string
-    {
-        return $this->ripple ? Html::tag('div', '', ['class' => self::$clsRipple]) : '';
-    }
+    // public function renderComponent(): string
+    // {
+    //     $content = Html::beginTag('div', $this->getOptions());
+    //     $content .= $this->getTagInput();
+    //     $content .= $this->getTagBackgorund();
+    //     $content .= $this->getTagRipple();
+    //     $content .= Html::endTag('div');
 
-    public function renderComponent(): string
-    {
-        $content = Html::beginTag('div', $this->getOptions());
-        $content .= $this->getTagInput();
-        $content .= $this->getTagBackgorund();
-        $content .= $this->getTagRipple();
-        $content .= Html::endTag('div');
-
-        $content .= $this->getTagLabel();
+    //     $content .= $this->getTagLabel();
         
-        if ($this->formField) {
-            $cls = [self::$clsBlock['base']];
-            if ($this->rtl) {
-                $cls[] = self::$clsBlock['rtl'];
-            }
-            return Html::tag('div', $content, ['class' => $cls]);
-        } else {
-            return $content;
-        }
-    }
+    //     if ($this->formField) {
+    //         $cls = [self::$clsBlock['base']];
+    //         if ($this->rtl) {
+    //             $cls[] = self::$clsBlock['rtl'];
+    //         }
+    //         return Html::tag('div', $content, ['class' => $cls]);
+    //     } else {
+    //         return $content;
+    //     }
+    // }
 }

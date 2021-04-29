@@ -41,7 +41,7 @@ abstract class CustomTextField extends ControlInput
     /**
      * @var bool $buttonClear - отоброжать кнопку Отчистить
      */
-    public bool $buttonClear = false;
+    public bool $buttonClear = true;
     /**
      * @var string $textSize - задается размер текста
      */
@@ -124,7 +124,9 @@ abstract class CustomTextField extends ControlInput
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
         $this->options['class'][] = $this->getClsLabelFloating('block');
-        $this->options['class'][] = Vars::cmpHeight($this->height);
+        if ($this->height !== Vars::NORMAL) {
+            $this->options['class'][] = Vars::cmpHeight($this->height);
+        }
         $this->options['class'][] = Typography::fontSize($this->textSize);
 
         if (!$this->enabled) {
@@ -151,7 +153,7 @@ abstract class CustomTextField extends ControlInput
     {
         parent::setProperty($property);
         if ($this->buttonClear) {
-            $this->trailing['clear'] = ['button', 'aria-clear' => 'true'];
+            $this->trailing['clear'] = 'button';
         }
         return $this;
     }

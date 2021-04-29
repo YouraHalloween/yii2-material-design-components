@@ -14,6 +14,17 @@ class _Persistent
     ];
 
     private bool $hasInitOptions = false;
+
+    public static function className(bool $shortName = false)
+    {
+        
+        $class = static::class;
+        if ($shortName) {
+            $classObject = new \ReflectionClass($class);
+            $class = $classObject->getShortName();
+        }
+        return $class;
+    }
     
     public function __construct(array $property = [], array $options = [])
     {

@@ -44,35 +44,23 @@ class Button extends ButtonBase
         return $content;
     }
 
-    public function submit(string $viewType = self::VIEW_GRAY): string
+    public function submit(): string
     {
         $this->options['type'] = 'submit';
         $this->cmpType = ComponentRegister::TYPE_SUBMIT;
-        $this->viewType = $viewType;
-
         return $this->render();
     }
 
-    // public function default(string $label, array $options = [], array $property = []): string
-    // {
-    //     return $this->render($label, $property, $options);
-    // }
-
-    // public function outlined(string $label, array $options = [], array $property = []): string
-    // {
-    //     $property['view-type'] = 'outlined';
-    //     return $this->render($label, $property, $options);
-    // }
-
-    public function raised(string $viewType = self::VIEW_RAISED): string
+    public function gray(): Button
     {
-        $this->viewType = $viewType;
-        return $this->render();
+        $this->viewType = self::VIEW_GRAY;
+        return $this;
     }
 
-    // public function unelevated(string $label, array $options = [], array $property = []): string
-    // {
-    //     $property['view-type'] = 'raised';
-    //     return $this->render($label, $property, $options);
-    // }
+    public function raised(): Button
+    {
+        $this->viewType = self::VIEW_RAISED;
+        return $this;
+
+    }
 }
