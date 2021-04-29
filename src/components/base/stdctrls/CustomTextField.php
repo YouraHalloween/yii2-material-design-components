@@ -41,7 +41,7 @@ abstract class CustomTextField extends ControlInput
     /**
      * @var bool $buttonClear - отоброжать кнопку Отчистить
      */
-    public bool $buttonClear = true;
+    public bool $buttonClear = false;
     /**
      * @var string $textSize - задается размер текста
      */
@@ -50,13 +50,16 @@ abstract class CustomTextField extends ControlInput
     /**
      * @var array $leading
      * ICONS or BUTTONS
-     *    trailing, leading => [
-     *        'clear',
-     *        'visibility' => 'button',
-     *        'user' => ['aria-hidden' => true],
-     *        'admin' => ['button', 'aria-hidden' => false]
-     *    ]
-     */
+     *    trailing, leading =>
+     *  Если строка массива состоит из leading => [
+     *  'clear', 'user'
+     *  'clear' => 'undo-clear'
+     *  'clear' => 'button' or 'icon',
+     *  'clear' => ['role' => 'icon', ...options],
+     *  'clear' => ['toggle' => 'undo-clear', ...options],
+     *  'clear' => [...options],
+     * ]
+    */
     /**
      * @var string $leading - одна иконка
      * @var array $leading - список иконок с параметрами
@@ -152,9 +155,12 @@ abstract class CustomTextField extends ControlInput
     public function setProperty(array $property): CustomTextField
     {
         parent::setProperty($property);
+
         if ($this->buttonClear) {
             $this->trailing['clear'] = 'button';
+            $this->jsProperty['trailingIcon.clear'] = true;
         }
+
         return $this;
     }
 
@@ -311,12 +317,11 @@ abstract class CustomTextField extends ControlInput
             static::$clsIcons['base'],
             static::$clsIcons[$position],
         ];
+        $id = null;
         if ($options['role'] === 'button') {
             $options['tabindex'] = '0';
             $id = $this->getId().'-'.$property['icon'];
-        } else {
-            $id = null;
-        }
+        };
         $property['isButton'] = false;
          
         return IconButton::one()
@@ -343,7 +348,7 @@ abstract class CustomTextField extends ControlInput
                      *  'clear', 'user'
                      *  'clear' => 'button' or 'icon',
                      *  'clear' => ['role' => 'icon', ...options],
-                     *  'clear' => ['toggle' => 'UndoClear', ...options],
+                     *  'clear' => ['toggle' => 'undo-clear', ...options],
                      *  'clear' => [...options],
                      * ]
                      */

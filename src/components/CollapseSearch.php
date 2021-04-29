@@ -154,7 +154,7 @@ class CollapseSearch extends Collapse
         
         switch ($className) {
             case 'TextField':
-                // $configComponent['property']['buttonClear'] = true;
+                $configComponent['property']['buttonClear'] = true;
                 $field->textInput($configComponent);
                 break;
             case 'CheckBox':      

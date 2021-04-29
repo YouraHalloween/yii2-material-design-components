@@ -115,14 +115,16 @@ class _PersistentCmp extends _Persistent
      */
     public function registerComponent(): void
     {
-        $parentId = is_null($this->parent) ? '' : $this->parent->getId();
+        if (!is_null($this->id)) {
+            $parentId = is_null($this->parent) ? '' : $this->parent->getId();
 
-        ComponentRegister::registerControlJs(
-            $this->getId(),
-            $this->cmpType,
-            $this->jsProperty,
-            $parentId
-        );
+            ComponentRegister::registerControlJs(
+                $this->getId(),
+                $this->cmpType,
+                $this->jsProperty,
+                $parentId
+            );
+        }
     }
 
     /**
