@@ -2,14 +2,14 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\Collapse;
-use yh\mdc\components\Button;
-use yh\mdc\components\base\Vars;
-use yh\mdc\components\base\stdctrls\CustomTextField;
+use yii\helpers\Html;
 use yh\mdc\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yh\mdc\components\Button;
+use yh\mdc\components\Collapse;
+use yh\mdc\components\base\Vars;
+use yh\mdc\components\base\stable\ComponentRegister;
+use yh\mdc\components\base\stdctrls\CustomTextField;
 
 class CollapseSearch extends Collapse
 {
@@ -79,10 +79,10 @@ class CollapseSearch extends Collapse
      *                                'label' => Yii::t('backend/user', 'Пользователь:'),
      *                            ]
      *                        ],
-     */
+     */ 
 
     public function __construct(array $property = [], array $options = [])
-    {
+    {        
         parent::__construct($property, $options);
         // Init
         $this->header = \Yii::t('mdc/components/CollapseSearch/header', 'Параметры поиска');
@@ -105,7 +105,7 @@ class CollapseSearch extends Collapse
     }
 
     protected function getTagHelperSearch(): string
-    {
+    {        
         if ($this->showHelperSearch) {
             $content = Html::beginTag('div', ['class' => self::$clsSearch['helper']]);
             $content .= Html::tag('span', $this->helperText, ['class' => self::$clsSearch['helper-text']]);
@@ -144,7 +144,7 @@ class CollapseSearch extends Collapse
     }
 
     protected function renderItemComponent($configComponent): string
-    {    
+    {
         $className = ArrayHelper::remove($configComponent, 'class');
         $name = ArrayHelper::remove($configComponent, 'name', $configComponent['id']);
 
@@ -157,7 +157,7 @@ class CollapseSearch extends Collapse
                 $configComponent['property']['buttonClear'] = true;
                 $field->textInput($configComponent);
                 break;
-            case 'CheckBox':      
+            case 'CheckBox':
                 if ($this->labelTemplate == CustomTextField::ALIGN_LEFT) {
                     $configComponent['property']['rtl'] = true;
                 }
@@ -165,7 +165,7 @@ class CollapseSearch extends Collapse
                     $bufCmpHeight = Vars::SMALL;
                 }
                 $field->options['class'][] = self::$clsContentAlt['switch'];
-                $field->checkbox($configComponent);                                
+                $field->checkbox($configComponent);
                 break;
             
             default:
@@ -183,7 +183,7 @@ class CollapseSearch extends Collapse
     {
         if (\is_string($itemContent)) {
             return parent::renderItemContent($itemContent);
-        } elseif (is_array($itemContent)) {             
+        } elseif (is_array($itemContent)) {
             return $this->renderItemComponent($itemContent);
         }
         return "";

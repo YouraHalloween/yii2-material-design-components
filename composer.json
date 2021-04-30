@@ -17,11 +17,26 @@
             "homepage": "https://github.com/youra-halloween/yii2-material-design-components",
             "role": "Developer"
         }
-    ],
-    "require": {},
+    ],    
     "autoload": {
         "psr-4": {
             "yh\\mdc\\": "src"
         }
-    }
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "yiisoft/yii2": "~2.0.14"       
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
