@@ -3,24 +3,22 @@
 namespace yh\mdc\components;
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use yh\mdc\components\base\stdctrls\CustomTextField;
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\extensions\TrOptions;
-use yh\mdc\components\base\extensions\TrList;
-use yh\mdc\components\base\extensions\TrParentList;
 use yh\mdc\components\Menu;
+use yii\helpers\ArrayHelper;
+use yh\mdc\components\base\extensions\TrList;
+use yh\mdc\components\base\extensions\TrOptions;
+use yh\mdc\components\base\stable\ComponentRegister;
+use yh\mdc\components\base\stdctrls\CustomTextField;
 
 class Select extends CustomTextField
 {
     //TrOptions - устанавливает options['id']
     //TrList - добавляет свойство items
-    //TrParentList - добалвяет listProperty, setListProperty
-    use TrOptions, TrList, TrParentList;
+    use TrOptions, TrList;
 
     protected string $cmpType = ComponentRegister::TYPE_SELECT;
 
-    private ?Menu $menu = null;
+    public ?Menu $menu = null;
 
     public $fullWidth = true;
 
@@ -120,7 +118,16 @@ class Select extends CustomTextField
     public function __construct(string $label = '', array $property = [], array $options = [])
     {        
         parent::__construct($label, $property, $options);
+        /**
+         * Init listbox
+         */
         $this->menu = new Menu();
+        $this->menu->setIdNull();
+        $this->menu->items = &$this->items;
+        $this->menu->value = &$this->value;
+        $this->menu->action = false;
+        $this->menu->anchor = false;
+        $this->menu->options['role'] = 'listbox';
     }
 
     protected function initInputOptions(): void
@@ -141,23 +148,7 @@ class Select extends CustomTextField
             $menuOptions['class'][] = self::$clsMenu['fullWidth'];
         }
 
-        $listProperty = [
-            // 'tagList' => 'ul',
-            // 'tagItem' => 'li',
-            'action' => false,
-            'itemOptions' => ['role' => 'option']
-        ];
-
-        $listProperty = array_merge($this->listProperty, $listProperty);
-
-        $this->menu
-            ->setProperty([
-                'items' => $this->items,
-                'anchor' => false,
-                'roleMenu' => 'listbox'                
-            ])
-            ->setListProperty($listProperty)
-            ->setOptions($menuOptions);        
+        $this->menu->setWrapOptions($menuOptions);       
     }
 
     private function getOptionsAnchor(): array

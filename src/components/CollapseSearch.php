@@ -154,7 +154,7 @@ class CollapseSearch extends Collapse
         
         switch ($className) {
             case 'TextField':
-                $configComponent['property']['buttonClear'] = true;
+                $configComponent['property']['buttonClear'] = true;                
                 $field->textInput($configComponent);
                 break;
             case 'CheckBox':
@@ -167,7 +167,10 @@ class CollapseSearch extends Collapse
                 $field->options['class'][] = self::$clsContentAlt['switch'];
                 $field->checkbox($configComponent);
                 break;
-            
+            case 'Select':
+                // $configComponent['property']['buttonClear'] = true;                
+                $field->dropDownList($configComponent);
+                break;
             default:
                 # code...
                 break;

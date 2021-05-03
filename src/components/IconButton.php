@@ -94,9 +94,6 @@ class IconButton extends Control
         return $this;
     }
     
-    /**
-     * Нарисовать Snackbar
-     */
     public function renderComponent(): string
     {
         $tag = $this->isButton ? 'button' : 'i';

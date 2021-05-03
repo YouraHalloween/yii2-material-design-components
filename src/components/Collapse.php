@@ -2,23 +2,22 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\ListItem;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yh\mdc\components\ListItem;
 use yh\mdc\components\Typography;
+use yh\mdc\components\base\extensions\trWrap;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class Collapse extends ListItem
 {
+    use trWrap {
+        trWrap::initWrapOptions as traitInitWrapOptions;
+    }
+
     protected string $cmpType = ComponentRegister::TYPE_COLLAPSE;
 
-    public array $wrapOptions = [];
-    public array $itemContentOptions = [];
-
-    /**
-     * @var bool $itemDevider разделяет заголовки item чертой
-     */
-    public bool $itemDevider = false;
+    public array $itemContentOptions = [];    
 
     public bool $action = false;
 
@@ -29,8 +28,7 @@ class Collapse extends ListItem
     protected static array $clsHeader = [
         'item' => 'mdc-list-item__collapse',
         'header' => 'mdc-collapse__header',
-        'active' => 'mdc-collapse__header-active',
-        'devider' => 'mdc-list-divider'
+        'active' => 'mdc-collapse__header-active'        
     ];
 
     protected static array $clsContent = [
@@ -60,17 +58,12 @@ class Collapse extends ListItem
         $this->clsItem['selected'] = self::$clsHeader['active'];
     }
 
-    /**
-     * Css классы для контейнера
-     */
     public function initWrapOptions(): void
     {
+        // parent initWrapOptions();
+        $this->traitInitWrapOptions();
         $this->wrapOptions['class'][] = self::$clsWrap['base'];
         $this->wrapOptions['class'][] = self::$clsGroup['base'];
-
-        if (!is_null($this->id)) {
-            $this->wrapOptions['id'] = $this->getId();
-        }
     }
 
     public function initOptions(): void
@@ -78,13 +71,6 @@ class Collapse extends ListItem
         parent::initOptions();
         // Remove id from ListItem
         ArrayHelper::remove($this->options, 'id');
-    }
-
-    public function getWrapOptions(): array
-    {
-        $this->initWrapOptions();
-        
-        return $this->wrapOptions;
     }
 
     protected function getItemContentOptions($item): array 
@@ -163,10 +149,7 @@ class Collapse extends ListItem
 
     protected function getTagItem(array $item): string
     {
-        $content = parent::getTagItem($item);
-        if ($this->itemDevider) {
-            $content .= Html::tag('hr', '', ['class' => self::$clsHeader['devider']]);
-        }
+        $content = parent::getTagItem($item);        
         if (isset($item['content'])) {
             $content .= $this->getTagItemContent($item);                        
         }

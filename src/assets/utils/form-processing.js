@@ -24,9 +24,9 @@ function FormProcessing(id, blockedControls = { control: 'submit', unblock: fals
     let _submit = app.controls.item(`${id}-submit`);
 
     _$form.on('afterValidateAttribute', function (_event, attribute, messages) {
-        var control = app.controls.item(attribute.id);
+        let control = app.controls.item(attribute.id);
         if (control.helperMessage) {
-            var text = messages.length > 0 ? messages[0] : '';
+            const text = messages.length > 0 ? messages[0] : '';
             //Первоначально изменить Valid, после чего error=text, выполнит рендер Helper
             control.valid = messages.length == 0;
             control.helperMessage.error = text;

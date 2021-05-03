@@ -2,15 +2,15 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\ControlList;
-use yh\mdc\components\Radio;
-use yh\mdc\components\Checkbox;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yh\mdc\components\Radio;
 use yii\helpers\ArrayHelper;
+use yh\mdc\components\Checkbox;
 use yh\mdc\components\base\Vars;
 use yh\mdc\components\Typography;
+use yh\mdc\components\base\ControlList;
+use yh\mdc\components\base\stable\ComponentRegister;
 
 class ListItem extends ControlList
 {
@@ -32,6 +32,7 @@ class ListItem extends ControlList
         'primary' => 'mdc-list-item__primary-text',
         'secondary' => 'mdc-list-item__secondary-text',
         'disabled' => 'mdc-list-item--disabled',
+        'separator' => 'mdc-list-divider'
     ];
 
     protected static array $clsGroup = [
@@ -48,8 +49,6 @@ class ListItem extends ControlList
         'base' => 'mdc-list-item__meta',
         'button' => 'mdc-icon-button material-icons'
     ];
-
-    protected static string $clsSeparator = 'mdc-list-divider';
     /*
     'items' => [
         [
@@ -113,7 +112,7 @@ class ListItem extends ControlList
      */
     public bool $action = true;
     /**
-     * @var string $roleItem
+     * @var array $itemOptions
      */
     public array $itemOptions = [];
 
@@ -125,6 +124,10 @@ class ListItem extends ControlList
      * @var string|array $value - если значение совпадает, то item будет выделен
      */
     public $value = '';
+    /**
+     * @var bool $separator разделяет заголовки item чертой
+     */
+    public bool $separator = false;
 
     /**
      * Используется для вывода сгруппированных списков
@@ -182,7 +185,7 @@ class ListItem extends ControlList
     //Добавляет разделяющую линию между items
     protected function getTagSeparator(): string
     {
-        return Html::tag('li', '', ['class' => self::$clsSeparator, 'role' => 'separator']);
+        return Html::tag('li', '', ['class' => self::$clsItem['separator'], 'role' => 'separator']);
     }
 
     /**
@@ -365,7 +368,7 @@ class ListItem extends ControlList
         }
         $content .= Html::endTag($this->tagItem);
         //Separator
-        if (isset($item['separator'])) {
+        if ($this->separator || isset($item['separator'])) {
             $content .= $this->getTagSeparator();
         }
         return $content;

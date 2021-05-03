@@ -4,11 +4,10 @@ namespace yh\mdc\components\base\stdctrls;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yh\mdc\components\base\ControlInput;
-use yh\mdc\components\Typography;
-use yh\mdc\components\IconButton;
-use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\Vars;
+use yh\mdc\components\IconButton;
+use yh\mdc\components\Typography;
+use yh\mdc\components\base\ControlInput;
 
 abstract class CustomTextField extends ControlInput
 {

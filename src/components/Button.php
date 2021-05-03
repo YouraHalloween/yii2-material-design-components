@@ -61,6 +61,5 @@ class Button extends ButtonBase
     {
         $this->viewType = self::VIEW_RAISED;
         return $this;
-
     }
 }

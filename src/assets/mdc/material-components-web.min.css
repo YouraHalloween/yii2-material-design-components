@@ -11669,12 +11669,24 @@ a.mdc-evolution-list-item {
   margin: -1px 5px 0 0;
 }
 
+/**
+* Find need padding for icon
+*/
 .mdc-text-field.mdc-h__exsmall,
 .mdc-select.mdc-h__exsmall .mdc-select__anchor,
 .mdc-select.mdc-h__exsmall .mdc-list-item,
 .mdc-list.mdc-h__exsmall .mdc-list-item,
 .mdc-form-field.mdc-h__exsmall {
   height: 34px;
+}
+
+.mdc-text-field.mdc-h__exsmall i,
+.mdc-select.mdc-h__exsmall i {
+  padding: 1px;
+  height: 28px;
+  width: 28px;
+  min-width: 28px;
+  font-size: 20px;
 }
 
 .mdc-text-field.mdc-h__small,
@@ -11685,6 +11697,15 @@ a.mdc-evolution-list-item {
   height: 36px;
 }
 
+.mdc-text-field.mdc-h__small i,
+.mdc-select.mdc-h__small i {
+  padding: 3px;
+  height: 30px;
+  width: 30px;
+  min-width: 30px;
+  font-size: 20px;
+}
+
 .mdc-text-field.mdc-h__medium,
 .mdc-select.mdc-h__medium .mdc-select__anchor,
 .mdc-select.mdc-h__medium .mdc-list-item,
@@ -11693,12 +11714,28 @@ a.mdc-evolution-list-item {
   height: 40px;
 }
 
+.mdc-text-field.mdc-h__medium i,
+.mdc-select.mdc-h__medium i {
+  padding: 5px;
+  height: 34px;
+  width: 34px;
+  min-width: 34px;
+}
+
 .mdc-text-field.mdc-h__large,
 .mdc-select.mdc-h__large .mdc-select__anchor,
 .mdc-select.mdc-h__large .mdc-list-item,
 .mdc-list.mdc-h__large .mdc-list-item,
 .mdc-form-field.mdc-h__large {
   height: 44px;
+}
+
+.mdc-text-field.mdc-h__large i,
+.mdc-select.mdc-h__large i {
+  padding: 7px;
+  height: 38px;
+  width: 38px;
+  min-width: 38px;
 }
 
 .mdc-form-field__i {
@@ -11872,6 +11909,12 @@ a.mdc-evolution-list-item {
   --mdc-ripple-focus-opacity: 0.04;
 }
 
+.mdc-select__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mdc-snackbar {
   position: absolute;
 }
@@ -11982,11 +12025,6 @@ a.mdc-evolution-list-item {
 .mdc-text-field:not(.mdc-text-field--disabled) {
   background-color: #fff;
 }
-.mdc-text-field .mdc-icon-button {
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-}
 .mdc-text-field.mdc-text-field--filled {
   --mdc-ripple-hover-opacity: 0.04;
   --mdc-ripple-press-opacity: 0.04;
@@ -11995,6 +12033,12 @@ a.mdc-evolution-list-item {
 .mdc-text-field + .mdc-text-field-helper-line {
   justify-content: left;
   padding: 0;
+}
+
+.mdc-text-field__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mdc-text-field-helper-line .mdc-text-field-helper-text {
@@ -12040,11 +12084,6 @@ a.mdc-evolution-list-item {
 }
 .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label {
   left: 52px;
-}
-
-.mdc-text-field__icon--leading,
-.mdc-text-field__icon--trailing {
-  padding: 8px;
 }
 
 .mdc-text-field__icon--leading {

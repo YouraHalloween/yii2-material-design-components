@@ -20,11 +20,11 @@ class _DataTablePagination extends ComponentInitial
         'select' => 'mdc-data-table__pagination-rows-per-page-select'
     ];
 
-    private static array $clsNavig = [
-        'base' => 'mdc-data-table__pagination-navigation',
-        'total' => 'mdc-data-table__pagination-total',
-        'button' => 'mdc-data-table__pagination-button',
-    ];
+    // private static array $clsNavig = [
+    //     'base' => 'mdc-data-table__pagination-navigation',
+    //     'total' => 'mdc-data-table__pagination-total',
+    //     'button' => 'mdc-data-table__pagination-button',
+    // ];
 
     public $grid;
 
@@ -56,10 +56,8 @@ class _DataTablePagination extends ComponentInitial
         $content .= Select::outlined('', [
                 'items' => $this->items,
                 'height' => Vars::EXTRA_SMALL,
-                'textSize' => Vars::SMALL,
-                'listProperty' => [
-                    'value' => $this->value
-                ]                
+                'textSize' => Vars::SMALL,                
+                'value' => $this->value                
             ],[
                 'class' => self::$clsPerPage['select']
             ])            

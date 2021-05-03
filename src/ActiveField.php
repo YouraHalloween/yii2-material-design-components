@@ -68,6 +68,15 @@ class ActiveField extends \yii\widgets\ActiveField
         return parent::checkbox($this->component->getInputOptions(), $enclosedByLabel);
     }
 
+    public function dropDownList($items, $options = [])
+    {
+        if (!empty($items) && !isset($options['property']['items'])) {
+            $options['property']['items'] = $items;
+        }
+        $this->generateInput('Select', $options);
+        return parent::dropDownList($items, $this->component->getInputOptions());
+    }
+
     public function render($content = null)
     {
         //TODO Select        
