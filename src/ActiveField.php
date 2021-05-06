@@ -28,7 +28,9 @@ class ActiveField extends \yii\widgets\ActiveField
         $property = ArrayHelper::remove($options, 'property', []);
         $property['id'] = $this->getInputId();
         $property['name'] = $this->attribute;
-        $property['value'] = $this->model[$this->attribute];
+        if (!isset($property['value']) || !is_null($this->model[$this->attribute])) {
+            $property['value'] = $this->model[$this->attribute];
+        }
         return $property;
     }
 
@@ -36,7 +38,7 @@ class ActiveField extends \yii\widgets\ActiveField
     {
         //В options записаны property
         $property = $this->getProperty($options);
-        $class = Config::$pathComponent.$className;
+        $class = Config::getClassComponent($className);
         $this->component = new $class('', $property);
         $this->component->setInputOptions($options);
         $this->component->setParent($this->form);
@@ -78,9 +80,9 @@ class ActiveField extends \yii\widgets\ActiveField
     }
 
     public function render($content = null)
-    {
-        //TODO Select        
-        if ($this->component->className(true) === 'TextField' && !$this->component->isLabelInner()) {
+    {          
+        $className = $this->component->className(true);
+        if (($className === 'TextField' || $className === 'Select') && !$this->component->isLabelInner()) {
             $this->options['class'][] = $this->component::$clsFormField['label-' . $this->component->labelTemplate];
         }
 

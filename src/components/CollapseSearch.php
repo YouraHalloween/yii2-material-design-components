@@ -149,8 +149,6 @@ class CollapseSearch extends Collapse
         $name = ArrayHelper::remove($configComponent, 'name', $configComponent['id']);
 
         $field = $this->form->field($this->model, $name);
-
-        $bufCmpHeight = $this->cmpHeight;
         
         switch ($className) {
             case 'TextField':
@@ -158,18 +156,16 @@ class CollapseSearch extends Collapse
                 $field->textInput($configComponent);
                 break;
             case 'CheckBox':
+                $configComponent['property']['ripple'] = false;
                 if ($this->labelTemplate == CustomTextField::ALIGN_LEFT) {
                     $configComponent['property']['rtl'] = true;
-                }
-                if ($bufCmpHeight === Vars::EXTRA_SMALL) {
-                    $bufCmpHeight = Vars::SMALL;
                 }
                 $field->options['class'][] = self::$clsContentAlt['switch'];
                 $field->checkbox($configComponent);
                 break;
             case 'Select':
                 // $configComponent['property']['buttonClear'] = true;                
-                $field->dropDownList($configComponent);
+                $field->dropDownList([], $configComponent);
                 break;
             default:
                 # code...
@@ -177,7 +173,7 @@ class CollapseSearch extends Collapse
         }
         $field->component->labelTemplate = $this->labelTemplate;
         $field->component->template= $this->cmpTemplate;
-        $field->component->height = $bufCmpHeight;
+        $field->component->height = $this->cmpHeight;
 
         return $field->render();
     }

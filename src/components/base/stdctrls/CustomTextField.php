@@ -8,6 +8,7 @@ use yh\mdc\components\base\Vars;
 use yh\mdc\components\IconButton;
 use yh\mdc\components\Typography;
 use yh\mdc\components\base\ControlInput;
+use yh\mdc\components\CollectionItemIconButton;
 
 abstract class CustomTextField extends ControlInput
 {
@@ -69,6 +70,8 @@ abstract class CustomTextField extends ControlInput
      * @var array $trailing - список иконок с параметрами
      */
     public $trailing = [];
+
+    public CollectionItemIconButton $icons;
     
     /**
      * @var string $template - внешний вид textfield FILLED or OUTLINED
@@ -119,6 +122,12 @@ abstract class CustomTextField extends ControlInput
      */
     protected static array $clsInput = [];
 
+    public function __construct(string $label = '', array $property = [], array $options = [])
+    {        
+        parent::__construct($label, $property, $options);
+        $this->iconButtons = new CollectionItemIconButton();
+    }
+
     protected function initOptions(): void
     {
         parent::initOptions();
@@ -135,17 +144,12 @@ abstract class CustomTextField extends ControlInput
             $this->options['class'][] = static::$clsBlock['disabled'];
         }
 
-        foreach (['leading', 'trailing'] as $key=>$icon) {
+        foreach (['leading', 'trailing'] as $icon) {
             if ($this->hasIcon($icon)) {
                 $this->options['class'][] = static::$clsBlock['icon-'.$icon];
             }
         }
     }
-
-    // protected function initInputOptions(): void
-    // {
-    //     parent::initInputOptions();
-    // }
 
     /**
      * Class ControlInput
@@ -153,12 +157,15 @@ abstract class CustomTextField extends ControlInput
      */
     public function setProperty(array $property): CustomTextField
     {
-        parent::setProperty($property);
+        $icons = ArrayHelper::remove($property, 'icons', []);
 
         if ($this->buttonClear) {
             $this->trailing['clear'] = 'button';
             $this->jsProperty['trailingIcon.clear'] = true;
         }
+
+        parent::setProperty($property);
+
 
         return $this;
     }
@@ -290,15 +297,6 @@ abstract class CustomTextField extends ControlInput
     }
 
     /**
-     * Возвращает тег префикс или суффикс
-     * @param string $mode - prefix | suffix
-     */
-    protected function getTagPrefixSuffix(string $mode): string
-    {
-        return '';
-    }
-
-    /**
      * Есть иконка?
      * @param string $mode - 'leading', 'trailing'
      */
@@ -321,7 +319,7 @@ abstract class CustomTextField extends ControlInput
             $options['tabindex'] = '0';
             $id = $this->getId().'-'.$property['icon'];
         };
-        $property['isButton'] = false;
+        $property['tag'] = 'i';
          
         return IconButton::one()
             ->setProperty($property)

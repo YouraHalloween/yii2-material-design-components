@@ -11516,8 +11516,11 @@ a.mdc-evolution-list-item {
 .mdc-collapse__content .mdc-form-field__i {
   margin-bottom: 10px;
 }
-.mdc-collapse__content .mdc-form-field__i.mdc-form-field__label--top, .mdc-collapse__content .mdc-form-field__i.mdc-collapse-search__i--switch {
+.mdc-collapse__content .mdc-form-field__i.mdc-form-field__label--top {
   margin-bottom: 3px;
+}
+.mdc-collapse__content .mdc-form-field__i.mdc-collapse-search__i--switch {
+  margin-bottom: 0;
 }
 .mdc-collapse__content .mdc-form-field__label--top .mdc-outer-label {
   padding: 0;

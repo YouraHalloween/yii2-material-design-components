@@ -18,7 +18,7 @@ class IconButton extends Control
         'toggle' => 'mdc-icon-button__icon--on'
     ];
 
-    public bool $isButton = true;
+    public string $tag = 'button';
 
     /**
      * Icon button toggle with toggled aria label
@@ -96,14 +96,13 @@ class IconButton extends Control
     
     public function renderComponent(): string
     {
-        $tag = $this->isButton ? 'button' : 'i';
-        $content = Html::beginTag($tag, $this->getOptions());
+        $content = Html::beginTag($this->tag, $this->getOptions());
         if ($this->toggle) {
             $content .= $this->getTagIcons();
         } else {
             $content .= $this->icon;
         }
-        $content .= Html::endTag($tag);
+        $content .= Html::endTag($this->tag);
         return $content;
     }
 }
