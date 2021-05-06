@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components;
+namespace yh\mdc\components\base\stdctrls;
 
 use yh\mdc\components\base\ComponentInitial;
 use yh\mdc\components\base\Vars;
@@ -19,12 +19,6 @@ class _DataTablePagination extends ComponentInitial
         'label' => 'mdc-data-table__pagination-rows-per-page-label',
         'select' => 'mdc-data-table__pagination-rows-per-page-select'
     ];
-
-    // private static array $clsNavig = [
-    //     'base' => 'mdc-data-table__pagination-navigation',
-    //     'total' => 'mdc-data-table__pagination-total',
-    //     'button' => 'mdc-data-table__pagination-button',
-    // ];
 
     public $grid;
 
@@ -69,7 +63,6 @@ class _DataTablePagination extends ComponentInitial
 
     private function getTagSummary(): string
     {
-        // return Html::tag('div', $this->contentSummary,['class' => self::$clsNavig['total']]);
         return $this->contentSummary;
     }
 

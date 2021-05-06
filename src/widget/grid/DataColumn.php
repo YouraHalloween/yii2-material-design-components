@@ -2,7 +2,7 @@
 
 namespace yh\mdc\widget\grid;
 
-use yh\mdc\components\_DataTableSortButton;
+use yh\mdc\components\base\stdctrls\_DataTableSortButton;
 
 class DataColumn extends \yii\grid\DataColumn
 {

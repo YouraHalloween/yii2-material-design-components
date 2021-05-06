@@ -11796,6 +11796,15 @@ a.mdc-evolution-list-item {
   align-items: center;
 }
 
+.mdc-form-field__group-icon {
+  align-self: center;
+  display: inline-flex;
+  margin: 0 3px;
+}
+.mdc-form-field__group-icon .mdc-text-field__icon, .mdc-form-field__group-icon .mdc-select__icon {
+  margin: 0 3px;
+}
+
 .mdc-icon-button {
   width: 44px;
   height: 44px;
@@ -12067,15 +12076,6 @@ a.mdc-evolution-list-item {
 }
 
 /* TEXTFIELD ICONS */
-.mdc-text-field__group-icon {
-  align-self: center;
-  display: inline-flex;
-  margin: 0 3px;
-}
-.mdc-text-field__group-icon .mdc-text-field__icon {
-  margin: 0 3px;
-}
-
 .mdc-text-field--with-trailing-icon {
   padding-left: 14px;
   padding-right: 0;

@@ -46,9 +46,6 @@ class IconButton extends Control
      */
     public string $tagIcon = 'i';
 
-    /**
-     * Css классы для контейнера
-     */
     public function initOptions(): void
     {
         parent::initOptions();

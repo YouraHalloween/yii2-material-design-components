@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components\base\stdctrls;
+namespace yh\mdc\components;
 
 use yh\mdc\components\IconButton;
 

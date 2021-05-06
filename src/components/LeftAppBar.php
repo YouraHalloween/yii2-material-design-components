@@ -42,9 +42,9 @@ class LeftAppBar extends ControlList
         $content = Html::beginTag('li', $options);
 
         $text = Html::tag('i', $item['icon'], ['class' => self::$clsList['icon']]);
-        
+                
         $options = [
-            'title' => $item['title'],
+            'title' => isset($item['title']) ? $item['title'] : '',
             'class' => [self::$clsList['label']]
         ];        
         $options['menu-index'] = isset($item['menu-index']) ? $item['menu-index'] : $item['icon'];

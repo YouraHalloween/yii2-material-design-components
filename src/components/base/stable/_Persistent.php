@@ -42,7 +42,7 @@ class _Persistent
     protected function initOptions(): void
     {
         //Сделать из строки массив, чтобы была возможность в наследуемых классах добавлять class
-        if (is_string($this->options['class'])) {
+        if (isset($this->options['class']) && is_string($this->options['class'])) {
             $this->options['class'] = [$this->options['class']];
         }
     }
@@ -52,8 +52,13 @@ class _Persistent
      */
     public function setProperty(array $property): _Persistent
     {
+        $className = $this->className();
         foreach ($property as $key => $value) {
-            $this->$key = $value;
+            if (property_exists($className, $key)) {
+                $this->$key = $value;
+            } else {                
+                throw new \Exception("'$className' Class property '$key' not found");                
+            }
         }
         return $this;
     }

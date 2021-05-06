@@ -129,8 +129,8 @@ class ComponentRegister {
     {
         self::getView()->registerJs(
             self::getRegisterObjectJs($obj),
-            self::$positionRegister,
-            $id
+            self::$positionRegister
+            // $id
         );
     }
 }

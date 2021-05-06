@@ -27,9 +27,9 @@ class _PersistentCmp extends _Persistent
      */
     public bool $enabled = true;
     /**
-     * @var ?ActiveForm $parent - используется для задания группы компонентов
+     * @var ?ActiveForm $owner - используется для задания группы компонентов
      */
-    public ?ActiveForm $parent = null;
+    public ?ActiveForm $owner = null;
     /**
      * @var array $jsProperty - Параметры будут переданы в компонент в JavaScript
      */
@@ -85,8 +85,8 @@ class _PersistentCmp extends _Persistent
     {
         if (isset($this->options['id'])) {
             $id = $this->options['id'];
-        } elseif (!is_null($this->parent)) {
-            $id = $this->parent->getId() . '-' . $this->cmpType;
+        } elseif (!is_null($this->owner)) {
+            $id = $this->owner->getId() . '-' . $this->cmpType;
         } else {
             $id = uniqid($this->cmpType.'-');
         }
@@ -95,17 +95,17 @@ class _PersistentCmp extends _Persistent
     }
 
     /**
-     * @param ActiveForm $parent
+     * @param ActiveForm $owner
      */
-    public function setParent(ActiveForm $parent): _Persistent
+    public function setOwner(ActiveForm $owner): _Persistent
     {
-        $this->parent = $parent;
+        $this->owner = $owner;
         return $this;
     }
 
-    public function hasParent(): bool
+    public function hasOwner(): bool
     {
-        return !is_null($this->parent);
+        return !is_null($this->owner);
     }
 
     /**
@@ -116,13 +116,13 @@ class _PersistentCmp extends _Persistent
     public function registerComponent(): void
     {
         if (!is_null($this->id)) {
-            $parentId = is_null($this->parent) ? '' : $this->parent->getId();
+            $ownerId = is_null($this->owner) ? '' : $this->owner->getId();
 
             ComponentRegister::registerControlJs(
                 $this->getId(),
                 $this->cmpType,
                 $this->jsProperty,
-                $parentId
+                $ownerId
             );
         }
     }

@@ -399,19 +399,13 @@ class ListItem extends ControlList
      */
     public function renderItems(): string
     {
-        $content = '';
-        $i = 0;
-        foreach ($this->items as $key => $item) {
-            // dump($item);
+        $content = '';        
+        foreach ($this->items as $key => $item) {            
             //Простой список состоящий из 'value' => 'label'
             if (!is_array($item)) {
                 $item = ['text' => $item, 'value' => $key];
             }
             $item['index'] = $key;
-            // if ($i === 0) {
-            //     $item['options']['tabindex'] = 0;
-            // }
-            $i++;
             $content .= $this->getTagItem($item);
         }
         return $content;

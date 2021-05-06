@@ -131,7 +131,7 @@ class CollapseSearch extends Collapse
                 ->setOptions([
                     'class' => self::$clsSearch['button']
                 ])
-                ->setParent($this->form)
+                ->setOwner($this->form)
                 ->raised()
                 ->submit();
             }

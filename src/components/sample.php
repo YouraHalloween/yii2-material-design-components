@@ -1,19 +1,27 @@
 <?php
 
-class Foo {
-    public function add(): self
+class AnyClassParent
+{
+    public function AnyFunc1(): static
     {
-        var_dump(get_class($this));
+        //...some actions
         return $this;
     }
 }
 
-class FooChild extends Foo {
-    public function remove(): FooChild
+class AnyClassChild extends AnyClassParent
+{
+    public function AnyFunc2(): AnyClassChild
     {
+        //...some actions
         return $this;
     }
 }
 
-$v = new FooChild();
-$v->add()->remove();
+$component = new AnyClassChild();
+$component
+    ->AnyFunc1(/* params */)
+    ->AnyFunc1(/* params */)
+    ->AnyFunc1(/* params */)   
+    ->AnyFunc2() 
+    ->AnyFunc2(/* params */);

@@ -4,9 +4,10 @@ namespace yh\mdc\components;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yh\mdc\components\base\stdctrls\CustomTextField;
 use yh\mdc\components\Typography;
+use yh\mdc\components\ItemIconButton;
 use yh\mdc\components\base\stable\ComponentRegister;
+use yh\mdc\components\base\stdctrls\CustomTextField;
 
 class TextField extends CustomTextField
 {
@@ -83,8 +84,7 @@ class TextField extends CustomTextField
     protected static array $clsIcons = [
         'base' => 'mdc-text-field__icon',        
         'leading' => 'mdc-text-field__icon--leading',
-        'trailing' => 'mdc-text-field__icon--trailing',
-        'group' => 'mdc-text-field__group-icon'
+        'trailing' => 'mdc-text-field__icon--trailing'
     ];
 
     /**
@@ -135,7 +135,7 @@ class TextField extends CustomTextField
         $content = Html::beginTag('label', $this->getOptions());
     
         $content .= $this->getTagRipple('filled');
-        $content .= $this->getTagIcons('leading');
+        $content .= $this->icons->render(ItemIconButton::LEADING);        
 
         if ($this->labelTemplate == 'inner') {
             $content .= $this->getTagInnerLabel();
@@ -144,7 +144,7 @@ class TextField extends CustomTextField
         $content .= $this->getTagInput();
         $content .= $this->getTagAffix('suffix');
 
-        $content .= $this->getTagIcons('trailing');
+        $content .= $this->icons->render(ItemIconButton::TRAILING);        
 
         $content .= $this->getTagRipple('line');
         $content .= Html::endTag('label');
@@ -155,8 +155,8 @@ class TextField extends CustomTextField
     protected function getComponentOutlined(): string
     {
         $content = Html::beginTag('label', $this->getOptions());
-            
-        $content .= $this->getTagIcons('leading');
+                    
+        $content .= $this->icons->render(ItemIconButton::LEADING);
         $content .= $this->getTagAffix('prefix');
         
         $content .= $this->getTagOutlined();
@@ -164,7 +164,7 @@ class TextField extends CustomTextField
         $content .= $this->getTagInput();
 
         $content .= $this->getTagAffix('suffix');
-        $content .= $this->getTagIcons('trailing');
+        $content .= $this->icons->render(ItemIconButton::TRAILING);        
         
         $content .= Html::endTag('label');
 

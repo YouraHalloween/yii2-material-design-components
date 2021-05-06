@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components;
+namespace yh\mdc\components\base\stdctrls;
 
 use yh\mdc\components\base\ComponentInitial;
 use yh\mdc\components\LinearProgress;

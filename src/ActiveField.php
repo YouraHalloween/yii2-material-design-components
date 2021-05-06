@@ -39,10 +39,9 @@ class ActiveField extends \yii\widgets\ActiveField
         //В options записаны property
         $property = $this->getProperty($options);
         $class = Config::getClassComponent($className);
-        $this->component = new $class('', $property);
-        $this->component->setInputOptions($options);
-        $this->component->setParent($this->form);
-
+        $this->component = (new $class('', $property))
+                            ->setInputOptions($options)
+                            ->setOwner($this->form);
         return $this;
     }
 

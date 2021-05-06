@@ -5,10 +5,9 @@ namespace yh\mdc\components\base\stdctrls;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\base\Vars;
-use yh\mdc\components\IconButton;
 use yh\mdc\components\Typography;
 use yh\mdc\components\base\ControlInput;
-use yh\mdc\components\CollectionItemIconButton;
+use yh\mdc\components\base\stdctrls\CollectionItemIconButton;
 
 abstract class CustomTextField extends ControlInput
 {
@@ -123,9 +122,11 @@ abstract class CustomTextField extends ControlInput
     protected static array $clsInput = [];
 
     public function __construct(string $label = '', array $property = [], array $options = [])
-    {        
-        parent::__construct($label, $property, $options);
-        $this->iconButtons = new CollectionItemIconButton();
+    {
+        CollectionItemIconButton::$clsIcons = &static::$clsIcons;
+        $this->icons = new CollectionItemIconButton($this);
+        
+        parent::__construct($label, $property, $options);            
     }
 
     protected function initOptions(): void
@@ -134,39 +135,40 @@ abstract class CustomTextField extends ControlInput
 
         $this->options['class'][] = static::$clsBlock['base'];
         $this->options['class'][] = static::$clsBlock[$this->template];
-        $this->options['class'][] = $this->getClsLabelFloating('block');
+        $clsLabel = $this->getClsLabelFloating('block');
+        if (!empty($clsLabel)) {
+            $this->options['class'][] = $clsLabel;
+        }
         if ($this->height !== Vars::NORMAL) {
             $this->options['class'][] = Vars::cmpHeight($this->height);
         }
-        $this->options['class'][] = Typography::fontSize($this->textSize);
+        if ($this->textSize !== Vars::NORMAL) {
+            $this->options['class'][] = Typography::fontSize($this->textSize);
+        }
 
         if (!$this->enabled) {
             $this->options['class'][] = static::$clsBlock['disabled'];
         }
 
-        foreach (['leading', 'trailing'] as $icon) {
-            if ($this->hasIcon($icon)) {
-                $this->options['class'][] = static::$clsBlock['icon-'.$icon];
-            }
-        }
+        // Добавить классы для отображения иконокж
+        $this->icons->setWrapClass($this->options['class']);
     }
 
-    /**
-     * Class ControlInput
-     * Добавить кнопку Clear
-     */
     public function setProperty(array $property): CustomTextField
     {
         $icons = ArrayHelper::remove($property, 'icons', []);
 
+        parent::setProperty($property);
+
         if ($this->buttonClear) {
-            $this->trailing['clear'] = 'button';
+            $icons[] = ['icon' => 'clear', 'role' => 'button'];
             $this->jsProperty['trailingIcon.clear'] = true;
         }
 
-        parent::setProperty($property);
-
-
+        if (count($icons) > 0) {
+            $this->icons->parse($icons);
+        }
+        
         return $this;
     }
 
@@ -296,106 +298,106 @@ abstract class CustomTextField extends ControlInput
         return $content;
     }
 
-    /**
-     * Есть иконка?
-     * @param string $mode - 'leading', 'trailing'
-     */
-    protected function hasIcon(string $mode): bool
-    {
-        return !\is_null($this->$mode) && !empty($this->$mode);
-    }
+    // /**
+    //  * Есть иконка?
+    //  * @param string $mode - 'leading', 'trailing'
+    //  */
+    // protected function hasIcon(string $mode): bool
+    // {
+    //     return !\is_null($this->$mode) && !empty($this->$mode);
+    // }
 
-    /**
-     * Вернет тег иконка или батон
-     */
-    private function _getTagIcon(string $position, array $property, array $options= []): string
-    {
-        $options['class'] = [
-            static::$clsIcons['base'],
-            static::$clsIcons[$position],
-        ];
-        $id = null;
-        if ($options['role'] === 'button') {
-            $options['tabindex'] = '0';
-            $id = $this->getId().'-'.$property['icon'];
-        };
-        $property['tag'] = 'i';
+    // /**
+    //  * Вернет тег иконка или батон
+    //  */
+    // private function _getTagIcon(string $position, array $property, array $options= []): string
+    // {
+    //     $options['class'] = [
+    //         static::$clsIcons['base'],
+    //         static::$clsIcons[$position],
+    //     ];
+    //     $id = null;
+    //     if ($options['role'] === 'button') {
+    //         $options['tabindex'] = '0';
+    //         $id = $this->getId().'-'.$property['icon'];
+    //     };
+    //     $property['tag'] = 'i';
          
-        return IconButton::one()
-            ->setProperty($property)
-            ->setOptions($options)
-            ->setId($id)
-            ->render();
-    }
+    //     return IconButton::one()
+    //         ->setProperty($property)
+    //         ->setOptions($options)
+    //         ->setId($id)
+    //         ->render();
+    // }
 
-    /**
-     * Вернет иконку или кнопку с иконкой
-     * @param string $position - 'leading', 'trailing'
-     */
-    protected function getTagIcons(string $position): string
-    {
-        if ($this->hasIcon($position)) {
-            $icons = $this->$position;
-            if (\is_array($icons)) {
-                $countIcon = 0;
-                $content = '';
-                foreach ($icons as $key => $value) {
-                    /**
-                     *  Если строка массива состоит из leading => [
-                     *  'clear', 'user'
-                     *  'clear' => 'button' or 'icon',
-                     *  'clear' => ['role' => 'icon', ...options],
-                     *  'clear' => ['toggle' => 'undo-clear', ...options],
-                     *  'clear' => [...options],
-                     * ]
-                     */
-                    $options = [];
-                    $property= [];
-                    if (\is_array($value)) {
-                        $options = $value;
-                        $property['icon'] = $key;
-                        $toggle = ArrayHelper::remove($options, 'toggle', false);
-                        if ($toggle) {
-                            $options['role'] = 'button';
-                            $property['toggle'] = true;
-                            $property['iconOn']= $toggle;
-                        } else {
-                            $options['role'] = ArrayHelper::getValue($value, 'role', 'icon');
-                        }
-                    } else {
-                        /**
-                         * Массив иконок может быть двух видов
-                         * ['clear', 'phone']
-                         * ['clear' => 'button', 'phone' => 'icon', 'user', 'visible' => 'un_visible']
-                         * Если $key is int, то имя иконки берем из $value
-                         */
-                        if (is_int($key)) {
-                            $property['icon'] = $value;
-                            $options['role'] = 'icon';
-                        } else {
-                            $property['icon'] = $key;
-                            if ($value === 'button' || $value === 'icon') {
-                                $options['role'] = $value;
-                            } else {
-                                $options['role'] = 'button';
-                                $property['toggle'] = true;
-                                $property['iconOn']= $value;
-                            }
-                        }
-                    }
-                    $content .= $this->_getTagIcon($position, $property, $options);
-                    $countIcon++;
-                }
-                // Ессли иконок больше одной, то лучше их объединить
-                if ($countIcon > 1) {
-                    return Html::tag('div', $content, ['class' => static::$clsIcons['group']]);
-                }
+    // /**
+    //  * Вернет иконку или кнопку с иконкой
+    //  * @param string $position - 'leading', 'trailing'
+    //  */
+    // protected function getTagIcons(string $position): string
+    // {
+    //     if ($this->hasIcon($position)) {
+    //         $icons = $this->$position;
+    //         if (\is_array($icons)) {
+    //             $countIcon = 0;
+    //             $content = '';
+    //             foreach ($icons as $key => $value) {
+    //                 /**
+    //                  *  Если строка массива состоит из leading => [
+    //                  *  'clear', 'user'
+    //                  *  'clear' => 'button' or 'icon',
+    //                  *  'clear' => ['role' => 'icon', ...options],
+    //                  *  'clear' => ['toggle' => 'undo-clear', ...options],
+    //                  *  'clear' => [...options],
+    //                  * ]
+    //                  */
+    //                 $options = [];
+    //                 $property= [];
+    //                 if (\is_array($value)) {
+    //                     $options = $value;
+    //                     $property['icon'] = $key;
+    //                     $toggle = ArrayHelper::remove($options, 'toggle', false);
+    //                     if ($toggle) {
+    //                         $options['role'] = 'button';
+    //                         $property['toggle'] = true;
+    //                         $property['iconOn']= $toggle;
+    //                     } else {
+    //                         $options['role'] = ArrayHelper::getValue($value, 'role', 'icon');
+    //                     }
+    //                 } else {
+    //                     /**
+    //                      * Массив иконок может быть двух видов
+    //                      * ['clear', 'phone']
+    //                      * ['clear' => 'button', 'phone' => 'icon', 'user', 'visible' => 'un_visible']
+    //                      * Если $key is int, то имя иконки берем из $value
+    //                      */
+    //                     if (is_int($key)) {
+    //                         $property['icon'] = $value;
+    //                         $options['role'] = 'icon';
+    //                     } else {
+    //                         $property['icon'] = $key;
+    //                         if ($value === 'button' || $value === 'icon') {
+    //                             $options['role'] = $value;
+    //                         } else {
+    //                             $options['role'] = 'button';
+    //                             $property['toggle'] = true;
+    //                             $property['iconOn']= $value;
+    //                         }
+    //                     }
+    //                 }
+    //                 $content .= $this->_getTagIcon($position, $property, $options);
+    //                 $countIcon++;
+    //             }
+    //             // Ессли иконок больше одной, то лучше их объединить
+    //             if ($countIcon > 1) {
+    //                 return Html::tag('div', $content, ['class' => static::$clsIcons['group']]);
+    //             }
 
-                return $content;
-            }
-        }
-        return '';
-    }
+    //             return $content;
+    //         }
+    //     }
+    //     return '';
+    // }
 
     abstract protected function getComponentFilled(): string;
 
@@ -425,7 +427,7 @@ abstract class CustomTextField extends ControlInput
         // Добавить блок Helper
         $content .= $this->renderHelper();
 
-        if (!$this->hasParent()) {
+        if (!$this->hasOwner()) {
             $content= Html::tag('div', $content, ['class' => self::$clsFormField['label-' . $this->labelTemplate]]);
         }
         

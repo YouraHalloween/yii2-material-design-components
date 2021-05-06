@@ -5,6 +5,7 @@ namespace yh\mdc\components;
 use yii\helpers\Html;
 use yh\mdc\components\Menu;
 use yii\helpers\ArrayHelper;
+use yh\mdc\components\ItemIconButton;
 use yh\mdc\components\base\extensions\TrList;
 use yh\mdc\components\base\extensions\TrOptions;
 use yh\mdc\components\base\stable\ComponentRegister;
@@ -87,8 +88,7 @@ class Select extends CustomTextField
     protected static array $clsIcons = [
         'base' => 'mdc-select__icon',        
         'leading' => 'mdc-select__icon--leading',
-        'trailing' => 'mdc-select__icon--trailing',
-        'group' => 'mdc-select__group-icon'
+        'trailing' => 'mdc-select__icon--trailing'
     ];
 
     /**
@@ -236,14 +236,16 @@ class Select extends CustomTextField
         //mdc-anchor
         $content .= Html::beginTag('div', $this->getOptionsAnchor());
             
-        $content .= $this->getTagIcons('leading');
+        $content .= $this->icons->render(ItemIconButton::LEADING);
+
         
         $content .= $this->getTagOutlined();
         
         $content .= $this->getTagInput();
         $content .= $this->getTagDropdownIcon();
 
-        $content .= $this->getTagIcons('trailing');
+        $content .= $this->icons->render(ItemIconButton::TRAILING);
+
         
         //mdc-anchor
         $content .= Html::endTag('div');

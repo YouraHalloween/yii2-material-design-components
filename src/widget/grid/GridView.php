@@ -3,8 +3,8 @@
 namespace yh\mdc\widget\grid;
 
 use yh\mdc\components\DataTable;
-use yh\mdc\components\_DataTablePagination;
-use yh\mdc\components\_DataTableProgressIndicator;
+use yh\mdc\components\base\stdctrls\_DataTablePagination;
+use yh\mdc\components\base\stdctrls\_DataTableProgressIndicator;
 use yii\widgets\BaseListView;
 use yii\helpers\Html;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace yh\mdc\components;
+namespace yh\mdc\components\base\stdctrls;
 
 use yh\mdc\components\base\ComponentInitial;
 use yii\helpers\Html;
@@ -8,21 +8,6 @@ use yh\mdc\components\IconButton;
 
 class _DataTableSortButton extends ComponentInitial
 {
-    // <button class="mdc-icon-button material-icons "
-    //                 aria-label="Sort by dessert" aria-describedby="dessert-status-label">arrow_upward</button>
-
-    // <div class="mdc-data-table__sort-status-label" aria-hidden="true" id="dessert-status-label">
-    //                         </div>
-
-    // <div class="mdc-data-table__header-cell-wrapper">
-    //                         <button class="mdc-icon-button material-icons mdc-data-table__sort-icon-button"
-    //                             aria-label="Sort by carbs" aria-describedby="carbs-status-label">arrow_upward
-    //                         </button>
-    //                         <div class="mdc-data-table__header-cell-label">
-    //                             Carbs (g)
-    //                         </div>
-    //                         <div class="mdc-data-table__sort-status-label" aria-hidden="true" id="carbs-status-label"></div>
-    //                     </div>
 
     private static string $clsBlock = 'mdc-data-table__header-cell-wrapper';
     private static string $clsButton = 'mdc-data-table__sort-icon-button';
@@ -40,12 +25,6 @@ class _DataTableSortButton extends ComponentInitial
         SORT_ASC => 'ascending',
         SORT_DESC => 'descending'
     ];
-
-    // const SORT_ARROW = [
-    //     null => 'arrow_upward',
-    //     SORT_ASC => 'arrow_upward',
-    //     SORT_DESC => 'arrow_downward'
-    // ];
 
     public string $attribute = '';
     public ?int $direction = null;
@@ -95,7 +74,6 @@ class _DataTableSortButton extends ComponentInitial
 
     public function renderComponent(): string
     {
-        // $sortArrow = self::SORT_ARROW[$this->direction];
         $button = IconButton::one('sort')
             ->setId(null)
             ->setIcon('arrow_upward')

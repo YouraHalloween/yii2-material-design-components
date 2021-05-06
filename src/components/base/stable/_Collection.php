@@ -7,22 +7,31 @@ use yh\mdc\Config;
 abstract class _Collection
 {
     /**
-     * @var array $items - список объектов коллекции
+     * @var array $items список объектов коллекции
      */
-    public array $items;
+    public array $items = [];
 
     /**
-     * @var string $className - класс создаваемого компонента
+     * @var string $className класс создаваемого компонента
      */
     public string $className;
+    /**
+     * @var object $owner владелец коллекции
+     */
+    public object $owner;
+
+    public function __construct(object $owner = null)
+    {
+        $this->owner = $owner;
+    }
 
     /**
      * Добавить новый объект в коллекцию
      * @param mixed $component
      * @param int|string $index
      * @return _Collection
-     */    
-    public function add(mixed $component, $index = -1): _Collection 
+     */
+    public function add(mixed $component, $index = -1): _Collection
     {
         if ($index == -1) {
             $this->items[] = $component;
@@ -48,17 +57,17 @@ abstract class _Collection
 
     /**
      * Создать компонент и добавить в коллекцию
-     * @param array $property - свойства компонента
-     * @param array $options - параметры html wrap компонента
+     * @param array $property свойства компонента
+     * @param array $options параметры html wrap компонента
      */
-    public function create(array $property, array $options): mixed
+    public function create(array $property = [], array $options = []): mixed
     {
-        $class = Config::getClassComponent(self::$className);
+        $class = Config::getClassComponent($this->className);
         $component = new $class();
         $component->setProperty($property)->setOptions($options);
         $this->add($component);
         return $component;
     }
 
-    abstract public function render(): string;
+    abstract public function render(...$params): string;
 }
