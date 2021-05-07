@@ -143,10 +143,15 @@ class CollapseSearch extends Collapse
         return $content;
     }
 
-    protected function renderItemComponent($configComponent): string
+    protected function renderItemComponent(array $configComponent): string
     {
         $className = ArrayHelper::remove($configComponent, 'class');
-        $name = ArrayHelper::remove($configComponent, 'name', $configComponent['id']);
+        $id = ArrayHelper::remove($configComponent, 'id', '');
+        $name = ArrayHelper::remove($configComponent, 'name', $id);
+
+        if (empty($name)) {
+            throw new \Exception('Component name must be specified');            
+        }
 
         $field = $this->form->field($this->model, $name);
         
@@ -178,7 +183,10 @@ class CollapseSearch extends Collapse
         return $field->render();
     }
 
-    protected function renderItemContent($itemContent)
+    /**
+     * @see Collapse
+     */
+    protected function renderItemContent(mixed $itemContent): string
     {
         if (\is_string($itemContent)) {
             return parent::renderItemContent($itemContent);

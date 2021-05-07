@@ -98,7 +98,7 @@ class ListItem extends ControlList
     /**
      * @var string $headerSize - Размер заголовка
      */
-    public string $headerSize = 'medium';
+    public string $headerSize = Vars::NORMAL;
     /**
      * @var string $tagList - Тонкая настройка. Для Drawer необходим <nav>
      */
@@ -132,10 +132,10 @@ class ListItem extends ControlList
     /**
      * Используется для вывода сгруппированных списков
      */
-    protected int $groupIndex = -1;
+    // protected int $groupIndex = -1;
     //В переменной содержится аватарка из View _avatar.php
     private string $_avatarBuf = '';
-    private array $selectedIndex = [];
+    // private array $selectedIndex = [];
 
     /**
      * @see yh\mdc\components\base\_Component
@@ -172,7 +172,9 @@ class ListItem extends ControlList
 
         $this->options['class'][] = self::$clsBlock['base'];
         $this->options['class'][] = Vars::cmpHeight($this->heightItem);
-        $this->options['class'][] = Typography::fontSize($this->itemTextSize);
+        if ($this->itemTextSize !== Vars::NORMAL) {
+            $this->options['class'][] = Typography::fontSize($this->itemTextSize);
+        }
 
         if ($this->isHelper()) {
             $this->options['class'][] = self::$clsBlock['helper'];
@@ -182,10 +184,13 @@ class ListItem extends ControlList
         }
     }
 
-    //Добавляет разделяющую линию между items
+    /**
+     * Добавляет разделяющую линию между items
+     * @return string html tag
+     */
     protected function getTagSeparator(): string
     {
-        return Html::tag('li', '', ['class' => self::$clsItem['separator'], 'role' => 'separator']);
+        return Html::tag('li', '', ['class' => $this->clsItem['separator'], 'role' => 'separator']);
     }
 
     /**
@@ -194,7 +199,13 @@ class ListItem extends ControlList
      */
     protected function getTagText(array $item): string
     {
-        $text = ArrayHelper::getValue($item, 'text', $item['value']);
+        $text = ArrayHelper::getValue($item, 'text', '');
+
+        if (empty($text)) {
+            // В качестве текста будут использоваться значения 
+            $text = ArrayHelper::getValue($item, 'value', '');
+        }
+
         if ($this->isHelper()) {
             $content = Html::tag('span', $text, ['class' => $this->clsItem['primary']]);
             $content .= Html::tag('span', $item['helper'], ['class' => $this->clsItem['secondary']]);
@@ -207,13 +218,14 @@ class ListItem extends ControlList
     /**
      * Вывести компонент Radio
      * @param array $item - текущий item
+     * @return string render redio
      */
     public function renderRadio(array $item): string
     {
         $checked = ArrayHelper::getValue($item, 'checked', false);
         $name = $this->getId().'-radio';
         $id = $this->getId().'-radio-'.$item['index'];
-        return Radio::one('', [], ['checked' => $checked, 'value' => $item['index']])
+        return Radio::one('', ['value' => $checked], ['value' => $item['index']])
             ->setId($id)
             ->setName($name)
             ->renderComponent();
@@ -222,53 +234,22 @@ class ListItem extends ControlList
     /**
      * Вывести компонент Checbox
      * @param array $item - текущий item
+     * @return string render checkbox
      */
     public function renderCheckbox(array $item): string
     {
         $checked = ArrayHelper::getValue($item, 'checked', false);
         $name = $this->getId().'-radio';
         $id = $this->getId().'-radio-'.$item['index'];
-        return Checkbox::one('', [], ['checked' => $checked, 'value' => $item['index']])
+        return Checkbox::one('', ['value' => $checked], ['value' => $item['index']])
             ->setId($id)
             ->setName($name)
             ->renderComponent();
     }
-    
-    /**
-     * Выводит иконку либо автар
-     * @param array $item - текущий item
-     */
-    protected function getTagIcon(array $item): string
-    {
-        if ($this->checkbox ||
-            $this->radio ||
-            $this->avatar ||
-            isset($item['icon'])) {
-            $class = [self::$clsIcon['base']];
-            if ($this->checkbox) {
-                //render checkbox
-                $icon = $this->renderCheckbox($item);
-            } elseif ($this->radio) {
-                //render radio box
-                $icon = $this->renderRadio($item);
-            } elseif ($this->avatar) {
-                //render avatar
-                $icon = $this->getAvatar();
-            } else {
-                //render icon
-                $icon = $item['icon'];
-                $class[] = self::$clsIcon['icon'];
-            }
-            return Html::tag('span', $icon, [
-                'class' => $class,
-                'aria-hidden' => 'true'
-            ]);
-        }
-        return '';
-    }
-    
+
     /**
      * Вернуть аватар из View _avatar.php
+     * @return stirng view avatar
      */
     protected function getAvatar(): string
     {
@@ -277,34 +258,79 @@ class ListItem extends ControlList
         }
         return $this->_avatarBuf;
     }
-
+    
     /**
-     * Доабвить мета текст с права item
-     * @param array $item - текущий item
+     * Выводит input либо автар
+     * @param array $item текущий item
+     * @return string $content
      */
-    protected function getTagMeta(array $item): string
+    protected function renderSecondaryIcon(array $item): string
     {
-        if ($item['meta'] == 'button') {
-            $meta = Html::button('more_vert', [
-                'class' => self::$clsMeta['button'],
-                'data-mdc-ripple-is-unbounded' => true,
-                'tabIndex' => -1
-            ]);
-        } else {
-            $meta = $item['meta'];
+        $content = '';
+        if ($this->checkbox) {
+            //render checkbox
+            $content = $this->renderCheckbox($item);
+        } elseif ($this->radio) {
+            //render radio box
+            $content = $this->renderRadio($item);
+        } elseif ($this->avatar) {
+            //render avatar
+            $content = $this->getAvatar();
         }
-        return Html::tag('span', $meta, ['class' => self::$clsMeta['base'], 'aria-hidden' => 'true']);
+        return $content;
     }
 
     /**
-     * set custom item options
-     * @var array &$options - стандартные параметры item
+     * Вывести иконку либо inut, avatar
+     * @param array $item текущий item
+     * @return string $content
      */
-    protected function setCustomItemOptions(array &$options): void
+    protected function getTagIcon(array $item): string
     {
-        if (!empty($this->itemOptions)) {
-            $options = ArrayHelper::merge($options, $this->itemOptions);
+        $content = $this->renderSecondaryIcon($item);
+        // Если есть input или иконка
+        if (!empty($content) || isset($item['icon'])) {
+            $options = [
+                'class' => [self::$clsIcon['base']],
+                'aria-hidden' => 'true'
+            ];
+            // Если нет input, но есть иконка
+            if (empty($content) && isset($item['icon'])) {
+                $content = $item['icon'];
+                $options['class'][] = self::$clsIcon['icon'];
+            }
+            $content = Html::tag('span', $content, $options);
         }
+        return $content;
+    }
+    
+    /**
+     * Доабвить мета текст с права от item, кнопка либо произвольный текст
+     * @param array $item текущий item
+     * @return string
+     */
+    protected function getTagMeta(array $item): string
+    {
+        $content = '';
+        if (isset($item['meta'])) {
+            $options = [
+                'class' => self::$clsMeta['base'],
+                'aria-hidden' => 'true'
+            ];
+
+            if ($item['meta'] === 'button') {
+                $content = Html::button('more_vert', [
+                    'class' => self::$clsMeta['button'],
+                    'data-mdc-ripple-is-unbounded' => true,
+                    'tabIndex' => -1
+                ]);
+            } else {
+                $content = $item['meta'];
+            }
+
+            $content = Html::tag('span', $content, $options);
+        }
+        return $content;
     }
 
     /**
@@ -325,6 +351,7 @@ class ListItem extends ControlList
     protected function initItemOptions(array &$item)
     {
         $item['options']['class'][] = $this->clsItem['base'];
+
         if ($this->single) {
             $item['options']['role'] = 'option';
         }
@@ -353,7 +380,9 @@ class ListItem extends ControlList
     {
         $this->initItemOptions($item);
         // set custom item options
-        $this->setCustomItemOptions($item['options']);
+        if (!empty($this->itemOptions)) {
+            $item['options'] = ArrayHelper::merge($item['options'], $this->itemOptions);
+        }
 
         $content = Html::beginTag($this->tagItem, $item['options']);
         //Ripple
@@ -363,9 +392,8 @@ class ListItem extends ControlList
         //Text
         $content .= $this->getTagText($item);
         //Meta
-        if (isset($item['meta'])) {
-            $content .= $this->getTagMeta($item);
-        }
+        $content .= $this->getTagMeta($item);
+        //End
         $content .= Html::endTag($this->tagItem);
         //Separator
         if ($this->separator || isset($item['separator'])) {
@@ -374,33 +402,33 @@ class ListItem extends ControlList
         return $content;
     }
 
-    public function setSelected($value, string $prop = 'value'): ListItem
-    {
-        foreach ($this->items as $key => $item) {
-            if (isset($item[$prop])) {
-                $propValue = $item[$prop];
-                //Если $this->selectedValue == $propValue, либо ищем $propValue в массиве
-                if (((\is_array($value) && array_search($propValue, $value))) || ($value === $propValue)) {
-                    $this->items[$key]['selected'] = true;
-                    $this->selectedIndex[] = $key;
-                }
-            }
-        }
-        return $this;
-    }
+    // public function setSelected($value, string $prop = 'value'): ListItem
+    // {
+    //     foreach ($this->items as $key => $item) {
+    //         if (isset($item[$prop])) {
+    //             $propValue = $item[$prop];
+    //             //Если $this->selectedValue == $propValue, либо ищем $propValue в массиве
+    //             if (((\is_array($value) && array_search($propValue, $value))) || ($value === $propValue)) {
+    //                 $this->items[$key]['selected'] = true;
+    //                 $this->selectedIndex[] = $key;
+    //             }
+    //         }
+    //     }
+    //     return $this;
+    // }
 
-    public function getSelectedIndex(): array
-    {
-        return $this->selectedIndex;
-    }
+    // public function getSelectedIndex(): array
+    // {
+    //     return $this->selectedIndex;
+    // }
 
     /**
      * Выводит список items
      */
     public function renderItems(): string
     {
-        $content = '';        
-        foreach ($this->items as $key => $item) {            
+        $content = '';
+        foreach ($this->items as $key => $item) {
             //Простой список состоящий из 'value' => 'label'
             if (!is_array($item)) {
                 $item = ['text' => $item, 'value' => $key];
@@ -414,7 +442,13 @@ class ListItem extends ControlList
     public function renderHeader(): string
     {
         if (!empty($this->header)) {
-            return Html::tag('h4', $this->header, ['class' => self::$clsGroup['label']]);
+            $options = [
+                'class' => [self::$clsGroup['label']]
+            ];
+            if ($this->headerSize !== Vars::NORMAL) {
+                $options['class'][] = Typography::fontSize($this->headerSize);
+            }
+            return Html::tag('h4', $this->header, $options);
         }
         return '';
     }
@@ -430,7 +464,7 @@ class ListItem extends ControlList
             $content = $this->renderFrame($content);
         }
 
-        $content = $this->renderHeader().$content;
+        $content = $this->renderHeader() . $content;
         
         return $content;
     }
@@ -461,7 +495,7 @@ class ListItem extends ControlList
         $groups = ArrayHelper::remove($property, 'items', []);
         foreach ($groups as $key => $group) {
             $localProperty = ArrayHelper::merge($property, $group);
-            $localProperty['groupIndex'] = $key;
+            // $localProperty['groupIndex'] = $key;
             $list = self::one($localProperty, ['group-index' => $key])->render();
             $itemsContent[] = $list;
         }

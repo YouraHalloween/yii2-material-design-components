@@ -12163,28 +12163,32 @@ a.mdc-evolution-list-item {
 .mdc-text-field.mdc-fs__exsmall .mdc-text-field__input,
 .mdc-select.mdc-fs__exsmall .mdc-select__selected-text,
 .mdc-list.mdc-list.mdc-fs__exsmall,
-label.mdc-fs__exsmall {
+label.mdc-fs__exsmall,
+.mdc-list-group__subheader.mdc-fs__exsmall {
   --mdc-typography-subtitle1-font-size: 0.8571428571rem;
 }
 
 .mdc-text-field.mdc-fs__small .mdc-text-field__input,
 .mdc-select.mdc-fs__small .mdc-select__selected-text,
 .mdc-list.mdc-list.mdc-fs__small,
-label.mdc-fs__small {
+label.mdc-fs__small,
+.mdc-list-group__subheader.mdc-fs__small {
   --mdc-typography-subtitle1-font-size: 0.95rem;
 }
 
 .mdc-text-field.mdc-fs__medium .mdc-text-field__input,
 .mdc-select.mdc-fs__medium .mdc-select__selected-text,
 .mdc-list.mdc-list.mdc-fs__medium,
-label.mdc-fs__medium {
+label.mdc-fs__medium,
+.mdc-list-group__subheader.mdc-fs__medium {
   --mdc-typography-subtitle1-font-size: 1rem;
 }
 
 .mdc-text-field.mdc-fs__large .mdc-text-field__input,
 .mdc-select.mdc-fs__large .mdc-select__selected-text,
 .mdc-list.mdc-list.mdc-fs__large,
-label.mdc-fs__large {
+label.mdc-fs__large,
+.mdc-list-group__subheader.mdc-fs__large {
   --mdc-typography-subtitle1-font-size: 1.1428571429rem;
 }
 

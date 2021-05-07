@@ -75,24 +75,24 @@ class LeftAppBar extends ControlList
         $i = 0;
         $activeClass = 'active';        
         $selectedItemAll = true;
-        foreach ($drawer->items as $key => $item) {
-            if (isset($this->items[$key]['all'])) {
-                //Инициализация, если не найдется другого активного блока меню
-                $this->items[$key]['selected'] = &$selectedItemAll;
-                $i++;
-            }
-            $this->items[$key + $i]['title'] = $item['header'];
-            $drawer->items[$key]['options']['menu-index'] = $this->items[$key+ $i]['icon'];
+        // foreach ($drawer->items as $key => $item) {
+        //     if (isset($this->items[$key]['all'])) {
+        //         //Инициализация, если не найдется другого активного блока меню
+        //         $this->items[$key]['selected'] = &$selectedItemAll;
+        //         $i++;
+        //     }
+        //     $this->items[$key + $i]['title'] = $item['header'];
+        //     $drawer->items[$key]['options']['menu-index'] = $this->items[$key+ $i]['icon'];
             
-            if ($drawer->items[$key]['selected'] === true) {
-                $this->items[$key + $i]['selected'] = true;
-                $selectedItemAll = false;
-                $drawer->items[$key]['options']['class'][] = 'active';
-                $activeClass = '';    
-            } else {
-                $drawer->items[$key]['options']['class'][] = &$activeClass;                
-            }
-        }        
+        //     if ($drawer->items[$key]['selected'] === true) {
+        //         $this->items[$key + $i]['selected'] = true;
+        //         $selectedItemAll = false;
+        //         $drawer->items[$key]['options']['class'][] = 'active';
+        //         $activeClass = '';    
+        //     } else {
+        //         $drawer->items[$key]['options']['class'][] = &$activeClass;                
+        //     }
+        // }        
         return $this;
     }
 

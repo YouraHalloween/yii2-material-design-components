@@ -7,7 +7,7 @@ use yh\mdc\components\base\stdctrls\_DataTableSortButton;
 class DataColumn extends \yii\grid\DataColumn
 {
     public $headerOptions = [
-        'class' => 'mdc-data-table__header-cell',
+        'class' => ['mdc-data-table__header-cell'],
         'role' => 'columnheader',
         'scope' => 'col'
     ];
@@ -41,8 +41,10 @@ class DataColumn extends \yii\grid\DataColumn
         if ($this->grid->dataTable->useAjax && $sort = $this->getSortObject()) {
             $this->headerOptions['data-column-id'] = $this->attribute;
             $direction = $sort->getAttributeOrder($this->attribute);
-            $this->headerOptions['aria-sort'] = _DataTableSortButton::getSortName($direction);
-            $this->headerOptions['class'] .= ' '._DataTableSortButton::getClassTh($direction);
+            if (!is_null($direction)) {
+                $this->headerOptions['aria-sort'] = _DataTableSortButton::getSortName($direction);                
+            }
+            $this->headerOptions['class'][] = _DataTableSortButton::getClassTh($direction);
             $this->headerOptions['link'] = $sort->createUrl($this->attribute, true);
         }
 

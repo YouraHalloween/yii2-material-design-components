@@ -7,15 +7,15 @@ use yh\mdc\components\Menu;
 use yii\helpers\ArrayHelper;
 use yh\mdc\components\ItemIconButton;
 use yh\mdc\components\base\extensions\TrList;
-use yh\mdc\components\base\extensions\TrOptions;
+use yh\mdc\components\base\extensions\TrSetId;
 use yh\mdc\components\base\stable\ComponentRegister;
 use yh\mdc\components\base\stdctrls\CustomTextField;
 
 class Select extends CustomTextField
 {
-    //TrOptions - устанавливает options['id']
+    //TrSetId - устанавливает options['id']
     //TrList - добавляет свойство items
-    use TrOptions, TrList;
+    use TrSetId, TrList;
 
     protected string $cmpType = ComponentRegister::TYPE_SELECT;
 
@@ -86,7 +86,7 @@ class Select extends CustomTextField
      * Классы для иконок или кнопок с иконками. А так же группой иконок
      */
     protected static array $clsIcons = [
-        'base' => 'mdc-select__icon',        
+        'base' => 'mdc-select__icon',
         'leading' => 'mdc-select__icon--leading',
         'trailing' => 'mdc-select__icon--trailing'
     ];
@@ -116,7 +116,7 @@ class Select extends CustomTextField
     ];
 
     public function __construct(string $label = '', array $property = [], array $options = [])
-    {        
+    {
         parent::__construct($label, $property, $options);
         /**
          * Init listbox
@@ -136,7 +136,7 @@ class Select extends CustomTextField
 
         $id = ArrayHelper::remove($this->inputOptions, 'id');
 
-        $this->inputOptions['id'] = $id.'-text';           
+        $this->inputOptions['id'] = $id.'-text';
 
         $this->inputOptions['class'][] = static::$clsInput['base'];
 
@@ -148,7 +148,7 @@ class Select extends CustomTextField
             $menuOptions['class'][] = self::$clsMenu['fullWidth'];
         }
 
-        $this->menu->setWrapOptions($menuOptions);       
+        $this->menu->setWrapOptions($menuOptions);
     }
 
     private function getOptionsAnchor(): array
@@ -237,7 +237,6 @@ class Select extends CustomTextField
         $content .= Html::beginTag('div', $this->getOptionsAnchor());
             
         $content .= $this->icons->render(ItemIconButton::LEADING);
-
         
         $content .= $this->getTagOutlined();
         
@@ -245,7 +244,6 @@ class Select extends CustomTextField
         $content .= $this->getTagDropdownIcon();
 
         $content .= $this->icons->render(ItemIconButton::TRAILING);
-
         
         //mdc-anchor
         $content .= Html::endTag('div');

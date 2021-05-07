@@ -17,9 +17,20 @@ class Collapse extends ListItem
 
     protected string $cmpType = ComponentRegister::TYPE_COLLAPSE;
 
+    /**
+     * @var array $itemContentOptions Пользовательские options
+     */
     public array $itemContentOptions = [];    
 
+    /**
+     * @see ListItem
+     */
     public bool $action = false;
+
+    /**
+     * @var string $tagContent Имя тега в который будет выводиться контент 
+     */
+    public string $tagContent = 'p';
 
     protected static array $clsWrap = [
         'base' => 'mdc-collapse'
@@ -58,6 +69,9 @@ class Collapse extends ListItem
         $this->clsItem['selected'] = self::$clsHeader['active'];
     }
 
+    /**
+     * Options для обертки компонента ListItem
+     */
     public function initWrapOptions(): void
     {
         // parent initWrapOptions();
@@ -66,14 +80,12 @@ class Collapse extends ListItem
         $this->wrapOptions['class'][] = self::$clsGroup['base'];
     }
 
-    public function initOptions(): void
-    {
-        parent::initOptions();
-        // Remove id from ListItem
-        ArrayHelper::remove($this->options, 'id');
-    }
-
-    protected function getItemContentOptions($item): array 
+    /**
+     * Options панели, которая открывается при активации
+     * @param array $item текущий item
+     * @return array $options
+     */
+    protected function getItemContentOptions(array $item): array 
     {
         $options = [
             'class' => [self::$clsContent['base']],
@@ -91,11 +103,21 @@ class Collapse extends ListItem
         return $options;
     }
 
-    protected function renderItemContent($itemContent)
+    /**
+     * По умолчанию контекнт выводится в tag = p
+     * @param string|array $itemContent
+     * @return string Html content
+     */
+    protected function renderItemContent(mixed $itemContent): string
     {
-        return Html::tag('p', $itemContent, ['class' => Typography::body()]);        
+        return Html::tag($this->tagContent, $itemContent, ['class' => Typography::body()]);        
     }
 
+    /**
+     * Вывести в Html панель 
+     * @param array $item current item
+     * @return string Html content
+     */
     protected function getTagItemContent(array $item): string
     {
         $itemContent = $item['content'];
@@ -124,6 +146,9 @@ class Collapse extends ListItem
         return $this->getId().'-content'.$index;
     }
 
+    /**
+     * @see ListItem
+     */
     protected function initItemOptions(array &$item)
     {
         parent::initItemOptions($item);
@@ -147,6 +172,9 @@ class Collapse extends ListItem
         $item['options']['aria-expanded'] = $isSelect ? 'true' : 'false';
     }
 
+    /**
+     * @see ListItem
+     */
     protected function getTagItem(array $item): string
     {
         $content = parent::getTagItem($item);        
@@ -157,6 +185,9 @@ class Collapse extends ListItem
         return $content;
     }
 
+    /**
+     * @see _PersistentCmp
+     */
     public function renderComponent(): string
     {
         $content = Html::beginTag('div', $this->getWrapOptions());

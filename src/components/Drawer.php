@@ -109,7 +109,7 @@ class Drawer extends ControlList
         $content .= Html::beginTag('div', ['class' => self::$clsContent]);
         
         $list = '';
-        foreach ($this->items as $key => $listProperty) {
+        foreach ($this->items as $listProperty) {
             $listOptions = ArrayHelper::remove($listProperty, 'options', []);
             $item = $this
                         ->listItem

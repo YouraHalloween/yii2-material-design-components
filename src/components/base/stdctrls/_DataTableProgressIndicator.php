@@ -20,16 +20,16 @@ class _DataTableProgressIndicator extends ComponentInitial
     public function initOptions(): void
     {
         parent::initOptions();
-        $this->options['class'][] = self::$clsBlock;        
+        $this->options['class'][] = self::$clsBlock;
     }
 
     public function renderComponent(): string
     {
         $content = Html::beginTag('div', $this->getOptions());
         $content .= Html::tag('div', '', ['class' => self::$clsScrim]);
-        $content .= LinearProgress::one([
+        $content .= LinearProgress::one('', [
             'indeterminate' => true
-        ],[
+        ], [
             'class' => self::$clsProgress
         ])->renderComponent();
         $content .= Html::endTag('div');

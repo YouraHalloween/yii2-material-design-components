@@ -15,7 +15,7 @@ class ControlInput extends _ComponentLabel
     const ALIGN_TOP = 'top';
 
     /**
-     * @var array $inputOptions - input options
+     * @var array $inputOptions input options
      */
     protected array $inputOptions = [];
     private bool $hasInitInputOptions = false;
@@ -23,45 +23,45 @@ class ControlInput extends _ComponentLabel
     protected array $labelOptions = [];
 
     /**
-     * @var string $name - input name
+     * @var string $name input name
      */
     public string $name = '';
     /**
-     * @var string $type - input type
+     * @var string $type input type
      */
     public string $type = 'text';    
  
     /**
-     * @var string $value - input value
-     * @var bool $value - input checbox, radio value
+     * @var string $value input value
+     * @var bool $value input checbox, radio value
      */
     public $value;
     /**
-     * @var string $labelTemplate - Задать расположение label
+     * @var string $labelTemplate Задать расположение label
      */
     public string $labelTemplate = self::ALIGN_INNER;
     /**
-     * @var string $labelSize - Задать размер внешнего лейбл
+     * @var string $labelSize Задать размер внешнего лейбл
      */
     public string $labelSize = Vars::NORMAL;
     /**
-     * @var bool $autoFocus - input auto focus
+     * @var bool $autoFocus input auto focus
      */
     public bool $autoFocus = false;
     /**
-     * @var bool $ripple - ripple animate
+     * @var bool $ripple ripple animate
      */
     public bool $ripple = true;
     /**
-     * @var bool $activeField - For use yii2 ActiveField
+     * @var bool $activeField For use yii2 ActiveField
      */
     protected bool $activeField = false;
     /**
-     * @var bool $formField - use wrap class - mdc-form-field
+     * @var bool $formField use wrap class - mdc-form-field
      */
     public $formField = true;
     /**
-     * @var string $templateInput - For use yii2 ActiveField
+     * @var string $templateInput For use yii2 ActiveField
      */
     protected string $templateInput = '{input}';
 

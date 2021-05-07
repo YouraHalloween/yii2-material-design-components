@@ -2,11 +2,11 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\stable\_Component;
 use yii\helpers\Html;
+use yh\mdc\components\base\Control;
+use yh\mdc\components\base\stable\ComponentRegister;
 
-class LinearProgress extends _Component
+class LinearProgress extends Control
 {
     protected string $cmpType = ComponentRegister::TYPE_LINEARPROGRESS;
 
@@ -31,10 +31,21 @@ class LinearProgress extends _Component
         'bar-inner' => 'mdc-linear-progress__bar-inner'
     ];
 
-    public $indeterminate = false;
-    public $reversed = false;
-    public $buffer = false;
-    public $closed = true;
+    public string $label = 'Progress Bar';
+
+    /**
+     * @var bool $indeterminate Не прирывное движение
+     */
+    public bool $indeterminate = false;
+    /**
+     * @var bool $reversed Обратное движение
+     */
+    public bool $reversed = false;
+    public bool $buffer = false;
+    /**
+     * @var bool $closed Не показывать progressbar
+     */
+    public bool $closed = true;
 
     private function addClsBlock(string $property): void
     {
@@ -42,8 +53,16 @@ class LinearProgress extends _Component
             $this->options['class'][] = self::$clsBlock[$property];
         }
     }
+
     /**
-     * Css классы для контейнера
+     * @see _Persistent
+     */
+    public function setter(string $propertyName, mixed $value): bool
+    {
+        return !($propertyName === 'label' && empty($value));
+    }
+    /**
+     * @see _PersistentCmp
      */
     public function initOptions(): void
     {
@@ -55,7 +74,7 @@ class LinearProgress extends _Component
         $this->addClsBlock('closed');
 
         $this->options['role'] = "progressbar";
-        //Выводит лейбл, если не загрузился прогресс бар
+
         $this->options['aria-label'] = $this->label;
     }
 

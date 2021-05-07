@@ -3,12 +3,9 @@
 namespace yh\mdc\components\base;
 
 use yh\mdc\components\base\stable\_Component;
-use yh\mdc\components\base\extensions\TrOptions;
+use yh\mdc\components\base\extensions\TrSetId;
 
-/**
- * Without label
- */
 class Component extends _Component
 {
-    use TrOptions;
+    use TrSetId;
 }

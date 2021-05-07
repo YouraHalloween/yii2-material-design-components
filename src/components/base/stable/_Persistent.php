@@ -9,13 +9,21 @@ class _Persistent
      */
     const PATH_VIEW = '@yh/mdc/views/';
 
-    protected array $options = [
+    public array $options = [
         'class' => []
     ];
 
+    /**
+     * Options уже инициализированны, чтобы не выполнять фугкцию InitOptions повторно
+     */
     private bool $hasInitOptions = false;
 
-    public static function className(bool $shortName = false)
+    /**
+     * Получить имя класса
+     * @param bool $shortName имя класса без namespace
+     * @return string 
+     */
+    public static function className(bool $shortName = false): string
     {
         
         $class = static::class;
@@ -26,6 +34,10 @@ class _Persistent
         return $class;
     }
     
+    /**
+     * @param array $property инициализация свойств компонента
+     * @param array $options инициализация options компонента
+     */
     public function __construct(array $property = [], array $options = [])
     {
         if (!empty($property)) {
@@ -48,14 +60,28 @@ class _Persistent
     }
 
     /**
-     * Свойства компонента
+     * Изменить стандартное присваивание свойств
+     * @param string $propertyName Наименование свойства
+     * @param mixed $value Значение свойства
+     */
+    public function setter(string $propertyName, mixed $value): bool
+    {
+        return true;
+    }
+
+    /**
+     * Установить свойства компонента
+     * @param array $property массив свойств
+     * @return self
      */
     public function setProperty(array $property): _Persistent
     {
         $className = $this->className();
         foreach ($property as $key => $value) {
             if (property_exists($className, $key)) {
-                $this->$key = $value;
+                if ($this->setter($key, $value)) {
+                    $this->$key = $value;
+                }
             } else {                
                 throw new \Exception("'$className' Class property '$key' not found");                
             }
@@ -65,7 +91,8 @@ class _Persistent
 
     /**
      * DOM options для контейнера
-     * @param array $options - wrap options
+     * @param array $options wrap options
+     * @return self
      */
     public function setOptions(array $options): _Persistent
     {
@@ -74,6 +101,10 @@ class _Persistent
         return $this;
     }
 
+    /**
+     * Вернуть массив options. Все DOM свойства будут инициализированны в ф-ии initOptions
+     * @return array DOM options 
+     */
     public function getOptions(): array
     {
         if (!$this->hasInitOptions) {
@@ -86,7 +117,8 @@ class _Persistent
 
     /**
      * Render some view from path $this->pathView
-     * @param string $nameView - Name View
+     * @param string $nameView Name View
+     * @return string view
      */
     public function renderView(string $nameView): string
     {
@@ -94,11 +126,11 @@ class _Persistent
     }
 
     /**
-     * Component initialization
+     * Вывести текст Html компонента
+     * @return string Html code
      */
     public function renderComponent(): string
     {
-        // $this->initOptions();
         return '';
     }
 }

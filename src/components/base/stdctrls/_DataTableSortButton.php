@@ -2,9 +2,9 @@
 
 namespace yh\mdc\components\base\stdctrls;
 
-use yh\mdc\components\base\ComponentInitial;
 use yii\helpers\Html;
 use yh\mdc\components\IconButton;
+use yh\mdc\components\base\ComponentInitial;
 
 class _DataTableSortButton extends ComponentInitial
 {
@@ -43,14 +43,20 @@ class _DataTableSortButton extends ComponentInitial
     }
     
     public static function getSortName($direction)
-    {
+    {        
+        if (is_null($direction)) {
+            return '';
+        }
+        if (!isset(self::SORT_NAME[$direction])) {
+            throw new Exception("Invalid index for sorting");            
+        }
         return self::SORT_NAME[$direction];
     }
 
     public static function getClassTh($direction): string
     {
-        $cls = self::$clsTh['base'].' '.self::$clsTh[$direction];
-        return is_null($direction) ? $cls : $cls.' '.self::$clsTh['visible'];
+        $cls = self::$clsTh['base'];
+        return is_null($direction) ? $cls : $cls.' '.self::$clsTh[$direction].' '.self::$clsTh['visible'];
     }
 
     private function getLabelTag(): string

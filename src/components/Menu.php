@@ -32,34 +32,17 @@ class Menu extends ListItem
         'aria-orientation' => 'vertical'
     ];
 
+    /**
+     * @see trWrap
+     */
     public function initWrapOptions(): void
-    {
-        // parent initWrapOptions();
+    {        
         $this->traitInitWrapOptions();
         $this->wrapOptions['class'][] = self::$clsWrap['base'];
     }
 
-    // private function renderList(): string
-    // {
-    //     $list = ListItem::one($this->listProperty, [
-    //         'role' => $this->roleMenu,
-            
-    //     ]);        
-    //     //идет перебор всех items и заполняется массив values
-    //     $content =  $list->renderComponent();
-        
-    //     if (!empty($list->jsProperty)) {
-    //         $this->jsProperty = array_merge($this->jsProperty, $list->jsProperty);
-    //     }
-        
-    //     return $content;
-    // }
-
     public function renderComponent(): string
-    {
-        //Нужно заранее собрать все jsProperty, после чего зарегать компонент
-        // $contentList = $this->renderList();
-        
+    {        
         //Menu begin
         $content = Html::beginTag('div', $this->getWrapOptions());
         $content .= parent::renderComponent();

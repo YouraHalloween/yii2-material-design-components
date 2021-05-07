@@ -2,10 +2,10 @@
 
 namespace yh\mdc\components\base\stdctrls;
 
-use yh\mdc\components\base\ComponentInitial;
-use yh\mdc\components\base\Vars;
-use yh\mdc\components\Select;
 use yii\helpers\Html;
+use yh\mdc\components\Select;
+use yh\mdc\components\base\Vars;
+use yh\mdc\components\base\ComponentInitial;
 
 class _DataTablePagination extends ComponentInitial
 {
