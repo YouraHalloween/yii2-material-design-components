@@ -1,4 +1,4 @@
-// import { ajax } from './ajax.js'; 
+import { ajax } from './ajax.js'; 
 
 /**
  * 
@@ -152,7 +152,7 @@ function DataTableProcessing(id) {
         //Запомнить текущий Url с параметрами
         currentUrl = link;
         table.showProgress();
-        app.utils.ajax({
+        ajax({
             'url': link
         })
             .done((data) => {
@@ -226,4 +226,4 @@ window.onpopstate = function (e) {
     // }
 };
 
-// export { DataTableProcessing };
+export { DataTableProcessing };

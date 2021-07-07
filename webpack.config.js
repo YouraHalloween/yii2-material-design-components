@@ -179,11 +179,11 @@ const JSConfig = (env) => {
 module.exports = ({ }, param) => {
     const env = new Env(param);
 
-    const cssConfig = CSSConfig(env);    
+    // const cssConfig = CSSConfig(env);    
     const jsConfig = JSConfig(env);
 
     return [
-        cssConfig,
+        // cssConfig,
         jsConfig
     ];
 };

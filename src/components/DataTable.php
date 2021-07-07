@@ -80,7 +80,7 @@ class DataTable extends Component
              * которую можно вернуть app.controls.item(id.'-processing')
              */
             $param = ["'".$this->options['id']."'"];
-            $obj = 'DataTableProcessing('.implode(',', $param).')';
+            $obj = 'app.utils.DataTableProcessing('.implode(',', $param).')';
             ComponentRegister::registerObjectJs($obj);
         } elseif ($this->isAjax()) {
             $vanContent = '';
