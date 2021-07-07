@@ -138,10 +138,11 @@ Snackbar::one('')
     ->render()
 ```
 
-**See the use of JS components here:**
-[Material-Design-Components-for-web](https://github.com/youra-h/MDC-web-template)
-By Google
-[Material Components for the web](https://github.com/material-components/material-components-web)
-[Manual packages](https://github.com/material-components/material-components-web/tree/master/packages)
-[Examples of what components look like](https://material.io/components?platform=web)
-[And](https://material-components.github.io/material-components-web-catalog/#/)
+## See the use of JS components here
+
+- [Material-Design-Components-for-web](https://github.com/youra-h/MDC-web-template)
+### By Google
+- [Material Components for the web](https://github.com/material-components/material-components-web)
+- [Manual packages](https://github.com/material-components/material-components-web/tree/master/packages)
+- [Examples of what components look like](https://material.io/components?platform=web)
+- [And](https://material-components.github.io/material-components-web-catalog/#/)
