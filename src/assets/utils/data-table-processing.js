@@ -17,8 +17,8 @@ function DataTableProcessing(id) {
     let idDataTable = id;
     let currentUrl = '';
 
-    let _eventSuccess;
-    let _eventComplete;
+    let _onSuccess;
+    let _onComplete;
 
     let table = app.controls.item(id);
 
@@ -157,8 +157,8 @@ function DataTableProcessing(id) {
         })
             .done((data) => {
                 if (data.status === 'success') {
-                    if (typeof _eventSuccess !== 'undefined') {
-                        _eventSuccess(data);
+                    if (typeof _onSuccess !== 'undefined') {
+                        _onSuccess(data);
                     }
                     if (fromNavigation) {
                         window.history.pushState({ link: link, id: th.id }, '', link);
@@ -173,8 +173,8 @@ function DataTableProcessing(id) {
                 }
             })
             .complete((data) => {
-                if (typeof _eventComplete !== 'undefined') {
-                    _eventComplete(data);
+                if (typeof _onComplete !== 'undefined') {
+                    _onComplete(data);
                 }
                 table.hideProgress();
             })
@@ -198,15 +198,15 @@ function DataTableProcessing(id) {
     /**     
      * @param {callback} fn - вызывается в случае успешного выполнения
      */
-    DataTableProcessing.prototype.eventSuccess = function (fn) {
-        _eventSuccess = fn;
+    DataTableProcessing.prototype.onSuccess = function (fn) {
+        _onSuccess = fn;
     };
 
     /**     
      * @param {callback} fn - вызывается в любом случае
      */
-    DataTableProcessing.prototype.eventComplete = function (fn) {
-        _eventComplete = fn;
+    DataTableProcessing.prototype.onComplete = function (fn) {
+        _onComplete = fn;
     };
 
     Object.defineProperty(DataTableProcessing.prototype, "id", {

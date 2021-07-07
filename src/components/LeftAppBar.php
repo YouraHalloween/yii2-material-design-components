@@ -2,110 +2,68 @@
 
 namespace yh\mdc\components;
 
-use yh\mdc\components\base\stable\ComponentRegister;
-use yh\mdc\components\base\ControlList;
-use yh\mdc\components\Drawer;
 use yii\helpers\Html;
+use yh\mdc\components\Drawer;
+use yh\mdc\components\ListItem;
+use yh\mdc\components\base\Vars;
+use yh\mdc\components\base\extensions\trWrap;
+use yh\mdc\components\base\stable\ComponentRegister;
 
-class LeftAppBar extends ControlList
+class LeftAppBar extends ListItem
 {
+    use trWrap {
+        trWrap::initWrapOptions as traitInitWrapOptions;
+    }
+
     protected string $cmpType = ComponentRegister::TYPE_LEFTAPPBAR;
-    
-    private static string $clsBlock = 'mdc-left-app-bar';
-    private static string $clsContent = 'mdc-left-app-bar-content';
 
-    private static array $clsList = [
-        'base' => 'mdc-left-app-bar-list',
-        'item' => 'mdc-left-app-bar-item',
-        'label' => 'mdc-left-app-bar-item__label',
-        'icon' => 'material-icons mdc-left-app-bar-item__icon',
-        'all' => 'mdc-left-app-bar-item__all',
-        'selected' => 'active'
+    protected static array $clsWrap = [
+        'base' => 'mdc-left-app-bar'        
     ];
+
+    private static string $clsItemAll = 'mdc-left-app-bar-item__all';
+
+    public bool $all = true;
+
+    public string $heightItem = Vars::NORMAL;
+    public string $itemTextSize = Vars::NORMAL;
+
+    /**
+     * @see trWrap
+     */
+    public function initWrapOptions(): void
+    {
+        $this->traitInitWrapOptions();
+        $this->wrapOptions['class'][] = self::$clsWrap['base'];
+    }
     
     /**
-     * Css классы для контейнера
+     * Если All инициализировать класс для пункта меню All
      */
-    public function initOptions(): void
+    protected function initItemOptions(array &$item)
     {
-        parent::initOptions();
-        $this->options['class'][] = self::$clsBlock;
-    }
-
-    private function getTagIem(array $item): string
-    {
-        $options = ['class'=> [self::$clsList['item']]];
-        if (isset($item['all'])) {
-            $options['class'][] = self::$clsList['all'];
-            $item['menu-index'] = '--visible-all';
+        parent::initItemOptions($item);
+        if ($this->all && $item['index'] == 0) {
+            $item['options']['class'][] = self::$clsItemAll;
+            $item['ripple'] = false;
         }
-        $content = Html::beginTag('li', $options);
-
-        $text = Html::tag('i', $item['icon'], ['class' => self::$clsList['icon']]);
-                
-        $options = [
-            'title' => isset($item['title']) ? $item['title'] : '',
-            'class' => [self::$clsList['label']]
-        ];        
-        $options['menu-index'] = isset($item['menu-index']) ? $item['menu-index'] : $item['icon'];
-        if (isset($item['selected']) && $item['selected']) {
-            $options['class'][] = self::$clsList['selected'];
-        }
-
-        $content .= Html::tag('span', $text, $options);
-        $content .= Html::endTag('li');
-
-        return $content;
-    }
-
-    private function renderItems(): string
-    {
-        $content = Html::beginTag('ul', ['class' => self::$clsList['base']]);
-
-        foreach ($this->items as $item) {
-            $content .= $this->getTagIem($item);
-        }
-
-        $content .= Html::endTag('ul');
-        return $content;
-    }
-
-    public function attachDrawer(Drawer $drawer): LeftAppBar
-    {
-        $i = 0;
-        $activeClass = 'active';        
-        $selectedItemAll = true;
-        // foreach ($drawer->items as $key => $item) {
-        //     if (isset($this->items[$key]['all'])) {
-        //         //Инициализация, если не найдется другого активного блока меню
-        //         $this->items[$key]['selected'] = &$selectedItemAll;
-        //         $i++;
-        //     }
-        //     $this->items[$key + $i]['title'] = $item['header'];
-        //     $drawer->items[$key]['options']['menu-index'] = $this->items[$key+ $i]['icon'];
-            
-        //     if ($drawer->items[$key]['selected'] === true) {
-        //         $this->items[$key + $i]['selected'] = true;
-        //         $selectedItemAll = false;
-        //         $drawer->items[$key]['options']['class'][] = 'active';
-        //         $activeClass = '';    
-        //     } else {
-        //         $drawer->items[$key]['options']['class'][] = &$activeClass;                
-        //     }
-        // }        
-        return $this;
     }
 
     /**
-     * Нарисовать Snackbar
+     * Если All добавить пункт меню в начало
      */
-    public function renderComponent(): string
+    public function renderItems(): string
     {
-        $content = Html::beginTag('div', $this->getOptions());
-        
-        $items = $this->renderItems();
-        $content .= Html::tag('div', $items, ['class' => self::$clsContent]);
+        if ($this->all) {
+            array_unshift($this->items, ['icon' => 'more_horiz']);            
+        }
+        return parent::renderItems();
+    }
 
+    public function renderComponent(): string
+    {        
+        $content = Html::beginTag('div', $this->getWrapOptions());
+        $content .= parent::renderComponent();     
         $content .= Html::endTag('div');
 
         return $content;

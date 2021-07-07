@@ -99,9 +99,6 @@ class Drawer extends ControlList
         return $this;
     }
 
-    /**
-     * Нарисовать Snackbar
-     */
     public function renderComponent(): string
     {
         $content = Html::beginTag('aside', $this->getOptions());
@@ -115,7 +112,8 @@ class Drawer extends ControlList
                         ->listItem
                         ->setProperty($listProperty)
                         ->renderList(false);
-            $list .= Html::tag('div', $item, $listOptions);
+            // $list .= Html::tag('div', $item, $listOptions);
+            $list .= Html::tag('div', $item, ['class' => 'group']);
         }
         
         $content .= $this->listItem->renderFrame($list);

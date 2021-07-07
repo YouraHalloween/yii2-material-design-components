@@ -206,7 +206,7 @@ class Select extends CustomTextField
         $content .= Html::beginTag('div', $this->getOptionsAnchor());
     
         $content .= $this->getTagRipple('filled');
-        $content .= $this->getTagIcons('leading');
+        $content .= $this->icons->render(ItemIconButton::LEADING);
 
         if ($this->labelTemplate == 'inner') {
             $content .= $this->getTagInnerLabel();
@@ -215,7 +215,7 @@ class Select extends CustomTextField
         $content .= $this->getTagInput();
         $content .= $this->getTagDropdownIcon();
 
-        $content .= $this->getTagIcons('trailing');
+        $content .= $this->icons->render(ItemIconButton::TRAILING);
         $content .= $this->getTagRipple('line');
         //mdc-anchor
         $content .= Html::endTag('div');

@@ -386,7 +386,10 @@ class ListItem extends ControlList
 
         $content = Html::beginTag($this->tagItem, $item['options']);
         //Ripple
-        $content .= Html::tag('span', '', ['class' => $this->clsItem['ripple']]);
+        $ripple = ArrayHelper::getValue($item, 'ripple', true);
+        if ($ripple) {
+            $content .= Html::tag('span', '', ['class' => $this->clsItem['ripple']]);
+        }        
         //Icon or Avatar or Radio or Checkbox
         $content .= $this->getTagIcon($item);
         //Text

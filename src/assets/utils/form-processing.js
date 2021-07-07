@@ -1,4 +1,4 @@
-import { ajax } from './ajax.js'; 
+import { ajax } from './ajax.js';
 
 /**
  * 
@@ -17,7 +17,7 @@ function FormProcessing(id, blockedControls = { control: 'submit', unblock: fals
         return new FormProcessing(id, blockedControls);
     }
 
-    let _eventSuccess;
+    let _onSuccess;
 
     let _$form = $(`#${id}`);
     let _blockedControls = blockedControls;
@@ -42,33 +42,33 @@ function FormProcessing(id, blockedControls = { control: 'submit', unblock: fals
             app.controls.groupEnabled(_$form.attr('id'), false);
         }
 
-        ax.done((data) => {
-                if (data.status === 'success') {
-                    _eventSuccess(data);
-                } else if (data.status === 'model-error') {
-                    let focusField = false;
-                    let snackbar = app.controls.item('app-snackbar');
-                    for (let key in data.message) {
-                        data.message[key].forEach((item) => {
-                            snackbar.add(item);
-                        })
-                        if (key.trim() !== '') {
-                            let control = app.controls.item(key);
-                            
-                            if (!focusField) {
-                                control.focus();
-                                focusField = true;
-                            }
-                            
-                            control.valid = false;
-                            control.helperMessage.error = data.message[key][0];
+        ax.done(response => {
+            if (response.status === 'success') {
+                _onSuccess(response);
+            } else if (response.status === 'model-error') {
+                let focusField = false;
+                let snackbar = app.controls.item('app-snackbar');
+                for (let key in response.message) {
+                    response.message[key].forEach((item) => {
+                        snackbar.add(item);
+                    })
+                    if (key.trim() !== '') {
+                        let control = app.controls.item(key);
+
+                        if (!focusField) {
+                            control.focus();
+                            focusField = true;
                         }
+
+                        control.valid = false;
+                        control.helperMessage.error = response.message[key][0];
                     }
-                    snackbar.showMessage();
                 }
-            })
-            .complete((data) => {
-                let unblock = _blockedControls.unblock || !(data.status === 'success');
+                snackbar.showMessage();
+            }
+        })
+            .complete(response => {
+                let unblock = _blockedControls.unblock || !(response.status === 'success');
 
                 if (_blockedControls.control == 'all') {
                     app.controls.groupEnabled(_$form.attr('id'), unblock);
@@ -83,8 +83,8 @@ function FormProcessing(id, blockedControls = { control: 'submit', unblock: fals
     /**     
      * @param {callback} fn - вызывается в случае успешного выполнения
      */
-    FormProcessing.prototype.eventSuccess = function (fn) {
-        _eventSuccess = fn;
+    FormProcessing.prototype.onSuccess = function (fn) {
+        _onSuccess = fn;
     };
 
     Object.defineProperty(FormProcessing.prototype, "id", {
