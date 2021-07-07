@@ -36,13 +36,20 @@ class LeftAppBar extends ListItem
         $this->traitInitWrapOptions();
         $this->wrapOptions['class'][] = self::$clsWrap['base'];
     }
-    
+
     /**
      * Если All инициализировать класс для пункта меню All
+     * @see yh\mdc\components\ListItem
      */
     protected function initItemOptions(array &$item)
     {
-        parent::initItemOptions($item);
+        if (!isset($item['value'])) {
+            $index = $this->all ? $item['index'] - 1 : $item['index'];
+            $item['value'] = $index;
+        }
+
+        parent::initItemOptions($item);        
+
         if ($this->all && $item['index'] == 0) {
             $item['options']['class'][] = self::$clsItemAll;
             $item['ripple'] = false;
@@ -50,7 +57,24 @@ class LeftAppBar extends ListItem
     }
 
     /**
+     * @see yh\mdc\components\ListItem
+     */
+    protected function getTagText(array $item): string
+    {
+        return '';
+    }
+
+    public function attachDrawer(Drawer $drawer)
+    {
+        $selectedIndex = $drawer->getGroupSelectedIndex();
+        $this->setValue($selectedIndex);
+        
+        return $this;
+    }
+
+    /**
      * Если All добавить пункт меню в начало
+     * @see yh\mdc\components\ListItem
      */
     public function renderItems(): string
     {

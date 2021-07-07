@@ -11,7 +11,7 @@ use yii\helpers\Html;
 class Drawer extends ControlList
 {
     protected string $cmpType = ComponentRegister::TYPE_DRAWER;
-    
+
     private static array $clsBlock = [
         'base' => 'mdc-drawer',
         'dismissible' => 'mdc-drawer--dismissible',
@@ -37,6 +37,8 @@ class Drawer extends ControlList
     public string $headerIcon = '';
     public string $headerLink = '';
     public string $subTitle = '';
+
+    private int $groupSelectedIndex = -1;
 
     public function __construct(array $property = [], array $options = [])
     {
@@ -88,15 +90,26 @@ class Drawer extends ControlList
         return $content;
     }
 
-    public function setSelected($value, string $prop = 'value'): Drawer
-    {        
-        foreach ($this->items as $key => $listProperty) {
-            $list = new ListItem();       
-            $list->items = $listProperty['items'];     
-            $this->items[$key]['items'] = $list->setSelected($value, $prop)->items;
-            $this->items[$key]['selected'] = count($list->getSelectedIndex()) > 0;
-        }               
+    public function setSelected($value, string $property = 'value'): Drawer
+    {
+        foreach ($this->items as $i => $listProperty) {
+            $listItems = $listProperty['items'];
+
+            foreach ($listItems as $j => $item) {                            
+                if (isset($item[$property]) && $item[$property] === $value) {
+                    $this->items[$i]['items'][$j]['selected'] = true;
+                    $this->groupSelectedIndex = $i;
+                    return $this;
+                }                
+            }
+
+        }
         return $this;
+    }
+
+    public function getGroupSelectedIndex(): int
+    {
+        return $this->groupSelectedIndex;
     }
 
     public function renderComponent(): string
@@ -104,18 +117,23 @@ class Drawer extends ControlList
         $content = Html::beginTag('aside', $this->getOptions());
         $content .= $this->getTagHeader();
         $content .= Html::beginTag('div', ['class' => self::$clsContent]);
-        
+
         $list = '';
-        foreach ($this->items as $listProperty) {
+        foreach ($this->items as $index => $listProperty) {
             $listOptions = ArrayHelper::remove($listProperty, 'options', []);
             $item = $this
-                        ->listItem
-                        ->setProperty($listProperty)
-                        ->renderList(false);
-            // $list .= Html::tag('div', $item, $listOptions);
-            $list .= Html::tag('div', $item, ['class' => 'group']);
+                ->listItem
+                ->setProperty($listProperty)
+                ->setOptions($listOptions)
+                ->renderList(false);
+
+            $class = ['group'];    
+            if ($index === $this->getGroupSelectedIndex() || $this->getGroupSelectedIndex() === -1) {
+                $class[] = 'active';
+            }
+            $list .= Html::tag('div', $item, ['class' => $class]);
         }
-        
+
         $content .= $this->listItem->renderFrame($list);
 
         $content .= Html::endTag('div');

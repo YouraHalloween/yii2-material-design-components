@@ -115,27 +115,17 @@ class ListItem extends ControlList
      * @var array $itemOptions
      */
     public array $itemOptions = [];
-
-    /**
-     * @var string $selectedProp - свойство по которому будет сравниваться selectedValue
-     */
-    // public string $selectedProp = 'value';
     /**
      * @var string|array $value - если значение совпадает, то item будет выделен
      */
-    public $value = '';
+    public $value = NULL;
     /**
      * @var bool $separator разделяет заголовки item чертой
      */
     public bool $separator = false;
 
-    /**
-     * Используется для вывода сгруппированных списков
-     */
-    // protected int $groupIndex = -1;
     //В переменной содержится аватарка из View _avatar.php
     private string $_avatarBuf = '';
-    // private array $selectedIndex = [];
 
     /**
      * @see yh\mdc\components\base\_Component
@@ -151,6 +141,16 @@ class ListItem extends ControlList
             $this->tagList = 'ul';
             $this->tagItem = 'li';
         }
+        return $this;
+    }
+
+    /**
+     * Установить свойство $value
+     * @param any $value
+     * @return ListItem
+     */
+    public function setValue($value): ListItem {
+        $this->value = $value;
         return $this;
     }
 
@@ -339,13 +339,23 @@ class ListItem extends ControlList
     */
     protected function isSelect(array $item): bool
     {
-        return (isset($item['selected']) && $item['selected'] === true && empty($this->value))
-                    ||
-                    (!empty($this->value) && isset($item['value']) && (
-                        (is_array($this->value) && ArrayHelper::isIn($item['value'], $this->value))
-                        ||
-                        (!is_array($this->value) && $this->value == $item['value'])
-                    ));
+        $itemSelected = (isset($item['selected']) && $item['selected'] === true && is_null($this->value));
+
+        $itemSelectedValue = (!is_null($this->value) && isset($item['value']) && (
+                                (is_array($this->value) && ArrayHelper::isIn($item['value'], $this->value))
+                                ||
+                                (!is_array($this->value) && $this->value == $item['value'])
+                            ));
+        
+        $itemSelectedProperty = false;
+
+        if (isset($this->selected)) {
+            $property = $this->selected['property'];
+            $value = $this->selected['value'];
+            $itemSelectedProperty = isset($item[$property]) && $item[$property] === $value;
+        }
+
+        return $itemSelected || $itemSelectedValue || $itemSelectedProperty;
     }
 
     protected function initItemOptions(array &$item)
@@ -404,26 +414,6 @@ class ListItem extends ControlList
         }
         return $content;
     }
-
-    // public function setSelected($value, string $prop = 'value'): ListItem
-    // {
-    //     foreach ($this->items as $key => $item) {
-    //         if (isset($item[$prop])) {
-    //             $propValue = $item[$prop];
-    //             //Если $this->selectedValue == $propValue, либо ищем $propValue в массиве
-    //             if (((\is_array($value) && array_search($propValue, $value))) || ($value === $propValue)) {
-    //                 $this->items[$key]['selected'] = true;
-    //                 $this->selectedIndex[] = $key;
-    //             }
-    //         }
-    //     }
-    //     return $this;
-    // }
-
-    // public function getSelectedIndex(): array
-    // {
-    //     return $this->selectedIndex;
-    // }
 
     /**
      * Выводит список items
