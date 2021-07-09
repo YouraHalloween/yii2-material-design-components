@@ -15,6 +15,7 @@ class Drawer extends ControlList
     private static array $clsBlock = [
         'base' => 'mdc-drawer',
         'dismissible' => 'mdc-drawer--dismissible',
+        'modal' => 'mdc-drawer--modal',
         'open' => 'mdc-drawer--open'
     ];
 
@@ -30,8 +31,15 @@ class Drawer extends ControlList
     ];
 
     public ListItem $listItem;
-    //Абсолютная позиция
+    /**
+     * Drawer can be either dismissible or modal
+     * @var bool $dismissible 
+     */
     public bool $dismissible = true;
+    /**
+     * @var bool $modal Modal navigation drawers block interaction with the rest of an app’s content with a scrim. They are elevated above most of the app’s UI and don’t affect the screen’s layout grid.
+     */
+    public bool $modal = false;
     public bool $open = true;
     public string $header = '';
     public string $headerIcon = '';
@@ -55,6 +63,9 @@ class Drawer extends ControlList
         $this->options['class'][] = self::$clsBlock['base'];
         if ($this->dismissible) {
             $this->options['class'][] = self::$clsBlock['dismissible'];
+        } else {
+            $this->modal = true;
+            $this->options['class'][] = self::$clsBlock['modal'];
         }
         if ($this->open) {
             $this->options['class'][] = self::$clsBlock['open'];

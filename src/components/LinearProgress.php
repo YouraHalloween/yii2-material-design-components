@@ -38,10 +38,19 @@ class LinearProgress extends Control
      */
     public bool $indeterminate = false;
     /**
+     * DEPRECATED
      * @var bool $reversed Обратное движение
      */
     public bool $reversed = false;
-    public bool $buffer = false;
+    /**
+     * @var float $progress [0..1]
+     */
+    public float $progress = 0;
+    /**
+     * If equal to -1, then do not output the buffer
+     * @var float $bufer [0..1]
+     */
+    public float $buffer = -1;
     /**
      * @var bool $closed Не показывать progressbar
      */
@@ -70,8 +79,16 @@ class LinearProgress extends Control
         $this->options['class'][] = self::$clsBlock['base'];
         $this->addClsBlock('indeterminate');
         $this->addClsBlock('reversed');
-        $this->addClsBlock('buffer');
         $this->addClsBlock('closed');
+
+        if ($this->buffer > -1) {
+            $this->options['class'][] = self::$clsBlock['buffer'];
+            $this->jsProperty['buffer'] = $this->buffer;
+        }
+
+        if ($this->progress > 0) {
+            $this->jsProperty['progress'] = $this->progress;
+        }
 
         $this->options['role'] = "progressbar";
 
@@ -83,11 +100,16 @@ class LinearProgress extends Control
      */
     private function getTagBuffer(): string
     {
-        $content = Html::beginTag('div', ['class' => self::$clsBuffer['base']]);
-        $content .= Html::tag('div', '', ['class' => self::$clsBuffer['bar']]);
-        if ($this->buffer) {
-            $content .= Html::tag('div', '', ['class' => self::$clsBuffer['dots']]);
+        $dots = '';
+        $basis = '';
+        if ($this->buffer > -1) {
+            $dots = Html::tag('div', '', ['class' => self::$clsBuffer['dots']]);
+            $buffer = $this->buffer * 100;
+            $basis = 'flex-basis: ' . $buffer . '%';
         }
+        $content = Html::beginTag('div', ['class' => self::$clsBuffer['base']]);
+        $content .= Html::tag('div', '', ['class' => self::$clsBuffer['bar'], 'style' => $basis]);
+        $content .= $dots;
         $content .= Html::endTag('div');
         return $content;
     }
@@ -97,9 +119,11 @@ class LinearProgress extends Control
      */
     private function getTagBar(): string
     {
+        $transform = $this->progress > 0 ? "transform: scaleX($this->progress);" : '';
+
         $barInner = Html::tag('span', '', ['class' => self::$clsBar['bar-inner']]);
 
-        $content = Html::tag('div', $barInner, ['class' => [self::$clsBar['base'], self::$clsBar['primary-bar']]]);
+        $content = Html::tag('div', $barInner, ['class' => [self::$clsBar['base'], self::$clsBar['primary-bar']], 'style' => $transform]);
         $content .= Html::tag('div', $barInner, ['class' => [self::$clsBar['base'], self::$clsBar['secondary-bar']]]);
 
         return $content;

@@ -28,24 +28,6 @@ class Radio extends CustomSwitch
 
     protected static string $clsRipple = 'mdc-radio__ripple';
 
-    // protected function initOptions(): void
-    // {
-    //     parent::initOptions();
-
-    //     $this->options['class'][] = self::$clsBlockInput['base'];
-
-    //     if (!$this->enabled) {
-    //         $this->options['class'][] = self::$clsBlockInput['disabled'];
-    //     }
-    // }
-
-    // protected function getTagLabel(): string
-    // {
-    //     $this->labelOptions['class'][] = self::$clsLabel;
-
-    //     return parent::getTagLabel();
-    // }
-
     protected function getTagBackgorund(): string
     {
         $content = Html::beginTag('div', ['class' => self::$clsBackground['base']]);
@@ -55,25 +37,4 @@ class Radio extends CustomSwitch
 
         return $content;
     }
-
-    // public function renderComponent(): string
-    // {
-    //     $content = Html::beginTag('div', $this->getOptions());
-    //     $content .= $this->getTagInput();
-    //     $content .= $this->getTagBackgorund();
-    //     $content .= $this->getTagRipple();
-    //     $content .= Html::endTag('div');
-
-    //     $content .= $this->getTagLabel();
-        
-    //     if ($this->formField) {
-    //         $cls = [self::$clsBlock['base']];
-    //         if ($this->rtl) {
-    //             $cls[] = self::$clsBlock['rtl'];
-    //         }
-    //         return Html::tag('div', $content, ['class' => $cls]);
-    //     } else {
-    //         return $content;
-    //     }
-    // }
 }

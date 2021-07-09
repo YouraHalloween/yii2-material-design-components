@@ -8,6 +8,9 @@ use yii\helpers\Html;
 
 class SnackBar extends Control
 {
+    const POS_FIXED = true;
+    const POS_ABSOLUTE = false;
+
     protected string $cmpType = ComponentRegister::TYPE_SNACKBAR;
 
     private static array $clsBlock = [
@@ -15,7 +18,8 @@ class SnackBar extends Control
         'leading' => 'mdc-snackbar--leading',
         'trailing' => 'mdc-snackbar--trailing',
         'stacked' => 'mdc-snackbar--stacked',
-        'action-baseline' => 'mdc-snackbar--action-baseline'
+        'action-baseline' => 'mdc-snackbar--action-baseline',
+        'position-absolute' => 'mdc-snackbar__absolute'
     ];
 
     private static string $clsSurface = 'mdc-snackbar__surface';
@@ -28,12 +32,38 @@ class SnackBar extends Control
         'close' => 'mdc-icon-button mdc-snackbar__dismiss material-icons'
     ];
 
+    /**
+     * @var bool $leading - snackbar будет расположен в начале
+     */
     public bool $leading = false;
+    /**
+     * @var bool $trailing - snackbar будет расположен в конце
+     */
     public bool $trailing = false;
+    /**
+     * Кнопки будут распологаться на отдельном баре внизу
+     * @var bool $stacked
+     */
     public bool $stacked = false;
-    public bool $actionBaseline = true;
+    /**
+     * Если сообщение содержит больше одной строки, то кнопки будут не центрироваться, а приклеиваться к верху
+     * @var bool $actionBaseline
+     */
+    private bool $actionBaseline = false;
+    /**
+     * Дополнительная кнопка
+     * @var string $captionButton
+     */
     public string $captionButton = '';
+    /**
+     * Если пустое, то кнопка отобраться не будет
+     * @var string $closeButton - default aria-label close button
+     */
     public string $closeButton = 'Close';
+    /**     
+     * @var bool $position
+     */
+    public bool $position = self::POS_FIXED;
 
     /**
      * Css классы для контейнера
@@ -52,6 +82,9 @@ class SnackBar extends Control
             $this->options['class'][] = self::$clsBlock['stacked'];
         } elseif ($this->actionBaseline) {
             $this->options['class'][] = self::$clsBlock['action-baseline'];
+        }
+        if ($this->position === self::POS_ABSOLUTE) {
+            $this->options['class'][] = self::$clsBlock['position-absolute'];
         }
     }
 

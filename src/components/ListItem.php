@@ -126,6 +126,7 @@ class ListItem extends ControlList
 
     //В переменной содержится аватарка из View _avatar.php
     private string $_avatarBuf = '';
+    private int $hasHelper = -1;
 
     /**
      * @see yh\mdc\components\base\_Component
@@ -159,7 +160,16 @@ class ListItem extends ControlList
      */
     private function isHelper(): bool
     {
-        return isset($this->items[0]['helper']);
+        if ($this->hasHelper === -1) {
+            $this->hasHelper = 0;
+            foreach ($this->items as $value) {
+                if (isset($value['helper'])) {
+                    $this->hasHelper = 1;
+                    break;
+                }
+            }
+        }
+        return (bool) $this->hasHelper;
     }
 
     /**
@@ -207,8 +217,9 @@ class ListItem extends ControlList
         }
 
         if ($this->isHelper()) {
+            $helper = isset($item['helper']) ? $item['helper'] : '';
             $content = Html::tag('span', $text, ['class' => $this->clsItem['primary']]);
-            $content .= Html::tag('span', $item['helper'], ['class' => $this->clsItem['secondary']]);
+            $content .= Html::tag('span', $helper, ['class' => $this->clsItem['secondary']]);
         } else {
             $content = $text;
         }
@@ -482,14 +493,14 @@ class ListItem extends ControlList
     /**
      * Вывести группы со списком item
      */
-    public static function list(array $property, array $options = [])
+    public static function group(array $property, array $options = [])
     {
         $itemsContent = [];
         $groups = ArrayHelper::remove($property, 'items', []);
-        foreach ($groups as $key => $group) {
-            $localProperty = ArrayHelper::merge($property, $group);
+        foreach ($groups as $key => $listProperty) {            
+            // $localProperty = ArrayHelper::merge($property, $items);
             // $localProperty['groupIndex'] = $key;
-            $list = self::one($localProperty, ['group-index' => $key])->render();
+            $list = self::one($listProperty, ['group-index' => $key])->render();
             $itemsContent[] = $list;
         }
 
