@@ -211,7 +211,7 @@ class ListItem extends ControlList
     {
         $text = ArrayHelper::getValue($item, 'text', '');
 
-        if (empty($text)) {
+        if (!isset($item['text'])) {
             // В качестве текста будут использоваться значения 
             $text = ArrayHelper::getValue($item, 'value', '');
         }

@@ -62,11 +62,13 @@ abstract class CustomTextField extends ControlInput
     /**
      * @var string $leading - одна иконка
      * @var array $leading - список иконок с параметрами
+     * @deprecated
      */
     public $leading = [];
     /**
      * @var string $trailing - одна иконка
      * @var array $trailing - список иконок с параметрами
+     * @deprecated
      */
     public $trailing = [];
 

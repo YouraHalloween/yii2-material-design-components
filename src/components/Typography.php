@@ -43,7 +43,8 @@ class Typography
     /**
      * Возвращает класс, который устанавливает размер текста
      * @param string $constFontSize - Vars::NORMAL | Vars::EXTRA_SMALL | Vars::SMALL | Vars::MEDIUM | Vars::LARGE
-     * @return css class, example 'mdc_fs__small';
+     * @return css class
+     * @example 'mdc_fs__small'
      */
     public static function fontSize(string $constFontSize): string 
     {        
@@ -83,5 +84,15 @@ class Typography
     public static function caption(): string
     {
         return self::getCssClass(self::CAPTION);
+    }
+
+    public static function button(): string
+    {
+        return self::getCssClass(self::BUTTON);
+    }
+
+    public static function overline(): string
+    {
+        return self::getCssClass(self::OVERLINE);
     }
 }

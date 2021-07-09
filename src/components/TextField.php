@@ -21,6 +21,28 @@ class TextField extends CustomTextField
      * @var string $suffix - input siffix
      */
     public string $suffix = '';
+    /**
+     * Обязательно для заполнения
+     * @var bool $requried
+     */
+    public bool $required = false;
+    /**
+     * @var int $maxLength
+     */
+    public int $maxLength = -1;
+    /**
+     * @var int $minLength
+     */
+    public int $minLength = -1;
+    /**
+     * @var string $pattern
+     */
+    public string $pattern = '';
+    /**
+     * Используются браузерные подсказки
+     * @var bool $useNativeMessage 
+     */
+    public bool $useNativeMessage = false;
 
     public $formField = false;
 
@@ -110,6 +132,27 @@ class TextField extends CustomTextField
         if ($this->hasHelper()) {
             $this->inputOptions['aria-controls'] = $this->getHelperId();
             $this->inputOptions['aria-describedby'] = $this->getHelperId();
+        }
+
+        if ($this->required) {
+            $this->inputOptions['required'] = true;
+            $this->jsProperty['required'] = true;
+        }
+
+        if ($this->maxLength > -1) {            
+            $this->jsProperty['maxLength'] = $this->maxLength;
+        }
+
+        if ($this->minLength > -1) {
+            $this->jsProperty['minLength'] = $this->minLength;
+        }
+
+        if ($this->pattern !== '') {
+            $this->jsProperty['pattern'] = $this->pattern;
+        }
+
+        if (!empty($this->helper) && $this->useNativeMessage) {
+            $this->jsProperty['helperMessage.useNativeMessage'] = $this->useNativeMessage;
         }
     }
 
