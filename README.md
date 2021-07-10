@@ -2,7 +2,7 @@
 
 Components can be used in php or in conjunction with the yii2 framework.
 
-[Demos](https://youra-h.github.io/page/yii2mdc.html)  
+[Demos](https://youra-h.github.io/yii2-material-design-components.html)  
 [MDC Template](https://github.com/youra-h/MDC-web-template)  
 [MDC Google Components Page](https://github.com/material-components/material-components-web)
 
