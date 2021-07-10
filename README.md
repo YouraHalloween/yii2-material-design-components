@@ -8,6 +8,8 @@ Components can be used in php or in conjunction with the yii2 framework.
 
 To generate a new template use [MDC Template](https://github.com/youra-h/MDC-web-template)  
 To generate a color scheme [Color tool](https://material.io/resources/color/#!/?view.left=0&view.right=0)
+
+## Google MDC version used v.10
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
