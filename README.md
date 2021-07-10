@@ -1,9 +1,13 @@
-# Components developed by Google. Transferred them to php.
+# Material Components for the php or yii2.
 
-The components are developed by Google. Transferred them to php. It is possible to use the ActiveField and ActiveForm components in the yii2 framework
+Components can be used in php or in conjunction with the yii2 framework.
 
-[Demos](https://youra-h.github.io/page/yii2mdc.html)
+[Demos](https://youra-h.github.io/page/yii2mdc.html)  
+[MDC Template](https://github.com/youra-h/MDC-web-template)  
+[MDC Google Components Page](https://github.com/material-components/material-components-web)
 
+To generate a new template use [MDC Template](https://github.com/youra-h/MDC-web-template)  
+To generate a color scheme [Color tool](https://material.io/resources/color/#!/?view.left=0&view.right=0)
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
