@@ -1,7 +1,9 @@
 # Material Components for the php or yii2.
 
-Components can be used in php or in conjunction with the yii2 framework.
-
+Components can be used in php or in conjunction with the yii2 framework.  
+```
+The project can be supported by money, beer, burger, clothes and your motorcycle. Thank you 😎  
+```
 [Demos](https://youra-h.github.io/yii2-material-design-components.html)  
 [MDC Template](https://github.com/youra-h/MDC-web-template)  
 [MDC Google Components Page](https://github.com/material-components/material-components-web)
